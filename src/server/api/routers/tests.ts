@@ -21,9 +21,29 @@ export const testRouter = createTRPCRouter({
       });
     }),
 
+  markTestAsResolved: publicProcedure
+    .input(
+      z.object({
+        testId: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db.test.update({
+        where: {
+          id: input.testId.toUpperCase(),
+        },
+        data: {
+          resolved: true,
+        },
+      });
+    }),
+
   getAll: publicProcedure.query(async ({ ctx }) => {
     return await ctx.db.test.findMany({
-      orderBy: { createdAt: "desc" },
+      where: {
+        resolved: false,
+      },
+      orderBy: { scheduledFor: "asc" },
     });
   }),
 });

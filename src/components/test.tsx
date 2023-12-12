@@ -2,12 +2,25 @@ import { Test as TTest } from "@prisma/client";
 import { formatDate } from "@lib/utils";
 import Barcode from "react-jsbarcode";
 import colors from "tailwindcss/colors";
+import { api } from "@utils/api";
 
 type TestProps = {
   test: TTest;
 };
 
 export const Test = ({ test }: TestProps) => {
+  const { mutate } = api.test.markTestAsResolved.useMutation();
+  const { refetch: refetchUnresolvedTests } = api.test.getAll.useQuery();
+
+  function markTestAsResolved() {
+    mutate(
+      { testId: test.id },
+      {
+        onSettled: () => refetchUnresolvedTests(),
+      },
+    );
+  }
+
   return (
     <div className="flex min-w-[400px] flex-col gap-4 rounded-md bg-red-950 p-3">
       <div className="flex flex-col items-center justify-between">
@@ -41,7 +54,12 @@ export const Test = ({ test }: TestProps) => {
         />
         <span>{test.customerId.toUpperCase()}</span>
       </div>
-      <button className="rounded-xl bg-red-800 p-2">Editar teste</button>
+      <button
+        onClick={markTestAsResolved}
+        className="rounded-xl bg-red-800 p-2"
+      >
+        Marcar como resolvido
+      </button>
     </div>
   );
 };

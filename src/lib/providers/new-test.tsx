@@ -33,7 +33,7 @@ export const TestProvider = ({ children }: TestProviderProps) => {
   });
   const [time, setTime] = useState({ hours: "", minutes: "" });
 
-  const { refetch: refetchTests } = api.test.getAll.useQuery();
+  const { refetch: refetchUnresolvedTests } = api.test.getAll.useQuery();
   const { mutateAsync: createTest } = api.test.create.useMutation();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -121,7 +121,7 @@ export const TestProvider = ({ children }: TestProviderProps) => {
       },
       {
         onSuccess: toggleModal,
-        onSettled: () => refetchTests(),
+        onSettled: () => refetchUnresolvedTests(),
       },
     );
   }
