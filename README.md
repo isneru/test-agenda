@@ -1,6 +1,5 @@
 # Whats missing?
 
-- Date picker
 - test edit (status, etc)
+- test filtering
 - email service
-- radix proper modal

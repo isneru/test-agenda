@@ -1,6 +1,6 @@
 import { type AppType } from "next/app";
 import { api } from "@utils/api";
-import { TestProvider } from "@lib/providers/newTest";
+import { TestProvider } from "@lib/providers/new-test";
 
 import "@styles/globals.css";
 

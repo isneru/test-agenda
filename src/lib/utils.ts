@@ -14,3 +14,23 @@ export function formatDate(date: Date) {
   // Return the formatted string
   return `${formattedDay}/${formattedMonth}/${year} - ${formattedHours}:${formattedMinutes}`;
 }
+
+export function getDate(
+  date: {
+    year: string;
+    month: string;
+    day: string;
+  },
+  time: {
+    hours: string;
+    minutes: string;
+  },
+) {
+  return new Date(
+    Number(date.year),
+    Number(date.month) - 1,
+    Number(date.day),
+    Number(time.hours),
+    Number(time.minutes),
+  );
+}
