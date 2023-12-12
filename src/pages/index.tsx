@@ -1,11 +1,11 @@
-import { Test } from "@components";
-import { useTestProvider } from "@lib/providers/new-test";
-import { api } from "@utils/api";
-import Head from "next/head";
+import { Test } from '@components'
+import { useTestProvider } from '@lib/providers/new-test'
+import { api } from '@utils/api'
+import Head from 'next/head'
 
 export default function Home() {
-  const { data: allTests } = api.test.getAll.useQuery();
-  const { toggleModal } = useTestProvider();
+  const { data: allTests } = api.test.getAll.useQuery()
+  const { toggleModal } = useTestProvider()
 
   return (
     <>
@@ -22,9 +22,9 @@ export default function Home() {
           </button>
         </header>
         <main className="mx-auto grid grid-flow-row-dense grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-3">
-          {allTests?.map((test) => <Test key={test.id} test={test} />)}
+          {allTests?.map(test => <Test key={test.id} test={test} />)}
         </main>
       </div>
     </>
-  );
+  )
 }

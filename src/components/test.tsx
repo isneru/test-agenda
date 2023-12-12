@@ -1,24 +1,24 @@
-import { Test as TTest } from "@prisma/client";
-import { formatDate } from "@lib/utils";
-import Barcode from "react-jsbarcode";
-import colors from "tailwindcss/colors";
-import { api } from "@utils/api";
+import { Test as TTest } from '@prisma/client'
+import { formatDate } from '@lib/utils'
+import Barcode from 'react-jsbarcode'
+import colors from 'tailwindcss/colors'
+import { api } from '@utils/api'
 
 type TestProps = {
-  test: TTest;
-};
+  test: TTest
+}
 
 export const Test = ({ test }: TestProps) => {
-  const { mutate } = api.test.markTestAsResolved.useMutation();
-  const { refetch: refetchUnresolvedTests } = api.test.getAll.useQuery();
+  const { mutate } = api.test.markTestAsResolved.useMutation()
+  const { refetch: refetchUnresolvedTests } = api.test.getAll.useQuery()
 
   function markTestAsResolved() {
     mutate(
       { testId: test.id },
       {
-        onSettled: () => refetchUnresolvedTests(),
-      },
-    );
+        onSettled: () => refetchUnresolvedTests()
+      }
+    )
   }
 
   return (
@@ -31,7 +31,7 @@ export const Test = ({ test }: TestProps) => {
           options={{
             background: colors.red[300],
             displayValue: false,
-            height: 50,
+            height: 50
           }}
         />
       </div>
@@ -49,17 +49,16 @@ export const Test = ({ test }: TestProps) => {
           options={{
             background: colors.red[300],
             displayValue: false,
-            height: 50,
+            height: 50
           }}
         />
         <span>{test.customerId.toUpperCase()}</span>
       </div>
       <button
         onClick={markTestAsResolved}
-        className="rounded-xl bg-red-800 p-2"
-      >
+        className="rounded-xl bg-red-800 p-2">
         Marcar como resolvido
       </button>
     </div>
-  );
-};
+  )
+}
