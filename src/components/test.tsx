@@ -13,16 +13,11 @@ export const Test = ({ test }: TestProps) => {
   const { refetch: refetchUnresolvedTests } = api.test.getAll.useQuery()
 
   function markTestAsResolved() {
-    mutate(
-      { testId: test.id },
-      {
-        onSettled: () => refetchUnresolvedTests()
-      }
-    )
+    mutate({ testId: test.id }, { onSettled: () => refetchUnresolvedTests() })
   }
 
   return (
-    <div className="flex min-w-[400px] flex-col gap-4 rounded-md bg-red-950 p-3">
+    <div className="flex min-w-[400px] flex-col gap-4 rounded-md bg-red-950 p-3 relative overflow-hidden">
       <div className="flex flex-col items-center justify-between">
         <h2 className="text-2xl font-bold">{test.id.toUpperCase()}</h2>
         <Barcode
@@ -54,11 +49,13 @@ export const Test = ({ test }: TestProps) => {
         />
         <span>{test.customerId.toUpperCase()}</span>
       </div>
-      <button
-        onClick={markTestAsResolved}
-        className="rounded-xl bg-red-800 p-2">
-        Marcar como resolvido
-      </button>
+      {!test.resolved && (
+        <button
+          onClick={markTestAsResolved}
+          className="rounded-xl bg-red-800 p-2">
+          Marcar como resolvido
+        </button>
+      )}
     </div>
   )
 }
