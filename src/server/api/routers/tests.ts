@@ -39,11 +39,13 @@ export const testRouter = createTRPCRouter({
     }),
 
   getAll: publicProcedure.query(async ({ ctx }) => {
-    return await ctx.db.test.findMany({
-      where: {
-        resolved: false
-      },
+    const allTests = await ctx.db.test.findMany({
       orderBy: { scheduledFor: 'asc' }
     })
+
+    return {
+      unresolvedTests: allTests.filter(test => !test.resolved),
+      resolvedTests: allTests.filter(test => test.resolved)
+    }
   })
 })
