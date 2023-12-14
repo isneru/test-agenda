@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from 'react'
+import { createContext, ReactNode, useContext, useRef, useState } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Poppins } from 'next/font/google'
 import { api } from '@utils/api'
@@ -22,18 +22,17 @@ interface TestProviderProps {
 }
 
 export const TestProvider = ({ children }: TestProviderProps) => {
-  const [newTest, setNewTest] = useState({
-    testId: 'PTMSPG',
-    customerId: ''
-  })
-  const [date, setDate] = useState({
-    day: '',
-    month: '',
-    year: ''
-  })
+  const [newTest, setNewTest] = useState({ testId: 'PTMSPG', customerId: '' })
+  const [date, setDate] = useState({ day: '', month: '', year: '' })
   const [time, setTime] = useState({ hours: '', minutes: '' })
 
-  const { refetch: refetchUnresolvedTests } = api.test.getAll.useQuery()
+  const dayRef = useRef<HTMLInputElement>(null)
+  const monthRef = useRef<HTMLInputElement>(null)
+  const yearRef = useRef<HTMLInputElement>(null)
+  const hoursRef = useRef<HTMLInputElement>(null)
+  const minutesRef = useRef<HTMLInputElement>(null)
+
+  const { refetch: refetchTests } = api.test.getAll.useQuery()
   const { mutateAsync: createTest } = api.test.create.useMutation()
 
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -41,58 +40,55 @@ export const TestProvider = ({ children }: TestProviderProps) => {
   function toggleModal() {
     setIsModalVisible(!isModalVisible)
 
-    setNewTest({
-      testId: 'PTMSPG',
-      customerId: ''
-    })
-    setDate({
-      day: '',
-      month: '',
-      year: ''
-    })
+    setNewTest({ testId: 'PTMSPG', customerId: '' })
+    setDate({ day: '', month: '', year: '' })
     setTime({ hours: '', minutes: '' })
   }
 
-  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
     // Remove any non-numeric characters
     const formattedValue = value.replace(/\D/g, '')
 
-    if (event.target.name === 'day') {
+    if (name === 'day') {
       setDate({
         ...date,
-        [event.target.name]: Number(formattedValue) > 31 ? '31' : formattedValue
+        [name]: Number(formattedValue) > 31 ? '31' : formattedValue
       })
+      formattedValue.length === 2 && monthRef.current?.focus()
     }
 
-    if (event.target.name === 'month') {
+    if (name === 'month') {
       setDate({
         ...date,
-        [event.target.name]: Number(formattedValue) > 12 ? '12' : formattedValue
+        [name]: Number(formattedValue) > 12 ? '12' : formattedValue
       })
+      formattedValue.length === 2 && yearRef.current?.focus()
     }
 
-    if (event.target.name === 'year') {
-      setDate({ ...date, [event.target.name]: formattedValue })
+    if (name === 'year') {
+      setDate({ ...date, [name]: formattedValue })
+      formattedValue.length === 4 && hoursRef.current?.focus()
     }
   }
 
-  const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target
+  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
     // Remove any non-numeric characters
     const formattedValue = value.replace(/\D/g, '')
 
-    if (event.target.name === 'hours') {
+    if (name === 'hours') {
       setTime({
         ...time,
-        [event.target.name]: Number(formattedValue) > 23 ? '23' : formattedValue
+        [name]: Number(formattedValue) > 23 ? '23' : formattedValue
       })
+      formattedValue.length === 2 && minutesRef.current?.focus()
     }
 
-    if (event.target.name === 'minutes') {
+    if (name === 'minutes') {
       setTime({
         ...time,
-        [event.target.name]: Number(formattedValue) > 59 ? '59' : formattedValue
+        [name]: Number(formattedValue) > 59 ? '59' : formattedValue
       })
     }
   }
@@ -117,7 +113,7 @@ export const TestProvider = ({ children }: TestProviderProps) => {
       },
       {
         onSuccess: toggleModal,
-        onSettled: () => refetchUnresolvedTests()
+        onSettled: () => refetchTests()
       }
     )
   }
@@ -177,6 +173,7 @@ export const TestProvider = ({ children }: TestProviderProps) => {
                   <input
                     className="h-10 w-12 rounded bg-red-500 p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300"
                     name="day"
+                    ref={dayRef}
                     type="text"
                     value={date.day}
                     onChange={handleDateChange}
@@ -187,6 +184,7 @@ export const TestProvider = ({ children }: TestProviderProps) => {
                   <input
                     className="h-10 w-12 rounded bg-red-500 p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300"
                     name="month"
+                    ref={monthRef}
                     type="text"
                     value={date.month}
                     onChange={handleDateChange}
@@ -197,6 +195,7 @@ export const TestProvider = ({ children }: TestProviderProps) => {
                   <input
                     className="h-10 w-20 rounded bg-red-500 p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300"
                     name="year"
+                    ref={yearRef}
                     type="text"
                     value={date.year}
                     onChange={handleDateChange}
@@ -208,6 +207,7 @@ export const TestProvider = ({ children }: TestProviderProps) => {
                   <input
                     className="h-10 w-12 rounded bg-red-500 p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300"
                     name="hours"
+                    ref={hoursRef}
                     type="text"
                     value={time.hours}
                     onChange={handleTimeChange}
@@ -218,6 +218,7 @@ export const TestProvider = ({ children }: TestProviderProps) => {
                   <input
                     className="h-10 w-12 rounded bg-red-500 p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300"
                     name="minutes"
+                    ref={minutesRef}
                     type="text"
                     value={time.minutes}
                     onChange={handleTimeChange}
