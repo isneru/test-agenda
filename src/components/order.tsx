@@ -1,28 +1,37 @@
-import { Test as TTest } from '@prisma/client'
+import { Test, Warranty } from '@prisma/client'
 import { formatDate } from '@lib/utils'
 import Barcode from 'react-jsbarcode'
 import colors from 'tailwindcss/colors'
 import { api } from '@utils/api'
 
 type TestProps = {
-  test: TTest
+  order: Test | Warranty
 }
 
-export const Test = ({ test }: TestProps) => {
+export const Order = ({ order }: TestProps) => {
   const { mutate } = api.test.markTestAsResolved.useMutation()
-  const { refetch: refetchUnresolvedTests } = api.test.getAll.useQuery()
+  const { refetch: refetchTests } = api.test.getAll.useQuery()
+  const { refetch: refetchWarranties } = api.warranty.getAll.useQuery()
 
   function markTestAsResolved() {
-    mutate({ testId: test.id }, { onSettled: () => refetchUnresolvedTests() })
+    mutate(
+      { orderId: order.id },
+      {
+        onSettled: () => {
+          refetchTests()
+          refetchWarranties()
+        }
+      }
+    )
   }
 
   return (
     <div className="flex min-w-[400px] flex-col gap-4 rounded-md bg-red-950 p-3 relative overflow-hidden">
       <div className="flex flex-col items-center justify-between">
-        <h2 className="text-2xl font-bold">{test.id.toUpperCase()}</h2>
+        <h2 className="text-2xl font-bold">{order.id.toUpperCase()}</h2>
         <Barcode
           className="rounded"
-          value={test.id.toUpperCase()}
+          value={order.id.toUpperCase()}
           options={{
             background: colors.red[300],
             displayValue: false,
@@ -30,26 +39,28 @@ export const Test = ({ test }: TestProps) => {
           }}
         />
       </div>
-      <div className="flex items-center justify-between">
-        <span className="text-2xl font-bold">Hora Marcada</span>
-        <span className="underline decoration-red-300 decoration-wavy">
-          {formatDate(test.scheduledFor)}
-        </span>
-      </div>
+      {'scheduledFor' in order && (
+        <div className="flex items-center justify-between">
+          <span className="text-2xl font-bold">Hora Marcada</span>
+          <span className="underline decoration-red-300 decoration-wavy">
+            {formatDate(order.scheduledFor)}
+          </span>
+        </div>
+      )}
       <div className="flex w-full flex-col items-center">
         <p className="text-2xl font-bold">Ficha de Cliente</p>
         <Barcode
           className="rounded"
-          value={test.customerId.toUpperCase()}
+          value={order.customerId.toUpperCase()}
           options={{
             background: colors.red[300],
             displayValue: false,
             height: 50
           }}
         />
-        <span>{test.customerId.toUpperCase()}</span>
+        <span>{order.customerId.toUpperCase()}</span>
       </div>
-      {!test.resolved && (
+      {'resolved' in order && !order.resolved && (
         <button
           onClick={markTestAsResolved}
           className="rounded-xl bg-red-800 p-2">

@@ -1,5 +1,5 @@
-import { Test } from '@components'
-import { useTestProvider } from '@lib/providers/new-test'
+import { Order } from '@components'
+import { useTestProvider } from '@lib/providers/new-order'
 import { api } from '@utils/api'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -24,7 +24,7 @@ export default function Home() {
         </header>
         <main className="mx-auto grid grid-flow-row-dense grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-3">
           {allTests?.unresolvedTests?.map(test => (
-            <Test key={test.id} test={test} />
+            <Order key={test.id} order={test} />
           ))}
         </main>
         <Link

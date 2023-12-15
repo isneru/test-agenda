@@ -19,3 +19,14 @@ model Test {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
+
+model Warranty {
+    id                String  @id
+    customerId        String
+    description       String
+    status            String // "A espera de substituição", "Resolvido", "Devolver dinheiro ao cliente"
+    warrantyRequestId String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}

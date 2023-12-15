@@ -1,4 +1,5 @@
 import { testRouter } from '@server/api/routers/tests'
+import { warrantyRouter } from '@server/api/routers/warranties'
 import { createTRPCRouter } from '@server/api/trpc'
 
 /**
@@ -7,7 +8,8 @@ import { createTRPCRouter } from '@server/api/trpc'
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-  test: testRouter
+  test: testRouter,
+  warranty: warrantyRouter
 })
 
 // export type definition of API

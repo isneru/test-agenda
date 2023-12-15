@@ -34,3 +34,17 @@ export function getDate(
     Number(time.minutes)
   )
 }
+
+export function refineWarrantyStatus(status: any) {
+  if (typeof status !== 'string') {
+    return false
+  }
+
+  const validStatuses = [
+    'À espera de substituição',
+    'Devolução de dinheiro',
+    'Resolvido'
+  ]
+
+  return validStatuses.includes(status)
+}

@@ -7,7 +7,7 @@ export const testRouter = createTRPCRouter({
     .input(
       z.object({
         customerId: z.string(),
-        testId: z.string(),
+        orderId: z.string(),
         scheduledFor: z.date().min(new Date())
       })
     )
@@ -15,7 +15,7 @@ export const testRouter = createTRPCRouter({
       return await ctx.db.test.create({
         data: {
           customerId: input.customerId.toUpperCase(),
-          id: input.testId.toUpperCase(),
+          id: input.orderId.toUpperCase(),
           scheduledFor: input.scheduledFor
         }
       })
@@ -24,13 +24,13 @@ export const testRouter = createTRPCRouter({
   markTestAsResolved: publicProcedure
     .input(
       z.object({
-        testId: z.string()
+        orderId: z.string()
       })
     )
     .mutation(async ({ ctx, input }) => {
       return await ctx.db.test.update({
         where: {
-          id: input.testId.toUpperCase()
+          id: input.orderId.toUpperCase()
         },
         data: {
           resolved: true

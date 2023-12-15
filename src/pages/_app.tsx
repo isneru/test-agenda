@@ -1,14 +1,14 @@
 import { type AppType } from 'next/app'
 import { api } from '@utils/api'
-import { TestProvider } from '@lib/providers/new-test'
+import { OrderProvider } from '@lib/providers/new-order'
 
 import '@styles/globals.css'
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <TestProvider>
+    <OrderProvider>
       <Component {...pageProps} />
-    </TestProvider>
+    </OrderProvider>
   )
 }
 

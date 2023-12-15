@@ -1,10 +1,12 @@
 import { Order } from '@components'
+import { useTestProvider } from '@lib/providers/new-order'
 import { api } from '@utils/api'
 import Head from 'next/head'
 import Link from 'next/link'
 
-export default function Resolved() {
-  const { data: allTests } = api.test.getAll.useQuery()
+export default function Warranties() {
+  const { data: allWarranties } = api.warranty.getAll.useQuery()
+  const { toggleModal } = useTestProvider()
 
   return (
     <>
@@ -14,20 +16,23 @@ export default function Resolved() {
         <link rel="icon" href="/cex.png" />
       </Head>
       <div className="flex min-h-screen flex-col py-10 gap-4">
-        <header className="flex flex-col items-center justify-center mb-[72px]">
+        <header className="mb-4 flex flex-col items-center justify-center gap-4">
           <h1 className="text-center text-6xl font-bold">
-            CeX Test Agenda (Resolvidos)
+            CeX Warranty Agenda
           </h1>
+          <button onClick={toggleModal} className="rounded-xl bg-red-800 p-2">
+            Registar nova garantia
+          </button>
         </header>
         <main className="mx-auto grid grid-flow-row-dense grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-3">
-          {allTests?.resolvedTests?.map(test => (
-            <Order key={test.id} order={test} />
-          ))}
+          {/*   {allWarranties?.unresolvedWarranties?.map(warranty => (
+            <Order key={warranty.id} order={warranty} />
+          ))} */}
         </main>
         <Link
-          href="/"
+          href="/resolved"
           className="fixed bottom-5 left-5 flex items-center justify-center rounded-full border border-red-800/10 bg-red-800/10 px-3 py-1 text-red-300 transition-colors hover:bg-red-800/20">
-          Voltar
+          Ver resolvidos
         </Link>
       </div>
     </>

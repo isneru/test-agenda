@@ -4,27 +4,34 @@ import { Poppins } from 'next/font/google'
 import { api } from '@utils/api'
 import clsx from 'clsx'
 import { getDate } from '@lib/utils'
+import { CheckIcon } from '@radix-ui/react-icons'
 
 const poppins = Poppins({
   weight: ['400', '500', '600', '700'],
   subsets: ['latin']
 })
 
-interface TestContextData {
+interface OrderContextData {
   isModalVisible: boolean
   toggleModal: () => void
 }
 
-export const TestContext = createContext({} as TestContextData)
+export const OrderContext = createContext({} as OrderContextData)
 
-interface TestProviderProps {
+interface OrderProviderProps {
   children: ReactNode
 }
 
-export const TestProvider = ({ children }: TestProviderProps) => {
-  const [newTest, setNewTest] = useState({ testId: 'PTMSPG', customerId: '' })
+export const OrderProvider = ({ children }: OrderProviderProps) => {
+  const [newOrder, setNewOrder] = useState({
+    orderId: '',
+    customerId: '',
+    description: '',
+    status: ''
+  })
   const [date, setDate] = useState({ day: '', month: '', year: '' })
   const [time, setTime] = useState({ hours: '', minutes: '' })
+  const [isWarranty, setIsWarranty] = useState(false)
 
   const dayRef = useRef<HTMLInputElement>(null)
   const monthRef = useRef<HTMLInputElement>(null)
@@ -33,19 +40,27 @@ export const TestProvider = ({ children }: TestProviderProps) => {
   const minutesRef = useRef<HTMLInputElement>(null)
 
   const { refetch: refetchTests } = api.test.getAll.useQuery()
+  const { refetch: refetchWarranties } = api.warranty.getAll.useQuery()
   const { mutateAsync: createTest } = api.test.create.useMutation()
+  const { mutateAsync: createWarranty } = api.warranty.create.useMutation()
 
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   function toggleModal() {
     setIsModalVisible(!isModalVisible)
 
-    setNewTest({ testId: 'PTMSPG', customerId: '' })
+    setNewOrder({
+      orderId: '',
+      customerId: '',
+      description: '',
+      status: ''
+    })
+    setIsWarranty(false)
     setDate({ day: '', month: '', year: '' })
     setTime({ hours: '', minutes: '' })
   }
 
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  function handleDateChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target
     // Remove any non-numeric characters
     const formattedValue = value.replace(/\D/g, '')
@@ -72,7 +87,7 @@ export const TestProvider = ({ children }: TestProviderProps) => {
     }
   }
 
-  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  function handleTimeChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target
     // Remove any non-numeric characters
     const formattedValue = value.replace(/\D/g, '')
@@ -93,10 +108,10 @@ export const TestProvider = ({ children }: TestProviderProps) => {
     }
   }
 
-  function handleCreateTest() {
+  function handleCreateOrder() {
     if (
-      !newTest.testId ||
-      !newTest.customerId ||
+      !newOrder.orderId ||
+      !newOrder.customerId ||
       !date.day ||
       !date.month ||
       !date.year ||
@@ -106,21 +121,30 @@ export const TestProvider = ({ children }: TestProviderProps) => {
       alert('Preenche todos os campos!')
       return
     }
-    createTest(
-      {
-        ...newTest,
-        scheduledFor: getDate(date, time)
-      },
-      {
-        onSuccess: toggleModal,
-        onSettled: () => refetchTests()
-      }
-    )
+    isWarranty
+      ? createWarranty(
+          { ...newOrder },
+          {
+            onSuccess: toggleModal,
+            onSettled: () => {
+              refetchWarranties()
+            }
+          }
+        )
+      : createTest(
+          { ...newOrder, scheduledFor: getDate(date, time) },
+          {
+            onSuccess: toggleModal,
+            onSettled: () => {
+              refetchTests()
+            }
+          }
+        )
   }
 
   return (
     <div className={poppins.className}>
-      <TestContext.Provider value={{ isModalVisible, toggleModal }}>
+      <OrderContext.Provider value={{ isModalVisible, toggleModal }}>
         {children}
         {isModalVisible && (
           <Dialog.Root open={isModalVisible} onOpenChange={toggleModal}>
@@ -132,19 +156,19 @@ export const TestProvider = ({ children }: TestProviderProps) => {
                   poppins.className
                 )}>
                 <div className="grid grid-cols-2 items-center gap-2">
-                  <label className="text-xl font-bold" htmlFor="testId">
+                  <label className="text-xl font-bold" htmlFor="orderId">
                     Nº de Ordem
                   </label>
                   <input
                     className="rounded bg-red-500 px-2 text-lg font-medium outline-none"
                     autoFocus
                     type="text"
-                    name="testId"
-                    id="testId"
-                    value={newTest.testId}
+                    name="orderId"
+                    id="orderId"
+                    value={newOrder.orderId}
                     onChange={e =>
-                      setNewTest({
-                        ...newTest,
+                      setNewOrder({
+                        ...newOrder,
                         [e.target.name]: e.target.value.toUpperCase()
                       })
                     }
@@ -159,10 +183,10 @@ export const TestProvider = ({ children }: TestProviderProps) => {
                     type="text"
                     name="customerId"
                     id="customerId"
-                    value={newTest.customerId}
+                    value={newOrder.customerId}
                     onChange={e =>
-                      setNewTest({
-                        ...newTest,
+                      setNewOrder({
+                        ...newOrder,
                         [e.target.name]: e.target.value.toUpperCase()
                       })
                     }
@@ -226,8 +250,42 @@ export const TestProvider = ({ children }: TestProviderProps) => {
                     maxLength={2}
                   />
                 </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setIsWarranty(!isWarranty)}
+                    role="checkbox"
+                    aria-checked={isWarranty}
+                    data-checked={isWarranty}
+                    className="h-4 w-4 rounded-sm ring-1 disabled:cursor-not-allowed data-[checked=false]:bg-tranparent-900 text-white data-[checked=false]:ring-red-500 data-[checked=true]:bg-red-500  data-[checked=true]:ring-red-600">
+                    {isWarranty && <CheckIcon />}
+                  </button>
+                  <label
+                    className="cursor-pointer"
+                    onClick={() => setIsWarranty(!isWarranty)}>
+                    É garantia
+                  </label>
+                </div>
+                {isWarranty && (
+                  <div className="flex flex-col w-full gap-2">
+                    <label className="text-xl font-bold" htmlFor="description">
+                      Descrição do problema
+                    </label>
+                    <textarea
+                      className="rounded bg-red-500 px-2 text-lg font-medium outline-none resize-none h-32"
+                      name="description"
+                      id="description"
+                      value={newOrder.description}
+                      onChange={e =>
+                        setNewOrder({
+                          ...newOrder,
+                          [e.target.name]: e.target.value
+                        })
+                      }
+                    />
+                  </div>
+                )}
                 <button
-                  onClick={handleCreateTest}
+                  onClick={handleCreateOrder}
                   className="mt-auto flex w-full items-center justify-center rounded-xl bg-red-800 p-2">
                   Confirmar registo
                 </button>
@@ -235,9 +293,9 @@ export const TestProvider = ({ children }: TestProviderProps) => {
             </Dialog.Portal>
           </Dialog.Root>
         )}
-      </TestContext.Provider>
+      </OrderContext.Provider>
     </div>
   )
 }
 
-export const useTestProvider = () => useContext(TestContext)
+export const useTestProvider = () => useContext(OrderContext)
