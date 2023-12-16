@@ -24,7 +24,8 @@ model Warranty {
     id                String  @id
     customerId        String
     description       String
-    status            String // "A espera de substituição", "Resolvido", "Devolver dinheiro ao cliente"
+    status            String  @default("Em Análise") // 'Substituir', 'Em Análise', 'Reembolsar'
+    resolved          Boolean @default(false)
     warrantyRequestId String?
 
     createdAt DateTime @default(now())

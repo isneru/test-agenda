@@ -1,7 +1,5 @@
-import { z, infer } from 'zod'
-
 import { createTRPCRouter, publicProcedure } from '@server/api/trpc'
-import { refineWarrantyStatus } from '@lib/utils'
+import { z } from 'zod'
 
 export const warrantyRouter = createTRPCRouter({
   create: publicProcedure
@@ -9,10 +7,7 @@ export const warrantyRouter = createTRPCRouter({
       z.object({
         customerId: z.string(),
         orderId: z.string(),
-        description: z.string(),
-        status: z.string().refine(refineWarrantyStatus, {
-          message: 'Invalid status'
-        })
+        description: z.string()
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -21,31 +16,7 @@ export const warrantyRouter = createTRPCRouter({
           customerId: input.customerId.toUpperCase(),
           id: input.orderId.toUpperCase(),
           description: input.description,
-          status: input.status
-        }
-      })
-    }),
-
-  editWarranty: publicProcedure
-    .input(
-      z.object({
-        orderId: z.string(),
-        description: z.string(),
-        status: z.string().refine(refineWarrantyStatus, {
-          message: 'Invalid status'
-        }),
-        warrantyRequestId: z.string()
-      })
-    )
-    .mutation(async ({ ctx, input }) => {
-      return await ctx.db.warranty.update({
-        where: {
-          id: input.orderId.toUpperCase()
-        },
-        data: {
-          status: input.status,
-          description: input.description,
-          warrantyRequestId: input.warrantyRequestId
+          status: 'Em Análise'
         }
       })
     }),
@@ -57,11 +28,59 @@ export const warrantyRouter = createTRPCRouter({
 
     return {
       unresolvedWarranties: allWarranties.filter(
-        warranty => warranty.status !== 'Resolvido'
+        warranty => !warranty.resolved
       ),
-      resolvedWarranties: allWarranties.filter(
-        warranty => warranty.status === 'Resolvido'
-      )
+      resolvedWarranties: allWarranties.filter(warranty => warranty.resolved)
     }
-  })
+  }),
+  changeStatus: publicProcedure
+    .input(
+      z.object({
+        orderId: z.string(),
+        status: z.string()
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db.warranty.update({
+        where: {
+          id: input.orderId.toUpperCase()
+        },
+        data: {
+          status: input.status
+        }
+      })
+    }),
+  markAsResolved: publicProcedure
+    .input(
+      z.object({
+        orderId: z.string()
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db.warranty.update({
+        where: {
+          id: input.orderId.toUpperCase()
+        },
+        data: {
+          resolved: true
+        }
+      })
+    }),
+  changeRequestId: publicProcedure
+    .input(
+      z.object({
+        orderId: z.string(),
+        warrantyRequestId: z.string()
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db.warranty.update({
+        where: {
+          id: input.orderId.toUpperCase()
+        },
+        data: {
+          warrantyRequestId: input.warrantyRequestId
+        }
+      })
+    })
 })

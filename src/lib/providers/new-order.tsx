@@ -26,8 +26,7 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
   const [newOrder, setNewOrder] = useState({
     orderId: '',
     customerId: '',
-    description: '',
-    status: ''
+    description: ''
   })
   const [date, setDate] = useState({ day: '', month: '', year: '' })
   const [time, setTime] = useState({ hours: '', minutes: '' })
@@ -52,8 +51,7 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
     setNewOrder({
       orderId: '',
       customerId: '',
-      description: '',
-      status: ''
+      description: ''
     })
     setIsWarranty(false)
     setDate({ day: '', month: '', year: '' })
@@ -121,24 +119,15 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
       alert('Preenche todos os campos!')
       return
     }
+
     isWarranty
       ? createWarranty(
           { ...newOrder },
-          {
-            onSuccess: toggleModal,
-            onSettled: () => {
-              refetchWarranties()
-            }
-          }
+          { onSuccess: toggleModal, onSettled: () => refetchWarranties() }
         )
       : createTest(
           { ...newOrder, scheduledFor: getDate(date, time) },
-          {
-            onSuccess: toggleModal,
-            onSettled: () => {
-              refetchTests()
-            }
-          }
+          { onSuccess: toggleModal, onSettled: () => refetchTests() }
         )
   }
 
@@ -286,7 +275,7 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
                 )}
                 <button
                   onClick={handleCreateOrder}
-                  className="mt-auto flex w-full items-center justify-center rounded-xl bg-red-800 p-2">
+                  className="mt-auto flex w-full items-center justify-center rounded-xl bg-red-900 p-2">
                   Confirmar registo
                 </button>
               </Dialog.Content>
@@ -298,4 +287,4 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
   )
 }
 
-export const useTestProvider = () => useContext(OrderContext)
+export const useModal = () => useContext(OrderContext)

@@ -21,7 +21,7 @@ export const testRouter = createTRPCRouter({
       })
     }),
 
-  markTestAsResolved: publicProcedure
+  markAsResolved: publicProcedure
     .input(
       z.object({
         orderId: z.string()

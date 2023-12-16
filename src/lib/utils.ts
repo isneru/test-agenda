@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 export function formatDate(date: Date) {
   const day = date.getDate()
   const month = date.getMonth() + 1 // Months start from zero
@@ -35,16 +37,29 @@ export function getDate(
   )
 }
 
-export function refineWarrantyStatus(status: any) {
-  if (typeof status !== 'string') {
-    return false
-  }
+const resolvedStatuses = {
+  Substituir: 'Substituído',
+  Reembolsar: 'Reembolsado'
+}
 
-  const validStatuses = [
-    'À espera de substituição',
-    'Devolução de dinheiro',
-    'Resolvido'
-  ]
+export const validStatuses = ['Substituir', 'Em Análise', 'Reembolsar']
 
-  return validStatuses.includes(status)
+export type ValidResolvedStatuses = keyof typeof resolvedStatuses
+
+export function getResolvedWarrantyStatus(status: ValidResolvedStatuses) {
+  return resolvedStatuses[status] ?? 'Sem Efeito'
+}
+
+export function useDebounce<T>(value: T, delay = 1000) {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value)
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setDebouncedValue(value)
+    }, delay)
+
+    return () => clearTimeout(timeout)
+  }, [value, delay])
+
+  return debouncedValue
 }
