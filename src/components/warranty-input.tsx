@@ -29,7 +29,6 @@ export const WarrantyInput = ({ order }: WarrantyInputProps) => {
         value={input}
         onChange={e => setInput(e.target.value)}
         className="rounded bg-red-500 px-2 text-lg font-medium outline-none w-[10ch]"
-        autoFocus
         type="text"
         name="warrantyRequestId"
         id="warrantyRequestId"

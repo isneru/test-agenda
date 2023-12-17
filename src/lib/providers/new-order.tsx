@@ -107,17 +107,28 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
   }
 
   function handleCreateOrder() {
-    if (
-      !newOrder.orderId ||
-      !newOrder.customerId ||
-      !date.day ||
-      !date.month ||
-      !date.year ||
-      !time.hours ||
-      !time.minutes
-    ) {
-      alert('Preenche todos os campos!')
-      return
+    if (!isWarranty) {
+      if (
+        !newOrder.orderId ||
+        !newOrder.customerId ||
+        !date.day ||
+        !date.month ||
+        !date.year ||
+        !time.hours ||
+        !time.minutes
+      ) {
+        {
+          alert('Preenche todos os campos!')
+          return
+        }
+      }
+    }
+
+    if (isWarranty) {
+      if (!newOrder.customerId || !newOrder.description || !newOrder.orderId) {
+        alert('Preenche todos os campos!')
+        return
+      }
     }
 
     isWarranty
@@ -181,64 +192,6 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
                     }
                   />
                 </div>
-                <span className="text-xl font-bold">Hora Marcada</span>
-                <div className="flex items-center gap-1">
-                  <input
-                    className="h-10 w-12 rounded bg-red-500 p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300"
-                    name="day"
-                    ref={dayRef}
-                    type="text"
-                    value={date.day}
-                    onChange={handleDateChange}
-                    placeholder="DD"
-                    maxLength={2}
-                  />
-                  <span>/</span>
-                  <input
-                    className="h-10 w-12 rounded bg-red-500 p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300"
-                    name="month"
-                    ref={monthRef}
-                    type="text"
-                    value={date.month}
-                    onChange={handleDateChange}
-                    placeholder="MM"
-                    maxLength={2}
-                  />
-                  <span>/</span>
-                  <input
-                    className="h-10 w-20 rounded bg-red-500 p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300"
-                    name="year"
-                    ref={yearRef}
-                    type="text"
-                    value={date.year}
-                    onChange={handleDateChange}
-                    placeholder="YYYY"
-                    maxLength={4}
-                  />
-
-                  <span className="mx-4">-</span>
-                  <input
-                    className="h-10 w-12 rounded bg-red-500 p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300"
-                    name="hours"
-                    ref={hoursRef}
-                    type="text"
-                    value={time.hours}
-                    onChange={handleTimeChange}
-                    placeholder="hh"
-                    maxLength={2}
-                  />
-                  <span>:</span>
-                  <input
-                    className="h-10 w-12 rounded bg-red-500 p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300"
-                    name="minutes"
-                    ref={minutesRef}
-                    type="text"
-                    value={time.minutes}
-                    onChange={handleTimeChange}
-                    placeholder="mm"
-                    maxLength={2}
-                  />
-                </div>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setIsWarranty(!isWarranty)}
@@ -254,6 +207,69 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
                     É garantia
                   </label>
                 </div>
+                {!isWarranty && (
+                  <>
+                    <span className="text-xl font-bold">Hora Marcada</span>
+                    <div className="flex items-center gap-1">
+                      <input
+                        className="h-10 w-12 rounded bg-red-500 p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300"
+                        name="day"
+                        ref={dayRef}
+                        type="text"
+                        value={date.day}
+                        onChange={handleDateChange}
+                        placeholder="DD"
+                        maxLength={2}
+                      />
+                      <span>/</span>
+                      <input
+                        className="h-10 w-12 rounded bg-red-500 p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300"
+                        name="month"
+                        ref={monthRef}
+                        type="text"
+                        value={date.month}
+                        onChange={handleDateChange}
+                        placeholder="MM"
+                        maxLength={2}
+                      />
+                      <span>/</span>
+                      <input
+                        className="h-10 w-20 rounded bg-red-500 p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300"
+                        name="year"
+                        ref={yearRef}
+                        type="text"
+                        value={date.year}
+                        onChange={handleDateChange}
+                        placeholder="YYYY"
+                        maxLength={4}
+                      />
+
+                      <span className="mx-4">-</span>
+                      <input
+                        className="h-10 w-12 rounded bg-red-500 p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300"
+                        name="hours"
+                        ref={hoursRef}
+                        type="text"
+                        value={time.hours}
+                        onChange={handleTimeChange}
+                        placeholder="hh"
+                        maxLength={2}
+                      />
+                      <span>:</span>
+                      <input
+                        className="h-10 w-12 rounded bg-red-500 p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300"
+                        name="minutes"
+                        ref={minutesRef}
+                        type="text"
+                        value={time.minutes}
+                        onChange={handleTimeChange}
+                        placeholder="mm"
+                        maxLength={2}
+                      />
+                    </div>
+                  </>
+                )}
+
                 {isWarranty && (
                   <div className="flex flex-col w-full gap-2">
                     <label className="text-xl font-bold" htmlFor="description">

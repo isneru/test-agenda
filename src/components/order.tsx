@@ -1,6 +1,7 @@
 import { Test, Warranty } from '@prisma/client'
 import {
   ValidResolvedStatuses,
+  addThirtyDaysToDate,
   formatDate,
   getResolvedWarrantyStatus,
   validStatuses
@@ -43,7 +44,7 @@ export const Order = ({ order }: TestProps) => {
   // verifica se é um teste ou uma garantia
   if ('scheduledFor' in order) {
     return (
-      <div className="flex min-w-[400px] flex-col gap-4 rounded-md bg-red-950 p-3 relative overflow-hidden">
+      <div className="flex w-[400px] flex-col gap-4 rounded-md bg-red-950 p-3 relative overflow-hidden">
         <div className="flex flex-col items-center justify-between">
           <h2 className="text-2xl font-bold">{order.id.toUpperCase()}</h2>
           <Barcode
@@ -86,7 +87,7 @@ export const Order = ({ order }: TestProps) => {
     )
   } else {
     return (
-      <div className="flex min-w-[400px] flex-col gap-4 rounded-md bg-red-950 p-3 relative overflow-hidden">
+      <div className="flex w-[400px] flex-col gap-4 rounded-md bg-red-950 p-3 relative overflow-hidden">
         <div className="flex flex-col items-center justify-between">
           <h2 className="text-2xl font-bold">{order.id.toUpperCase()}</h2>
           <Barcode
@@ -98,6 +99,12 @@ export const Order = ({ order }: TestProps) => {
               height: 50
             }}
           />
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-2xl font-bold">Prazo de Resolução</span>
+          <span className="underline decoration-red-300 decoration-wavy">
+            {formatDate(addThirtyDaysToDate(order.createdAt), false)}
+          </span>
         </div>
         {!order.resolved ? (
           <>
