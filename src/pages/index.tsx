@@ -28,12 +28,12 @@ export default function Home() {
         <Link
           href="/resolved"
           className="fixed bottom-5 left-5 flex items-center justify-center rounded-full border border-red-800/10 bg-red-900/10 px-3 py-1 text-red-300 transition-colors hover:bg-red-900/20">
-          Ver resolvidos
+          Resolvidos
         </Link>
         <Link
           href="/warranties"
           className="fixed bottom-5 right-5 flex items-center justify-center rounded-full border border-red-800/10 bg-red-900/10 px-3 py-1 text-red-300 transition-colors hover:bg-red-900/20">
-          Ver garantias
+          Garantias
         </Link>
       </div>
       <NewTestModal

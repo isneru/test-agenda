@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export function formatDate(date: Date) {
+export function formatDate(date: Date, withTime = true) {
   const day = date.getDate()
   const month = date.getMonth() + 1 // Months start from zero
   const year = date.getFullYear()
@@ -14,7 +14,9 @@ export function formatDate(date: Date) {
   const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes
 
   // Return the formatted string
-  return `${formattedDay}/${formattedMonth}/${year} - ${formattedHours}:${formattedMinutes}`
+  return withTime
+    ? `${formattedDay}/${formattedMonth}/${year} - ${formattedHours}:${formattedMinutes}`
+    : `${formattedDay}/${formattedMonth}/${year}`
 }
 
 export function getDate(
@@ -62,6 +64,12 @@ export function useDebounce<T>(value: T, delay = 1000) {
   }, [value, delay])
 
   return debouncedValue
+}
+
+export function addThirtyDaysToDate(date: Date) {
+  const newDate = new Date(date)
+  newDate.setDate(newDate.getDate() + 30)
+  return newDate
 }
 
 export function ObjHasFalsyValues(...objs: any[]) {
