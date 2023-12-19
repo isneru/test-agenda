@@ -33,7 +33,7 @@ export const Warranty = ({ order }: WarrantyProps) => {
   }
 
   return (
-    <div className="flex min-w-[400px] flex-col gap-4 rounded-md bg-red-950 p-3 relative overflow-hidden">
+    <div className="flex min-w-[400px] flex-col gap-4 rounded-md bg-red-950 p-3">
       <OrderIdBarcode orderId={order.id.toUpperCase()} />
       {!order.resolved ? (
         <div className="grid grid-cols-3 gap-2 rounded-md p-1 bg-red-900">

@@ -18,7 +18,7 @@ export const Test = ({ order }: TestProps) => {
   }
 
   return (
-    <div className="flex min-w-[400px] flex-col gap-4 rounded-md bg-red-950 p-3 relative overflow-hidden">
+    <div className="flex min-w-[400px] flex-col gap-4 rounded-md bg-red-950 p-3">
       <OrderIdBarcode orderId={order.id.toUpperCase()} />
       <div className="flex items-center justify-between">
         <span className="text-2xl font-bold">Hora Marcada</span>

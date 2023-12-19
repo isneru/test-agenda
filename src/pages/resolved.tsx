@@ -35,9 +35,6 @@ export default function Resolved() {
             ))}
           </main>
         )}
-        {showTests && showWarranties && (
-          <div className="my-4 h-px w-full bg-red-900/20 container mx-auto" />
-        )}
         {showWarranties && (
           <main className="mx-auto grid grid-flow-row-dense grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-3">
             {allWarranties?.resolvedWarranties?.map(order => (
