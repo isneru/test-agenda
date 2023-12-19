@@ -1,32 +1,30 @@
-import { Order } from '@components'
-import { useModal } from '@lib/providers/new-order'
+import { Layout } from '@components'
+import { NewWarrantyModal } from '@components/modals'
+import { useState } from 'react'
 import { api } from '@utils/api'
-import Head from 'next/head'
 import Link from 'next/link'
+import { Warranty } from '@components/order-cards'
 
 export default function Warranties() {
   const { data: allWarranties } = api.warranty.getAll.useQuery()
-  const { toggleModal } = useModal()
+  const [isModalVisible, setIsModalVisible] = useState(false)
 
   return (
-    <>
-      <Head>
-        <title>CeX Test Agenda</title>
-        <meta name="description" content="" />
-        <link rel="icon" href="/cex.png" />
-      </Head>
+    <Layout>
       <div className="flex min-h-screen flex-col py-10 gap-4">
         <header className="mb-4 flex flex-col items-center justify-center gap-4">
           <h1 className="text-center text-6xl font-bold">
             CeX Warranty Agenda
           </h1>
-          <button onClick={toggleModal} className="rounded-xl bg-red-900 p-2">
-            Registar nova ordem
+          <button
+            onClick={() => setIsModalVisible(val => !val)}
+            className="rounded-xl bg-red-900 p-2">
+            Registar nova garantia
           </button>
         </header>
         <main className="mx-auto grid grid-flow-row-dense grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-3">
-          {allWarranties?.unresolvedWarranties?.map(warranty => (
-            <Order key={warranty.id} order={warranty} />
+          {allWarranties?.unresolvedWarranties?.map(order => (
+            <Warranty key={order.id} order={order} />
           ))}
         </main>
         <Link
@@ -40,6 +38,10 @@ export default function Warranties() {
           Ver testes
         </Link>
       </div>
-    </>
+      <NewWarrantyModal
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+      />
+    </Layout>
   )
 }

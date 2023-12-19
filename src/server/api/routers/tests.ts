@@ -8,17 +8,28 @@ export const testRouter = createTRPCRouter({
       z.object({
         customerId: z.string(),
         orderId: z.string(),
-        scheduledFor: z.date().min(new Date())
+        scheduledFor: z.date().optional(),
+        isFPS: z.boolean().optional()
       })
     )
     .mutation(async ({ ctx, input }) => {
-      return await ctx.db.test.create({
-        data: {
-          customerId: input.customerId.toUpperCase(),
-          id: input.orderId.toUpperCase(),
-          scheduledFor: input.scheduledFor
-        }
-      })
+      if (input.isFPS) {
+        return await ctx.db.test.create({
+          data: {
+            customerId: input.customerId.toUpperCase(),
+            id: input.orderId.toUpperCase(),
+            isFPS: true
+          }
+        })
+      } else {
+        return await ctx.db.test.create({
+          data: {
+            customerId: input.customerId.toUpperCase(),
+            id: input.orderId.toUpperCase(),
+            scheduledFor: input.scheduledFor!
+          }
+        })
+      }
     }),
 
   markAsResolved: publicProcedure

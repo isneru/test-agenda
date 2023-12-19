@@ -21,19 +21,30 @@ export const WarrantyInput = ({ order }: WarrantyInputProps) => {
   }, [debouncedInput])
 
   return (
-    <div className="flex items-center gap-2">
-      <label className="text-xl font-bold" htmlFor="warrantyRequestId">
-        Nº de Warranty Request
-      </label>
-      <input
-        value={input}
-        onChange={e => setInput(e.target.value)}
-        className="rounded bg-red-500 px-2 text-lg font-medium outline-none w-[10ch]"
-        autoFocus
-        type="text"
-        name="warrantyRequestId"
-        id="warrantyRequestId"
-      />
+    <div className="flex items-center justify-between w-full">
+      {order.status === 'Substituir' ? (
+        <>
+          <label className="text-xl font-bold" htmlFor="warrantyRequestId">
+            Nº de Warranty Request
+          </label>
+          <input
+            disabled={order.resolved}
+            value={input}
+            onChange={e => setInput(e.target.value)}
+            className="rounded bg-red-500 px-2 text-lg font-medium outline-none w-[10ch] text-center"
+            type="text"
+            name="warrantyRequestId"
+            id="warrantyRequestId"
+          />
+        </>
+      ) : (
+        <>
+          <p className="text-xl font-bold">Nº de Warranty Request</p>
+          <span className="rounded bg-red-500 px-2 text-lg font-medium outline-none w-[10ch] text-center">
+            N/A
+          </span>
+        </>
+      )}
     </div>
   )
 }

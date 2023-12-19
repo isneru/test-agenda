@@ -1,6 +1,6 @@
-import { Order } from '@components'
+import { Layout } from '@components'
+import { Test, Warranty } from '@components/order-cards'
 import { api } from '@utils/api'
-import Head from 'next/head'
 import Link from 'next/link'
 import { useState } from 'react'
 
@@ -11,12 +11,7 @@ export default function Resolved() {
   const [showWarranties, setShowWarranties] = useState(true)
 
   return (
-    <>
-      <Head>
-        <title>CeX Test Agenda</title>
-        <meta name="description" content="" />
-        <link rel="icon" href="/cex.png" />
-      </Head>
+    <Layout>
       <div className="flex min-h-screen flex-col py-10 gap-4">
         <header className="flex items-center justify-center mb-[72px] gap-10">
           <button
@@ -35,18 +30,15 @@ export default function Resolved() {
         </header>
         {showTests && (
           <main className="mx-auto grid grid-flow-row-dense grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-3">
-            {allTests?.resolvedTests?.map(test => (
-              <Order key={test.id} order={test} />
+            {allTests?.resolvedTests?.map(order => (
+              <Test key={order.id} order={order} />
             ))}
           </main>
         )}
-        {showTests && showWarranties && (
-          <div className="my-4 h-px w-full bg-red-900/20 container mx-auto" />
-        )}
         {showWarranties && (
           <main className="mx-auto grid grid-flow-row-dense grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-3">
-            {allWarranties?.resolvedWarranties?.map(warranty => (
-              <Order key={warranty.id} order={warranty} />
+            {allWarranties?.resolvedWarranties?.map(order => (
+              <Warranty key={order.id} order={order} />
             ))}
           </main>
         )}
@@ -61,6 +53,6 @@ export default function Resolved() {
           Ver garantias
         </Link>
       </div>
-    </>
+    </Layout>
   )
 }

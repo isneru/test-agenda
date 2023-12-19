@@ -11,10 +11,11 @@ datasource db {
 }
 
 model Test {
-    id           String   @id
+    id           String    @id
     customerId   String
-    scheduledFor DateTime
-    resolved     Boolean  @default(false)
+    scheduledFor DateTime?
+    isFPS        Boolean   @default(false)
+    resolved     Boolean   @default(false)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -24,9 +25,9 @@ model Warranty {
     id                String  @id
     customerId        String
     description       String
+    warrantyRequestId String?
     status            String  @default("Em Análise") // 'Substituir', 'Em Análise', 'Reembolsar'
     resolved          Boolean @default(false)
-    warrantyRequestId String?
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

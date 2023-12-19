@@ -63,3 +63,7 @@ export function useDebounce<T>(value: T, delay = 1000) {
 
   return debouncedValue
 }
+
+export function ObjHasFalsyValues(...objs: any[]) {
+  return objs.every(obj => Object.values(obj).every(Boolean))
+}
