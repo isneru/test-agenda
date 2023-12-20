@@ -1,13 +1,14 @@
-import { Layout } from '@components'
 import { NewTestModal } from '@components/modals'
 import { Test } from '@components/order-cards'
+import { Layout } from '@components'
+import { useState } from 'react'
 import { api } from '@utils/api'
 import Link from 'next/link'
-import { useState } from 'react'
 
 export default function Home() {
   const { data: allTests } = api.test.getAll.useQuery()
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const { mutate } = api.email.sendResolvedTest.useMutation()
 
   return (
     <Layout>
@@ -20,7 +21,7 @@ export default function Home() {
             Registar novo teste
           </button>
         </main>
-        <main className="mx-auto grid grid-flow-row-dense grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-3">
+        <main className="mx-auto grid grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-3">
           {allTests?.unresolvedTests?.map(order => (
             <Test key={order.id} order={order} />
           ))}

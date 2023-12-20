@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react'
-
 export function formatDate(date: Date, withTime = true) {
   const day = date.getDate()
   const month = date.getMonth() + 1 // Months start from zero
@@ -52,20 +50,6 @@ export function getResolvedWarrantyStatus(status: ValidResolvedStatuses) {
   return resolvedStatuses[status] ?? 'Sem Efeito'
 }
 
-export function useDebounce<T>(value: T, delay = 1000) {
-  const [debouncedValue, setDebouncedValue] = useState<T>(value)
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setDebouncedValue(value)
-    }, delay)
-
-    return () => clearTimeout(timeout)
-  }, [value, delay])
-
-  return debouncedValue
-}
-
 export function addThirtyDaysToDate(date: Date) {
   const newDate = new Date(date)
   newDate.setDate(newDate.getDate() + 30)
@@ -73,5 +57,5 @@ export function addThirtyDaysToDate(date: Date) {
 }
 
 export function ObjHasFalsyValues(...objs: any[]) {
-  return objs.every(obj => Object.values(obj).every(Boolean))
+  return !objs.every(obj => Object.values(obj).every(Boolean))
 }

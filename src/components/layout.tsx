@@ -1,14 +1,9 @@
-import { Poppins } from 'next/font/google'
+import { poppins } from '@lib/font'
 import Head from 'next/head'
 
 type LayoutProps = {
   children: React.ReactNode
 }
-
-const poppins = Poppins({
-  weight: ['400', '500', '600', '700'],
-  subsets: ['latin']
-})
 
 export const Layout = ({ children }: LayoutProps) => {
   return (

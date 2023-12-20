@@ -43,8 +43,7 @@ export const NewWarrantyModal = ({
   }
 
   function handleCreateWarranty() {
-    console.log('validateNullishObjs(warranty)', ObjHasFalsyValues(warranty))
-    if (!ObjHasFalsyValues(warranty)) {
+    if (ObjHasFalsyValues(warranty)) {
       alert('Preenche todos os campos!')
       return
     }

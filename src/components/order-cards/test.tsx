@@ -1,9 +1,9 @@
 import { CustomerIdBarcode, OrderIdBarcode } from '@components/barcodes'
 import { Test as TTest } from '@prisma/client'
 import { formatDate } from '@lib/utils'
-import colors from 'tailwindcss/colors'
-import Barcode from 'react-jsbarcode'
 import { api } from '@utils/api'
+import { useState } from 'react'
+import { PromptEmailModal } from '@components/modals'
 
 type TestProps = {
   order: TTest
@@ -12,6 +12,7 @@ type TestProps = {
 export const Test = ({ order }: TestProps) => {
   const { mutate: resolveTest } = api.test.markAsResolved.useMutation()
   const { refetch: refetchTests } = api.test.getAll.useQuery()
+  const [isResolveButtonClicked, setIsResolveButtonClicked] = useState(false)
 
   function markTestAsResolved() {
     resolveTest({ orderId: order.id }, { onSettled: () => refetchTests() })
@@ -29,11 +30,20 @@ export const Test = ({ order }: TestProps) => {
       <CustomerIdBarcode customerId={order.customerId.toUpperCase()} />
       {!order.resolved && (
         <button
-          onClick={markTestAsResolved}
+          onClick={
+            order.isFPS
+              ? markTestAsResolved
+              : () => setIsResolveButtonClicked(true)
+          }
           className="rounded-xl bg-red-900 p-2">
           Marcar como resolvido
         </button>
       )}
+      <PromptEmailModal
+        orderId={order.id}
+        isModalVisible={isResolveButtonClicked}
+        setIsModalVisible={setIsResolveButtonClicked}
+      />
     </div>
   )
 }

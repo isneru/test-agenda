@@ -1,8 +1,8 @@
-import { Layout } from '@components'
 import { Test, Warranty } from '@components/order-cards'
+import { Layout } from '@components'
+import { useState } from 'react'
 import { api } from '@utils/api'
 import Link from 'next/link'
-import { useState } from 'react'
 
 export default function Resolved() {
   const { data: allTests } = api.test.getAll.useQuery()
@@ -29,14 +29,14 @@ export default function Resolved() {
           </button>
         </header>
         {showTests && (
-          <main className="mx-auto grid grid-flow-row-dense grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-3">
+          <main className="mx-auto grid grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-3">
             {allTests?.resolvedTests?.map(order => (
               <Test key={order.id} order={order} />
             ))}
           </main>
         )}
         {showWarranties && (
-          <main className="mx-auto grid grid-flow-row-dense grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-3">
+          <main className="mx-auto grid grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-3">
             {allWarranties?.resolvedWarranties?.map(order => (
               <Warranty key={order.id} order={order} />
             ))}

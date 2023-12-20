@@ -1,6 +1,6 @@
 import { CustomerIdBarcode, OrderIdBarcode } from '@components/barcodes'
 import { Warranty as TWarranty } from '@prisma/client'
-import { WarrantyInput } from '@components'
+import { WarrantyDescription, WarrantyInput } from '@components'
 import { api } from '@utils/api'
 import clsx from 'clsx'
 import {
@@ -59,12 +59,7 @@ export const Warranty = ({ order }: WarrantyProps) => {
       )}
       <WarrantyInput order={order} />
       <CustomerIdBarcode customerId={order.customerId.toUpperCase()} />
-      <div className="flex w-full flex-col gap-2 mt-auto">
-        <span className="text-xl font-bold">Descrição do problema</span>
-        <p className="rounded bg-red-500 px-2 text-lg w-full font-medium outline-none resize-none h-32 overflow-x-auto">
-          {order.description}
-        </p>
-      </div>
+      <WarrantyDescription order={order} />
       {!order.resolved && (
         <button
           onClick={markWarrantyAsResolved}

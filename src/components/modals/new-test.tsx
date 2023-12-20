@@ -99,8 +99,8 @@ export const NewTestModal = ({
   function handleCreateTest() {
     if (
       test.isFPS
-        ? !ObjHasFalsyValues(test)
-        : !ObjHasFalsyValues(test.customerId, test.orderId, date, time)
+        ? ObjHasFalsyValues(test)
+        : ObjHasFalsyValues(test.customerId, test.orderId, date, time)
     ) {
       alert('Preenche todos os campos!')
       return

@@ -1,9 +1,9 @@
-import { Layout } from '@components'
 import { NewWarrantyModal } from '@components/modals'
+import { Warranty } from '@components/order-cards'
+import { Layout } from '@components'
 import { useState } from 'react'
 import { api } from '@utils/api'
 import Link from 'next/link'
-import { Warranty } from '@components/order-cards'
 
 export default function Warranties() {
   const { data: allWarranties } = api.warranty.getAll.useQuery()
@@ -22,7 +22,7 @@ export default function Warranties() {
             Registar nova garantia
           </button>
         </header>
-        <main className="mx-auto grid grid-flow-row-dense grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-3">
+        <main className="mx-auto grid grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-3">
           {allWarranties?.unresolvedWarranties?.map(order => (
             <Warranty key={order.id} order={order} />
           ))}

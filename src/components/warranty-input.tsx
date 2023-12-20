@@ -1,4 +1,4 @@
-import { useDebounce } from '@lib/utils'
+import { useDebounce } from '@lib/hooks'
 import { Warranty } from '@prisma/client'
 import { api } from '@utils/api'
 import { useEffect, useState } from 'react'

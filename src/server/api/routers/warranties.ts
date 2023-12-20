@@ -82,5 +82,22 @@ export const warrantyRouter = createTRPCRouter({
           warrantyRequestId: input.warrantyRequestId
         }
       })
+    }),
+  changeDescription: publicProcedure
+    .input(
+      z.object({
+        orderId: z.string(),
+        description: z.string()
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db.warranty.update({
+        where: {
+          id: input.orderId.toUpperCase()
+        },
+        data: {
+          description: input.description
+        }
+      })
     })
 })
