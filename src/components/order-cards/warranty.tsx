@@ -1,4 +1,4 @@
-import { WarrantyDescription, WarrantyInput } from '@components'
+import { OrderDescription, WarrantyInput } from '@components'
 import { CustomerIdBarcode, OrderIdBarcode } from '@components/barcodes'
 import {
 	ValidResolvedStatuses,
@@ -59,7 +59,7 @@ export const Warranty = ({ order }: WarrantyProps) => {
 			)}
 			<WarrantyInput order={order} />
 			<CustomerIdBarcode customerId={order.customerId.toUpperCase()} />
-			<WarrantyDescription order={order} />
+			<OrderDescription order={order} />
 			{!order.resolved && (
 				<button
 					onClick={markWarrantyAsResolved}

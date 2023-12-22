@@ -1,7 +1,6 @@
-import { TestDescription } from '@components'
+import { OrderDescription } from '@components'
 import { CustomerIdBarcode, OrderIdBarcode } from '@components/barcodes'
 import { PromptEmailModal } from '@components/modals'
-import { useDebounce } from '@lib/hooks'
 import { formatDate } from '@lib/utils'
 import { Test as TTest } from '@prisma/client'
 import { api } from '@utils/api'
@@ -30,7 +29,7 @@ export const Test = ({ order }: TestProps) => {
 				</span>
 			</div>
 			<CustomerIdBarcode customerId={order.customerId.toUpperCase()} />
-			<TestDescription order={order} />
+			<OrderDescription order={order} />
 			{!order.resolved && (
 				<button
 					onClick={
