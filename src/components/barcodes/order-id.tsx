@@ -10,7 +10,7 @@ export const OrderIdBarcode = ({ orderId }: OrderIdBarcodeProps) => {
 		<div className='flex flex-col items-center justify-between'>
 			<h2 className='text-2xl font-bold'>{orderId}</h2>
 			<Barcode
-				className='rounded'
+				className='rounded max-w-[376px]'
 				value={orderId}
 				options={{
 					background: colors.red[300],

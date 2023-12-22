@@ -57,5 +57,22 @@ export const testRouter = createTRPCRouter({
 			unresolvedTests: allTests.filter(test => !test.resolved),
 			resolvedTests: allTests.filter(test => test.resolved)
 		}
-	})
+	}),
+	changeDescription: publicProcedure
+		.input(
+			z.object({
+				orderId: z.string(),
+				description: z.string()
+			})
+		)
+		.mutation(async ({ ctx, input }) => {
+			return await ctx.db.test.update({
+				where: {
+					id: input.orderId.toUpperCase()
+				},
+				data: {
+					description: input.description
+				}
+			})
+		})
 })

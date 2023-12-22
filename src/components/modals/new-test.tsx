@@ -200,21 +200,18 @@ export const NewTestModal = ({
 						role='checkbox'
 						aria-checked={test.isFPS}
 						data-checked={test.isFPS}
-						className='h-4 w-4 rounded-sm ring-1 disabled:cursor-not-allowed data-[checked=false]:bg-tranparent-900 text-white data-[checked=false]:ring-red-500 data-[checked=true]:bg-red-500  data-[checked=true]:ring-red-600'
-					>
+						className='h-4 w-4 rounded-sm ring-1 disabled:cursor-not-allowed data-[checked=false]:bg-tranparent-900 text-white data-[checked=false]:ring-red-500 data-[checked=true]:bg-red-500  data-[checked=true]:ring-red-600'>
 						{test.isFPS && <CheckIcon />}
 					</button>
 					<label
 						className='cursor-pointer'
-						onClick={() => setTest({ ...test, isFPS: !test.isFPS })}
-					>
+						onClick={() => setTest({ ...test, isFPS: !test.isFPS })}>
 						É FPS
 					</label>
 				</div>
 				<button
 					onClick={handleCreateTest}
-					className='mt-auto flex w-full items-center justify-center rounded-xl bg-red-900 p-2'
-				>
+					className='mt-auto flex w-full items-center justify-center rounded-xl bg-red-900 p-2'>
 					Confirmar registo
 				</button>
 			</Dialog.Content>

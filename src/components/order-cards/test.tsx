@@ -1,5 +1,7 @@
+import { TestDescription } from '@components'
 import { CustomerIdBarcode, OrderIdBarcode } from '@components/barcodes'
 import { PromptEmailModal } from '@components/modals'
+import { useDebounce } from '@lib/hooks'
 import { formatDate } from '@lib/utils'
 import { Test as TTest } from '@prisma/client'
 import { api } from '@utils/api'
@@ -19,7 +21,7 @@ export const Test = ({ order }: TestProps) => {
 	}
 
 	return (
-		<div className='flex min-w-[400px] flex-col gap-4 rounded-md bg-red-950 p-3'>
+		<div className='flex w-[400px] flex-col gap-4 rounded-md bg-red-950 p-3'>
 			<OrderIdBarcode orderId={order.id.toUpperCase()} />
 			<div className='flex items-center justify-between'>
 				<span className='text-2xl font-bold'>Hora Marcada</span>
@@ -28,6 +30,7 @@ export const Test = ({ order }: TestProps) => {
 				</span>
 			</div>
 			<CustomerIdBarcode customerId={order.customerId.toUpperCase()} />
+			<TestDescription order={order} />
 			{!order.resolved && (
 				<button
 					onClick={
@@ -35,8 +38,7 @@ export const Test = ({ order }: TestProps) => {
 							? markTestAsResolved
 							: () => setIsResolveButtonClicked(true)
 					}
-					className='rounded-xl bg-red-900 p-2'
-				>
+					className='rounded-xl bg-red-900 p-2'>
 					Marcar como resolvido
 				</button>
 			)}

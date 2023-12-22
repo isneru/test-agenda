@@ -1,23 +1,22 @@
 import { useDebounce } from '@lib/hooks'
-import { Warranty } from '@prisma/client'
+import { Test } from '@prisma/client'
 import { api } from '@utils/api'
 import { useEffect, useState } from 'react'
 
-type WarrantyDescriptionProps = {
-	order: Warranty
+type TestDescriptionProps = {
+	order: Test
 }
 
-export const WarrantyDescription = ({ order }: WarrantyDescriptionProps) => {
+export const TestDescription = ({ order }: TestDescriptionProps) => {
 	const [input, setInput] = useState(order.description ?? '')
 	const debouncedInput = useDebounce(input, 2000)
-	const { mutate: changeDescription } =
-		api.warranty.changeDescription.useMutation()
-	const { refetch: refetchWarranties } = api.warranty.getAll.useQuery()
+	const { mutate: changeDescription } = api.test.changeDescription.useMutation()
+	const { refetch: refetchTests } = api.test.getAll.useQuery()
 
 	useEffect(() => {
 		changeDescription(
 			{ orderId: order.id, description: debouncedInput },
-			{ onSettled: () => refetchWarranties() }
+			{ onSettled: () => refetchTests() }
 		)
 	}, [debouncedInput])
 

@@ -33,7 +33,7 @@ export const Warranty = ({ order }: WarrantyProps) => {
 	}
 
 	return (
-		<div className='flex min-w-[400px] flex-col gap-4 rounded-md bg-red-950 p-3'>
+		<div className='flex w-[400px] flex-col gap-4 rounded-md bg-red-950 p-3'>
 			<OrderIdBarcode orderId={order.id.toUpperCase()} />
 			{!order.resolved ? (
 				<div className='grid grid-cols-3 gap-2 rounded-md p-1 bg-red-900'>
@@ -44,8 +44,7 @@ export const Warranty = ({ order }: WarrantyProps) => {
 								'p-1 rounded-md',
 								status === order.status && 'bg-red-500'
 							)}
-							key={status}
-						>
+							key={status}>
 							{status}
 						</button>
 					))}
@@ -64,8 +63,7 @@ export const Warranty = ({ order }: WarrantyProps) => {
 			{!order.resolved && (
 				<button
 					onClick={markWarrantyAsResolved}
-					className='rounded-xl bg-red-900 p-2 mt-auto'
-				>
+					className='rounded-xl bg-red-900 p-2 mt-auto'>
 					Marcar como resolvido
 				</button>
 			)}

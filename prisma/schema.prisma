@@ -14,6 +14,7 @@ model Test {
     id           String    @id
     customerId   String
     scheduledFor DateTime?
+    description  String    @default("")
     isFPS        Boolean   @default(false)
     resolved     Boolean   @default(false)
 
@@ -24,8 +25,8 @@ model Test {
 model Warranty {
     id                String  @id
     customerId        String
-    description       String
     warrantyRequestId String?
+    description       String  @default("")
     status            String  @default("Em Análise") // 'Substituir', 'Em Análise', 'Reembolsar'
     resolved          Boolean @default(false)
 

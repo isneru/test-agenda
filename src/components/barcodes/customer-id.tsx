@@ -10,7 +10,7 @@ export const CustomerIdBarcode = ({ customerId }: CustomerIdBarcodeProps) => {
 		<div className='flex w-full flex-col items-center'>
 			<p className='text-2xl font-bold'>Ficha de Cliente</p>
 			<Barcode
-				className='rounded'
+				className='rounded max-w-[376px]'
 				value={customerId}
 				options={{
 					background: colors.red[300],
