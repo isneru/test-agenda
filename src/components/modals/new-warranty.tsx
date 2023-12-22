@@ -56,8 +56,8 @@ export const NewWarrantyModal = ({
 
 	return (
 		<Dialog.Root open={isModalVisible} onOpenChange={toggleModal}>
-			<Dialog.Overlay className='fixed inset-0 bg-black/60' />
-			<Dialog.Content className='fixed left-1/2 top-1/2 flex w-[460px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-4 rounded-xl bg-red-950 p-8'>
+			<Dialog.Overlay className='fixed inset-0 bg-black/60 data-[state=closed]:animate-[dialog-overlay-hide_200ms] data-[state=open]:animate-[dialog-overlay-show_200ms]' />
+			<Dialog.Content className='fixed left-1/2 top-1/2 flex w-[460px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-4 rounded-xl bg-red-950 p-8 shadow data-[state=closed]:animate-[dialog-content-hide_200ms] data-[state=open]:animate-[dialog-content-show_200ms]'>
 				<div className='grid grid-cols-2 items-center gap-2'>
 					<label className='text-xl font-bold' htmlFor='orderId'>
 						Nº de Ordem
@@ -93,8 +93,7 @@ export const NewWarrantyModal = ({
 				</div>
 				<button
 					onClick={handleCreateWarranty}
-					className='mt-auto flex w-full items-center justify-center rounded-xl bg-red-900 p-2'
-				>
+					className='mt-auto flex w-full items-center justify-center rounded-xl bg-red-900 p-2'>
 					Confirmar registo
 				</button>
 			</Dialog.Content>
