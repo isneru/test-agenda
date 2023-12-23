@@ -9,7 +9,8 @@ export const testRouter = createTRPCRouter({
 				customerId: z.string(),
 				orderId: z.string(),
 				scheduledFor: z.date().optional(),
-				isFPS: z.boolean().optional()
+				isFPS: z.boolean().optional(),
+				description: z.string().optional()
 			})
 		)
 		.mutation(async ({ ctx, input }) => {
@@ -18,7 +19,8 @@ export const testRouter = createTRPCRouter({
 					data: {
 						customerId: input.customerId.toUpperCase(),
 						id: input.orderId.toUpperCase(),
-						isFPS: true
+						isFPS: true,
+						description: input.description
 					}
 				})
 			}
@@ -26,7 +28,8 @@ export const testRouter = createTRPCRouter({
 				data: {
 					customerId: input.customerId.toUpperCase(),
 					id: input.orderId.toUpperCase(),
-					scheduledFor: input.scheduledFor!
+					scheduledFor: input.scheduledFor!,
+					description: input.description
 				}
 			})
 		}),
