@@ -38,8 +38,11 @@ export const OrderDescription = ({ order }: OrderDescriptionProps) => {
 
 	return (
 		<div className='flex w-full flex-col gap-2 mt-auto'>
-			<span className='text-xl font-bold'>Observações</span>
+			<label htmlFor={`description-${order.id}`} className='text-xl font-bold'>
+				Observações
+			</label>
 			<textarea
+				id={`description-${order.id}`}
 				disabled={order.resolved}
 				className='rounded bg-red-500 px-2 text-lg w-full font-medium outline-none resize-none h-32 overflow-x-auto'
 				onChange={e => setInput(e.target.value)}
