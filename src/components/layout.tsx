@@ -1,7 +1,6 @@
 import { Links } from '@components'
 import { poppins } from '@lib/font'
 import Head from 'next/head'
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 type LayoutProps = {
@@ -9,8 +8,6 @@ type LayoutProps = {
 }
 
 export const Layout = ({ children }: LayoutProps) => {
-	const pathname = usePathname()
-
 	return (
 		<>
 			<Head>

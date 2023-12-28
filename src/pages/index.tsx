@@ -1,8 +1,7 @@
-import { Layout } from '@components'
+import { Hero, Layout } from '@components'
 import { NewTestModal } from '@components/modals'
 import { Test } from '@components/order-cards'
 import { api } from '@utils/api'
-import Link from 'next/link'
 import { useState } from 'react'
 
 export default function Home() {
@@ -12,14 +11,11 @@ export default function Home() {
 	return (
 		<Layout>
 			<div className='flex min-h-screen flex-col py-10 gap-4'>
-				<main className='mb-4 flex flex-col items-center justify-center gap-4'>
-					<h1 className='text-center text-6xl font-bold'>CeX Test Agenda</h1>
-					<button
-						onClick={() => setIsModalVisible(val => !val)}
-						className='rounded-lg bg-red-900 p-2'>
-						Registar novo teste
-					</button>
-				</main>
+				<Hero
+					titleLabel='CeX Test Agenda'
+					buttonLabel='Registar novo teste'
+					onClick={() => setIsModalVisible(val => !val)}
+				/>
 				<main className='mx-auto grid grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-3'>
 					{allTests?.unresolvedTests?.map(order => (
 						<Test key={order.id} order={order} />

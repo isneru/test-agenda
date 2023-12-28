@@ -9,7 +9,10 @@ export default ({
 				sans: ['var(--font-sans)', ...fontFamily.sans]
 			},
 			colors: {
-				cex: '#e30613'
+				cex: '#e30613',
+				foreground: '#525252',
+				background: '#0a0a0a',
+				text: '#f5f5f5'
 			}
 		}
 	},
