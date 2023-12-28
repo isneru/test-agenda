@@ -26,7 +26,7 @@ export const Links = () => {
 					href={path}
 					key={idx}
 					className={clsx(
-						'fixed bottom-5 flex items-center justify-center rounded-full border border-red-800/10 bg-red-900/10 px-3 py-1 text-red-300 transition-colors hover:bg-red-900/20',
+						'fixed bottom-5 flex items-center justify-center rounded-full border border-cex/10 bg-cex/10 px-3 py-1 transition-colors hover:bg-cex/20',
 						idx === 0 ? 'left-5' : 'right-5'
 					)}>
 					{routes[path]}

@@ -16,7 +16,7 @@ export default function Home() {
 					button='Novo teste'
 					onClick={() => setIsModalVisible(val => !val)}
 				/>
-				<main className='flex justify-center flex-wrap gap-4 mx-auto w-full'>
+				<main className='flex justify-center flex-wrap gap-6 mx-auto w-full'>
 					{allTests?.unresolvedTests?.map(order => (
 						<Test key={order.id} order={order} />
 					))}

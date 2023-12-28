@@ -10,7 +10,7 @@ export default function Resolved() {
 		<Layout>
 			<div className='flex min-h-screen flex-col gap-4'>
 				<Hero title='CeX Ordens Resolvidas' withButton={false} />
-				<main className='flex justify-center flex-wrap gap-4 mx-auto w-full'>
+				<main className='flex justify-center flex-wrap gap-6 mx-auto w-full'>
 					{allTests?.resolvedTests?.map(order => (
 						<Test key={order.id} order={order} />
 					))}

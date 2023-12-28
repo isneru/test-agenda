@@ -16,7 +16,7 @@ export default function Warranties() {
 					button='Nova garantia'
 					onClick={() => setIsModalVisible(val => !val)}
 				/>
-				<main className='flex justify-center flex-wrap gap-4 mx-auto w-full'>
+				<main className='flex justify-center flex-wrap gap-6 mx-auto w-full'>
 					{allWarranties?.unresolvedWarranties?.map(order => (
 						<Warranty key={order.id} order={order} />
 					))}
