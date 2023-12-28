@@ -10,13 +10,13 @@ export default function Warranties() {
 
 	return (
 		<Layout>
-			<div className='flex min-h-screen flex-col py-10 gap-4'>
+			<div className='flex min-h-screen flex-col gap-4'>
 				<Hero
-					titleLabel='CeX Warranty Agenda'
-					buttonLabel='Registar nova garantia'
+					title='CeX Warranty Agenda'
+					button='Nova garantia'
 					onClick={() => setIsModalVisible(val => !val)}
 				/>
-				<main className='mx-auto grid grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-3'>
+				<main className='flex justify-center flex-wrap gap-4 mx-auto w-full'>
 					{allWarranties?.unresolvedWarranties?.map(order => (
 						<Warranty key={order.id} order={order} />
 					))}
