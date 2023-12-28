@@ -18,8 +18,7 @@ export default function Warranties() {
 					</h1>
 					<button
 						onClick={() => setIsModalVisible(val => !val)}
-						className='rounded-xl bg-red-900 p-2'
-					>
+						className='rounded-lg bg-red-900 p-2'>
 						Registar nova garantia
 					</button>
 				</header>
@@ -28,18 +27,6 @@ export default function Warranties() {
 						<Warranty key={order.id} order={order} />
 					))}
 				</main>
-				<Link
-					href='/resolved'
-					className='fixed bottom-5 left-5 flex items-center justify-center rounded-full border border-red-800/10 bg-red-900/10 px-3 py-1 text-red-300 transition-colors hover:bg-red-900/20'
-				>
-					Resolvidos
-				</Link>
-				<Link
-					href='/'
-					className='fixed bottom-5 right-5 flex items-center justify-center rounded-full border border-red-800/10 bg-red-900/10 px-3 py-1 text-red-300 transition-colors hover:bg-red-900/20'
-				>
-					Testes
-				</Link>
 			</div>
 			<NewWarrantyModal
 				isModalVisible={isModalVisible}

@@ -57,7 +57,7 @@ export const PromptEmailModal = ({
 	return (
 		<Dialog.Root open={isModalVisible} onOpenChange={toggleModal}>
 			<Dialog.Overlay className='fixed inset-0 z-10 bg-black/60 data-[state=closed]:animate-[dialog-overlay-hide_200ms] data-[state=open]:animate-[dialog-overlay-show_200ms]' />
-			<Dialog.Content className='fixed left-1/2 z-20 top-1/2 flex w-[460px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-4 rounded-xl shadow bg-red-950 py-6 px-8 data-[state=closed]:animate-[dialog-content-hide_200ms] data-[state=open]:animate-[dialog-content-show_200ms]'>
+			<Dialog.Content className='fixed left-1/2 z-20 top-1/2 flex w-[460px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-4 rounded-lg shadow bg-red-950 py-6 px-8 data-[state=closed]:animate-[dialog-content-hide_200ms] data-[state=open]:animate-[dialog-content-show_200ms]'>
 				<div className='flex flex-col gap-1 w-full'>
 					<label className='text-xl font-bold' htmlFor='customer-email'>
 						Email do cliente
@@ -72,12 +72,12 @@ export const PromptEmailModal = ({
 				<div className='grid grid-cols-2 gap-4 w-full mt-2'>
 					<button
 						onClick={markAsResolved}
-						className='flex w-full items-center justify-center rounded-xl bg-red-900 p-2'>
+						className='flex w-full items-center justify-center rounded-lg bg-red-900 p-2'>
 						Continuar sem email
 					</button>
 					<button
 						onClick={handleSendTestResolvedEmail}
-						className='flex w-full items-center justify-center rounded-xl bg-red-900 p-2'>
+						className='flex w-full items-center justify-center rounded-lg bg-red-900 p-2'>
 						Enviar email
 					</button>
 				</div>

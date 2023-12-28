@@ -16,8 +16,7 @@ export default function Resolved() {
 				<header className='flex items-center justify-center mb-[72px] gap-10'>
 					<button
 						onClick={() => setShowTests(val => !val)}
-						className='items-center justify-center rounded-full border border-red-800/10 bg-red-900/10 px-3 py-1 text-red-300 transition-colors hover:bg-red-900/20'
-					>
+						className='items-center justify-center rounded-full border border-red-800/10 bg-red-900/10 px-3 py-1 text-red-300 transition-colors hover:bg-red-900/20'>
 						{showTests ? 'Esconder Testes' : 'Mostrar Testes'}
 					</button>
 					<h1 className='text-center text-6xl font-bold'>
@@ -25,8 +24,7 @@ export default function Resolved() {
 					</h1>
 					<button
 						onClick={() => setShowWarranties(val => !val)}
-						className='items-center justify-center rounded-full border border-red-800/10 bg-red-900/10 px-3 py-1 text-red-300 transition-colors hover:bg-red-900/20'
-					>
+						className='items-center justify-center rounded-full border border-red-800/10 bg-red-900/10 px-3 py-1 text-red-300 transition-colors hover:bg-red-900/20'>
 						{showWarranties ? 'Esconder Garantias' : 'Mostrar Garantias'}
 					</button>
 				</header>
@@ -44,18 +42,6 @@ export default function Resolved() {
 						))}
 					</main>
 				)}
-				<Link
-					href='/'
-					className='fixed bottom-5 left-5 flex items-center justify-center rounded-full border border-red-800/10 bg-red-900/10 px-3 py-1 text-red-300 transition-colors hover:bg-red-900/20'
-				>
-					Testes
-				</Link>
-				<Link
-					href='/warranties'
-					className='fixed bottom-5 right-5 flex items-center justify-center rounded-full border border-red-800/10 bg-red-900/10 px-3 py-1 text-red-300 transition-colors hover:bg-red-900/20'
-				>
-					Garantias
-				</Link>
 			</div>
 		</Layout>
 	)

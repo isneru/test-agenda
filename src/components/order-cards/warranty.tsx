@@ -63,7 +63,7 @@ export const Warranty = ({ order }: WarrantyProps) => {
 			{!order.resolved && (
 				<button
 					onClick={markWarrantyAsResolved}
-					className='rounded-xl bg-red-900 p-2 mt-auto'>
+					className='rounded-lg bg-red-900 p-2 mt-auto'>
 					Marcar como resolvido
 				</button>
 			)}

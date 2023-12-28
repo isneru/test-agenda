@@ -7,6 +7,9 @@ export default ({
 		extend: {
 			fontFamily: {
 				sans: ['var(--font-sans)', ...fontFamily.sans]
+			},
+			colors: {
+				cex: '#e30613'
 			}
 		}
 	},
