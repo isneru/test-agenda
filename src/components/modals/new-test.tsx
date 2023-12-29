@@ -1,6 +1,6 @@
 import { ObjHasFalsyValues, getDate } from '@lib/utils'
 import * as Dialog from '@radix-ui/react-dialog'
-import { CheckIcon } from '@radix-ui/react-icons'
+import { CheckIcon, Cross1Icon } from '@radix-ui/react-icons'
 import { api } from '@utils/api'
 import { Dispatch, SetStateAction, useRef, useState } from 'react'
 
@@ -227,11 +227,16 @@ export const NewTestModal = ({
 						onChange={handleChangeTestInput}
 					/>
 				</div>
-				<button
-					onClick={handleCreateTest}
-					className='mt-auto flex w-full items-center justify-center rounded-lg bg-red-700 p-2'>
-					Confirmar registo
-				</button>
+				<div className='grid mt-auto grid-cols-2 gap-6 w-full'>
+					<Dialog.Close className='flex w-full items-center justify-center p-2 hover:underline'>
+						Cancelar
+					</Dialog.Close>
+					<button
+						onClick={handleCreateTest}
+						className='flex w-full items-center justify-center rounded-lg bg-red-700 p-2'>
+						Confirmar registo
+					</button>
+				</div>
 			</Dialog.Content>
 		</Dialog.Root>
 	)

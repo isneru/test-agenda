@@ -10,7 +10,7 @@ export default function Warranties() {
 
 	return (
 		<Layout>
-			<div className='flex min-h-screen flex-col gap-4'>
+			<div className='flex min-h-screen flex-col gap-4 p-10'>
 				<Hero
 					title='CeX Warranty Agenda'
 					button='Nova garantia'

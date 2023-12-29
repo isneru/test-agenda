@@ -91,11 +91,16 @@ export const NewWarrantyModal = ({
 						onChange={handleChangeWarrantyInput}
 					/>
 				</div>
-				<button
-					onClick={handleCreateWarranty}
-					className='mt-auto flex w-full items-center justify-center rounded-lg bg-red-700 p-2'>
-					Confirmar registo
-				</button>
+				<div className='grid mt-auto grid-cols-2 gap-6 w-full'>
+					<Dialog.Close className='flex w-full items-center justify-center p-2 hover:underline'>
+						Cancelar
+					</Dialog.Close>
+					<button
+						onClick={handleCreateWarranty}
+						className='flex w-full items-center justify-center rounded-lg bg-red-700 p-2'>
+						Confirmar registo
+					</button>
+				</div>
 			</Dialog.Content>
 		</Dialog.Root>
 	)

@@ -15,7 +15,7 @@ export const Layout = ({ children }: LayoutProps) => {
 				<link rel='icon' href='/cex.png' />
 				<meta name='description' content='Organizing orders since 1992.' />
 			</Head>
-			<div className={poppins.className + ' p-10'}>
+			<div className={poppins.className}>
 				{children}
 				<Links />
 			</div>
