@@ -10,7 +10,7 @@ export default function Home() {
 
 	return (
 		<Layout>
-			<div className='flex min-h-screen flex-col gap-4 p-10'>
+			<div className='flex flex-col gap-4 p-10'>
 				<Hero
 					title='CeX Test Agenda'
 					button='Novo teste'

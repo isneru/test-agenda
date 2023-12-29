@@ -1,4 +1,4 @@
-import { Links, Navbar } from '@components'
+import { Navbar } from '@components'
 import { poppins } from '@lib/font'
 import clsx from 'clsx'
 import Head from 'next/head'
@@ -18,8 +18,6 @@ export const Layout = ({ children }: LayoutProps) => {
 			<div className={clsx(poppins.className, 'flex flex-col w-full')}>
 				<Navbar />
 				<section className='flex-1'>{children}</section>
-				{/* <Links /> */}
-				{/* either use <Navbar/> on top of section or <Links/> below */}
 			</div>
 		</>
 	)
