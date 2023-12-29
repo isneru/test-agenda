@@ -7,17 +7,20 @@ type OrderIdBarcodeProps = {
 
 export const OrderIdBarcode = ({ orderId }: OrderIdBarcodeProps) => {
 	return (
-		<div className='flex flex-col items-center justify-between'>
-			<h2 className='text-2xl font-bold'>{orderId}</h2>
-			<Barcode
-				className='rounded max-w-[376px]'
-				value={orderId}
-				options={{
-					background: colors.red[300],
-					displayValue: false,
-					height: 50
-				}}
-			/>
+		<div className='flex flex-col items-center justify-between w-full'>
+			<p className='text-2xl font-bold'>{orderId}</p>
+			<div className='bg-red-500 w-full rounded'>
+				<Barcode
+					className='max-w-[376px] mx-auto'
+					value={orderId}
+					options={{
+						background: colors.red[500],
+						lineColor: colors.neutral[950],
+						displayValue: false,
+						height: 50
+					}}
+				/>
+			</div>
 		</div>
 	)
 }

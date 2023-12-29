@@ -37,7 +37,7 @@ export const OrderDescription = ({ order }: OrderDescriptionProps) => {
 	)
 
 	return (
-		<div className='flex w-full flex-col gap-2 mt-auto'>
+		<div className='flex w-full flex-col gap-1 mt-auto'>
 			<label htmlFor={`description-${order.id}`} className='text-xl font-bold'>
 				Observações
 			</label>

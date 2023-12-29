@@ -11,7 +11,7 @@ export const Hero = ({ onClick, withButton = true, ...labels }: HeroProps) => {
 			<h1 className='text-center text-6xl font-bold'>{labels.title}</h1>
 			{withButton && (
 				<button onClick={onClick} className='rounded-lg bg-cex p-2'>
-					{labels.title}
+					{labels.button}
 				</button>
 			)}
 		</header>

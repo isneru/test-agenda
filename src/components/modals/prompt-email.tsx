@@ -69,16 +69,16 @@ export const PromptEmailModal = ({
 						onChange={e => setEmail(e.target.value)}
 					/>
 				</div>
-				<div className='grid grid-cols-2 gap-4 w-full mt-2'>
+				<div className='grid grid-cols-2 gap-6 w-full mt-2'>
 					<button
 						onClick={markAsResolved}
-						className='flex w-full items-center justify-center rounded-lg bg-red-900 p-2'>
-						Continuar sem email
+						className='flex w-full items-center justify-center rounded-lg p-2 hover:underline'>
+						Não enviar email
 					</button>
 					<button
 						onClick={handleSendTestResolvedEmail}
-						className='flex w-full items-center justify-center rounded-lg bg-red-900 p-2'>
-						Enviar email
+						className='flex w-full items-center justify-center rounded-lg bg-red-700 p-2'>
+						Confirmar
 					</button>
 				</div>
 			</Dialog.Content>

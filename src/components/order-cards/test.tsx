@@ -37,7 +37,7 @@ export const Test = ({ order }: TestProps) => {
 							? markTestAsResolved
 							: () => setIsResolveButtonClicked(true)
 					}
-					className='rounded-lg bg-red-900 p-2'>
+					className='rounded-lg bg-red-700 p-2'>
 					Marcar como resolvido
 				</button>
 			)}

@@ -93,7 +93,7 @@ export const NewWarrantyModal = ({
 				</div>
 				<button
 					onClick={handleCreateWarranty}
-					className='mt-auto flex w-full items-center justify-center rounded-lg bg-red-900 p-2'>
+					className='mt-auto flex w-full items-center justify-center rounded-lg bg-red-700 p-2'>
 					Confirmar registo
 				</button>
 			</Dialog.Content>
