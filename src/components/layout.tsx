@@ -1,7 +1,7 @@
-import { Links } from '@components'
+import { Links, Navbar } from '@components'
 import { poppins } from '@lib/font'
+import clsx from 'clsx'
 import Head from 'next/head'
-import { usePathname } from 'next/navigation'
 
 type LayoutProps = {
 	children: React.ReactNode
@@ -15,9 +15,11 @@ export const Layout = ({ children }: LayoutProps) => {
 				<link rel='icon' href='/cex.png' />
 				<meta name='description' content='Organizing orders since 1992.' />
 			</Head>
-			<div className={poppins.className}>
-				{children}
-				<Links />
+			<div className={clsx(poppins.className, 'flex flex-col w-full')}>
+				<Navbar />
+				<section className='flex-1'>{children}</section>
+				{/* <Links /> */}
+				{/* either use <Navbar/> on top of section or <Links/> below */}
 			</div>
 		</>
 	)
