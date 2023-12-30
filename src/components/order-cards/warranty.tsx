@@ -46,7 +46,7 @@ export const Warranty = ({ order }: WarrantyProps) => {
 							{formatDate(addThirtyDaysToDate(order.createdAt), false)}
 						</span>
 					</div>
-					<div className='grid grid-cols-3 gap-2 rounded-md p-1 bg-background'>
+					<div className='grid grid-cols-3 gap-2 rounded-md p-1 bg-background shadow'>
 						{validStatuses.map(status => (
 							<button
 								onClick={() => changeWarrantyStatus(status)}
