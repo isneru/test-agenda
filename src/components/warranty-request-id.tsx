@@ -31,12 +31,12 @@ export const WarrantyInput = ({ order }: WarrantyInputProps) => {
 				htmlFor={`warrantyRequestId-${order.id}`}
 			/>
 			<input
-				disabled={order.resolved || order.status !== 'Substituir'}
+				disabled={order.status !== 'Substituir'}
 				value={order.status === 'Substituir' ? input : 'N/A'}
 				onChange={e => setInput(e.target.value)}
 				className={clsx(
 					'rounded px-2 text-lg font-medium outline-none w-[9ch] text-center',
-					order.status === 'Substituir' && !order.resolved
+					order.status === 'Substituir'
 						? 'bg-background shadow-[0px_0px_0px_1px_rgba(82,82,82,0.4)] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 focus-visible:ring-cex'
 						: 'bg-cex shadow'
 				)}

@@ -22,16 +22,9 @@ export const warrantyRouter = createTRPCRouter({
 		}),
 
 	getAll: publicProcedure.query(async ({ ctx }) => {
-		const allWarranties = await ctx.db.warranty.findMany({
+		return await ctx.db.warranty.findMany({
 			orderBy: { createdAt: 'asc' }
 		})
-
-		return {
-			unresolvedWarranties: allWarranties.filter(
-				warranty => !warranty.resolved
-			),
-			resolvedWarranties: allWarranties.filter(warranty => warranty.resolved)
-		}
 	}),
 	changeStatus: publicProcedure
 		.input(
@@ -50,19 +43,16 @@ export const warrantyRouter = createTRPCRouter({
 				}
 			})
 		}),
-	markAsResolved: publicProcedure
+	complete: publicProcedure
 		.input(
 			z.object({
 				orderId: z.string()
 			})
 		)
 		.mutation(async ({ ctx, input }) => {
-			return await ctx.db.warranty.update({
+			return await ctx.db.warranty.delete({
 				where: {
 					id: input.orderId.toUpperCase()
-				},
-				data: {
-					resolved: true
 				}
 			})
 		}),

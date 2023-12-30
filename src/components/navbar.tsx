@@ -4,8 +4,7 @@ import Link from 'next/link'
 
 const links = [
 	{ href: '/', label: 'Testes' },
-	{ href: '/warranties', label: 'Garantias' },
-	{ href: '/resolved', label: 'Resolvidos' }
+	{ href: '/warranties', label: 'Garantias' }
 ]
 
 export const Navbar = () => {

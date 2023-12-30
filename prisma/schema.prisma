@@ -11,25 +11,25 @@ datasource db {
 }
 
 model Test {
-    id           String    @id
-    customerId   String
-    scheduledFor DateTime?
-    description  String    @default("")
-    isFPS        Boolean   @default(false)
-    resolved     Boolean   @default(false)
+    id          String   @id
+    customerId  String   @default("")
+    description String   @default("")
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    scheduledFor  DateTime?
+    type          String    @default("Normal") // 'Normal', 'FPS', `Drop n' Go`
+    waitingPickup Boolean   @default(false)
+    beingTested   Boolean   @default(false)
 }
 
 model Warranty {
-    id                String  @id
-    customerId        String
-    warrantyRequestId String?
-    description       String  @default("")
-    status            String  @default("Em Análise") // 'Substituir', 'Em Análise', 'Reembolsar'
-    resolved          Boolean @default(false)
+    id          String   @id
+    customerId  String   @default("")
+    description String   @default("")
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    warrantyRequestId String?
+    status            String  @default("Em Análise") // 'Substituir', 'Em Análise', 'Reembolsar'
 }

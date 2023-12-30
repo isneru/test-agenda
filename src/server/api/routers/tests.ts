@@ -9,57 +9,38 @@ export const testRouter = createTRPCRouter({
 				customerId: z.string(),
 				orderId: z.string(),
 				scheduledFor: z.date().optional(),
-				isFPS: z.boolean().optional(),
+				type: z.string(),
 				description: z.string().optional()
 			})
 		)
 		.mutation(async ({ ctx, input }) => {
-			if (input.isFPS) {
-				return await ctx.db.test.create({
-					data: {
-						customerId: input.customerId.toUpperCase(),
-						id: input.orderId.toUpperCase(),
-						isFPS: true,
-						description: input.description
-					}
-				})
-			}
 			return await ctx.db.test.create({
 				data: {
 					customerId: input.customerId.toUpperCase(),
 					id: input.orderId.toUpperCase(),
-					scheduledFor: input.scheduledFor!,
-					description: input.description
+					type: input.type,
+					description: input.description,
+					scheduledFor: input.scheduledFor
 				}
 			})
 		}),
-
-	markAsResolved: publicProcedure
+	complete: publicProcedure
 		.input(
 			z.object({
 				orderId: z.string()
 			})
 		)
 		.mutation(async ({ ctx, input }) => {
-			return await ctx.db.test.update({
+			return await ctx.db.test.delete({
 				where: {
 					id: input.orderId.toUpperCase()
-				},
-				data: {
-					resolved: true
 				}
 			})
 		}),
-
 	getAll: publicProcedure.query(async ({ ctx }) => {
-		const allTests = await ctx.db.test.findMany({
+		return await ctx.db.test.findMany({
 			orderBy: { scheduledFor: 'asc' }
 		})
-
-		return {
-			unresolvedTests: allTests.filter(test => !test.resolved),
-			resolvedTests: allTests.filter(test => test.resolved)
-		}
 	}),
 	changeDescription: publicProcedure
 		.input(

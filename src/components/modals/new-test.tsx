@@ -1,8 +1,8 @@
 import { Input, Label, Textarea } from '@components/ui'
-import { ObjHasFalsyValues, getDate } from '@lib/utils'
+import { getDate, testValidTypes } from '@lib/utils'
 import * as Dialog from '@radix-ui/react-dialog'
-import { CheckIcon, Cross1Icon } from '@radix-ui/react-icons'
 import { api } from '@utils/api'
+import clsx from 'clsx'
 import { Dispatch, SetStateAction, useRef, useState } from 'react'
 
 type NewTestModalProps = {
@@ -22,7 +22,7 @@ export const NewTestModal = ({
 	const [test, setTest] = useState({
 		orderId: '',
 		customerId: '',
-		isFPS: false,
+		type: 'Normal',
 		description: ''
 	})
 
@@ -33,15 +33,15 @@ export const NewTestModal = ({
 	const minutesRef = useRef<HTMLInputElement>(null)
 
 	function toggleModal() {
+		setIsModalVisible(val => !val)
 		setDate({ day: '', month: '', year: '' })
 		setTime({ hours: '', minutes: '' })
 		setTest({
 			orderId: '',
 			customerId: '',
-			isFPS: false,
+			type: 'Normal',
 			description: ''
 		})
-		setIsModalVisible(val => !val)
 	}
 
 	function handleChangeTestInput(
@@ -105,18 +105,45 @@ export const NewTestModal = ({
 	}
 
 	function handleCreateTest() {
+		if (!test.type) {
+			alert('Preencha todos os campos')
+			return
+		}
+
 		if (
-			test.isFPS
-				? ObjHasFalsyValues(test)
-				: ObjHasFalsyValues(test.customerId, test.orderId, date, time)
+			test.type === 'Normal' &&
+			(!date.year ||
+				!date.month ||
+				!date.day ||
+				!time.hours ||
+				!time.minutes ||
+				!test.type ||
+				!test.orderId ||
+				!test.customerId)
 		) {
-			alert('Preenche todos os campos!')
+			alert('Preencha todos os campos')
+			return
+		}
+
+		if (
+			test.type !== 'Normal' &&
+			(!test.type || !test.orderId || !test.customerId)
+		) {
+			alert('Preencha todos os campos')
 			return
 		}
 
 		createTest(
-			{ ...test, scheduledFor: getDate(date, time) },
-			{ onSuccess: toggleModal, onSettled: () => refetchTests() }
+			{
+				...test,
+				scheduledFor: test.type === 'Normal' ? getDate(date, time) : undefined
+			},
+			{
+				onSuccess: () => {
+					toggleModal()
+					refetchTests()
+				}
+			}
 		)
 	}
 
@@ -140,19 +167,20 @@ export const NewTestModal = ({
 						onChange={handleChangeTestInput}
 					/>
 				</div>
-				<div className='flex items-center justify-between w-full gap-2'>
-					<Label value='É FPS' htmlFor='isFPS' />
-					<button
-						onClick={() => setTest({ ...test, isFPS: !test.isFPS })}
-						role='checkbox'
-						id='isFPS'
-						aria-checked={test.isFPS}
-						data-checked={test.isFPS}
-						className='h-5 w-5 grid place-items-center rounded-sm text-white border border-foreground/40 data-[checked=false]:bg-background data-[checked=true]:bg-cex focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-neutral-900 focus-within:ring-cex outline-none'>
-						{test.isFPS && <CheckIcon width={18} height={18} />}
-					</button>
+				<div className='grid grid-cols-3 gap-2 rounded-md p-1 bg-background shadow w-full'>
+					{testValidTypes.map(type => (
+						<button
+							onClick={() => setTest({ ...test, type })}
+							className={clsx(
+								'p-1 rounded-md transition-colors hover:bg-cex',
+								type === test.type && 'bg-red-800'
+							)}
+							key={type}>
+							{type}
+						</button>
+					))}
 				</div>
-				{!test.isFPS && (
+				{test.type === 'Normal' && (
 					<div className='flex flex-col items-center gap-1'>
 						<span className='text-xl font-bold'>Hora Marcada</span>
 						<div className='flex items-center gap-1'>

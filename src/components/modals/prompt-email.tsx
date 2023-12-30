@@ -1,5 +1,4 @@
 import { Input, Label } from '@components/ui'
-import { ObjHasFalsyValues } from '@lib/utils'
 import * as Dialog from '@radix-ui/react-dialog'
 import { api } from '@utils/api'
 import { Dispatch, SetStateAction, useRef, useState } from 'react'
@@ -18,15 +17,15 @@ export const PromptEmailModal = ({
 	const [email, setEmail] = useState('')
 	const { mutate: sendEmail } = api.email.sendResolvedTest.useMutation()
 	const { refetch: refetchTests } = api.test.getAll.useQuery()
-	const { mutate: resolveTest } = api.test.markAsResolved.useMutation()
+	const { mutate: complete } = api.test.complete.useMutation()
 
 	function toggleModal() {
 		setEmail('')
 		setIsModalVisible(val => !val)
 	}
 
-	function markAsResolved() {
-		resolveTest(
+	function completeTest() {
+		complete(
 			{ orderId },
 			{
 				onSettled: () => {
@@ -38,7 +37,7 @@ export const PromptEmailModal = ({
 	}
 
 	function handleSendTestResolvedEmail() {
-		if (ObjHasFalsyValues({ email })) {
+		if (!email) {
 			alert('Preenche o campo!')
 			return
 		}
@@ -46,7 +45,7 @@ export const PromptEmailModal = ({
 		sendEmail(
 			{ email, orderId },
 			{
-				onSuccess: () => markAsResolved(),
+				onSuccess: () => completeTest(),
 				onError: val =>
 					alert(
 						val.data?.zodError?.fieldErrors?.email?.[0] ?? 'Erro Desconhecido'
@@ -74,7 +73,7 @@ export const PromptEmailModal = ({
 				</div>
 				<div className='grid grid-cols-2 gap-6 w-full mt-6'>
 					<button
-						onClick={markAsResolved}
+						onClick={completeTest}
 						className='flex w-full items-center justify-center rounded p-2 hover:underline'>
 						Não enviar email
 					</button>

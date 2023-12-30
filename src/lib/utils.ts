@@ -37,25 +37,12 @@ export function getDate(
 	)
 }
 
-const resolvedStatuses = {
-	Substituir: 'Substituído',
-	Reembolsar: 'Reembolsado'
-}
+export const warrantyValidStatuses = ['Substituir', 'Em Análise', 'Reembolsar']
 
-export const validStatuses = ['Substituir', 'Em Análise', 'Reembolsar']
-
-export type ValidResolvedStatuses = keyof typeof resolvedStatuses
-
-export function getResolvedWarrantyStatus(status: ValidResolvedStatuses) {
-	return resolvedStatuses[status] ?? 'Sem Efeito'
-}
+export const testValidTypes = ['Normal', 'FPS', `Drop n' Go`]
 
 export function addThirtyDaysToDate(date: Date) {
 	const newDate = new Date(date)
 	newDate.setDate(newDate.getDate() + 30)
 	return newDate
-}
-
-export function ObjHasFalsyValues(...objs: any[]) {
-	return !objs.every(obj => Object.values(obj).every(Boolean))
 }

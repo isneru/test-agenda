@@ -21,7 +21,7 @@ export const OrderDescription = ({ order }: OrderDescriptionProps) => {
 		() => {
 			if (order.description === input) return
 
-			if ('isFPS' in order) {
+			if ('type' in order) {
 				changeTestDescription(
 					{ orderId: order.id, description: input },
 					{ onSettled: () => refetchTests() }
@@ -42,7 +42,6 @@ export const OrderDescription = ({ order }: OrderDescriptionProps) => {
 			<Label value='Observações' htmlFor={`description-${order.id}`} />
 			<Textarea
 				id={`description-${order.id}`}
-				disabled={order.resolved}
 				onChange={e => setInput(e.target.value)}
 				value={input}
 			/>

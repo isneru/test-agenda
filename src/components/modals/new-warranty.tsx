@@ -1,5 +1,4 @@
 import { Input, Label, Textarea } from '@components/ui'
-import { ObjHasFalsyValues } from '@lib/utils'
 import * as Dialog from '@radix-ui/react-dialog'
 import { api } from '@utils/api'
 import { Dispatch, SetStateAction, useRef, useState } from 'react'
@@ -44,14 +43,16 @@ export const NewWarrantyModal = ({
 	}
 
 	function handleCreateWarranty() {
-		if (ObjHasFalsyValues(warranty)) {
+		if (!warranty.customerId || !warranty.orderId) {
 			alert('Preenche todos os campos!')
 			return
 		}
 
 		createWarranty(warranty, {
-			onSuccess: toggleModal,
-			onSettled: () => refetchWarranties()
+			onSuccess: () => {
+				refetchWarranties()
+				toggleModal()
+			}
 		})
 	}
 
