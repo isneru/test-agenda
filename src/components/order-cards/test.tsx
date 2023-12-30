@@ -20,11 +20,11 @@ export const Test = ({ order }: TestProps) => {
 	}
 
 	return (
-		<div className='flex w-[400px] flex-col gap-4 rounded-md bg-red-950 p-3'>
+		<div className='flex w-[400px] flex-col gap-5 rounded-lg bg-neutral-900 border border-foreground/20 p-3'>
 			<OrderIdBarcode orderId={order.id.toUpperCase()} />
 			<div className='flex items-center justify-between'>
 				<span className='text-2xl font-bold'>Hora Marcada</span>
-				<span className='underline decoration-red-300 decoration-wavy'>
+				<span className='underline decoration-cex decoration-wavy'>
 					{order.scheduledFor ? formatDate(order.scheduledFor) : 'Teste é FPS'}
 				</span>
 			</div>
@@ -37,7 +37,7 @@ export const Test = ({ order }: TestProps) => {
 							? markTestAsResolved
 							: () => setIsResolveButtonClicked(true)
 					}
-					className='rounded-lg bg-red-700 p-2'>
+					className='rounded bg-red-800 p-2 transition-colors hover:bg-cex'>
 					Marcar como resolvido
 				</button>
 			)}

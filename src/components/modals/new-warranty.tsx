@@ -1,3 +1,4 @@
+import { Input, Label, Textarea } from '@components/ui'
 import { ObjHasFalsyValues } from '@lib/utils'
 import * as Dialog from '@radix-ui/react-dialog'
 import { api } from '@utils/api'
@@ -57,47 +58,42 @@ export const NewWarrantyModal = ({
 	return (
 		<Dialog.Root open={isModalVisible} onOpenChange={toggleModal}>
 			<Dialog.Overlay className='fixed inset-0 z-10 bg-black/60 data-[state=closed]:animate-[dialog-overlay-hide_200ms] data-[state=open]:animate-[dialog-overlay-show_200ms]' />
-			<Dialog.Content className='fixed left-1/2 z-20 top-1/2 flex w-[460px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-4 rounded-lg bg-red-950 p-8 shadow data-[state=closed]:animate-[dialog-content-hide_200ms] data-[state=open]:animate-[dialog-content-show_200ms]'>
+			<Dialog.Content className='fixed left-1/2 z-20 top-1/2 flex w-[460px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-4 rounded-lg bg-neutral-900 border border-foreground/40 p-8 shadow data-[state=closed]:animate-[dialog-content-hide_200ms] data-[state=open]:animate-[dialog-content-show_200ms]'>
 				<div className='grid grid-cols-2 items-center gap-2'>
-					<label className='text-xl font-bold' htmlFor='orderId'>
-						Nº de Ordem
-					</label>
-					<input
-						className='rounded bg-red-500 px-2 text-lg font-medium outline-none'
+					<Label value='Nº de Ordem' htmlFor='orderId' />
+					<Input
 						id='orderId'
 						value={warranty.orderId}
 						onChange={handleChangeWarrantyInput}
 					/>
 				</div>
 				<div className='grid grid-cols-2 items-center gap-2'>
-					<label className='text-xl font-bold' htmlFor='customerId'>
-						Ficha de Cliente
-					</label>
-					<input
-						className='rounded bg-red-500 px-2 text-lg font-medium outline-none'
+					<Label
+						value='Ficha de Cliente'
+						className='text-xl font-bold'
+						htmlFor='customerId'
+					/>
+					<Input
 						id='customerId'
 						value={warranty.customerId}
 						onChange={handleChangeWarrantyInput}
 					/>
 				</div>
 				<div className='flex flex-col w-full gap-2'>
-					<label className='text-xl font-bold' htmlFor='description'>
-						Observações
-					</label>
-					<textarea
-						className='rounded bg-red-500 px-2 text-lg font-medium outline-none resize-none h-32'
+					<Label value='Observações' htmlFor='description' />
+					<Textarea
 						id='description'
 						value={warranty.description}
 						onChange={handleChangeWarrantyInput}
 					/>
 				</div>
-				<div className='grid mt-auto grid-cols-2 gap-6 w-full'>
+				<div className='grid mt-6 grid-cols-2 gap-6 w-full'>
 					<Dialog.Close className='flex w-full items-center justify-center p-2 hover:underline'>
 						Cancelar
 					</Dialog.Close>
 					<button
 						onClick={handleCreateWarranty}
-						className='flex w-full items-center justify-center rounded-lg bg-red-700 p-2'>
+						className='flex w-full items-center justify-center rounded bg-red-800 transition-colors hover:bg-cex p-2'>
 						Confirmar registo
 					</button>
 				</div>

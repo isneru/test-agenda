@@ -1,3 +1,4 @@
+import { Input, Label, Textarea } from '@components/ui'
 import { ObjHasFalsyValues, getDate } from '@lib/utils'
 import * as Dialog from '@radix-ui/react-dialog'
 import { CheckIcon, Cross1Icon } from '@radix-ui/react-icons'
@@ -122,35 +123,41 @@ export const NewTestModal = ({
 	return (
 		<Dialog.Root open={isModalVisible} onOpenChange={toggleModal}>
 			<Dialog.Overlay className='fixed inset-0 z-10 bg-black/60 data-[state=closed]:animate-[dialog-overlay-hide_150ms] data-[state=open]:animate-[dialog-overlay-show_150ms]' />
-			<Dialog.Content className='fixed left-1/2 z-20 top-1/2 flex w-[460px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-4 rounded-lg bg-red-950 p-8 shadow data-[state=closed]:animate-[dialog-content-hide_150ms] data-[state=open]:animate-[dialog-content-show_150ms]'>
+			<Dialog.Content className='fixed left-1/2 z-20 top-1/2 flex w-[460px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-4 rounded-lg bg-neutral-900 border border-foreground/40 p-8 shadow data-[state=closed]:animate-[dialog-content-hide_150ms] data-[state=open]:animate-[dialog-content-show_150ms]'>
 				<div className='grid grid-cols-2 items-center gap-2'>
-					<label className='text-xl font-bold' htmlFor='orderId'>
-						Nº de Ordem
-					</label>
-					<input
-						className='rounded bg-red-500 px-2 text-lg font-medium outline-none'
+					<Label value='Nº de Ordem' htmlFor='orderId' />
+					<Input
 						id='orderId'
 						value={test.orderId}
 						onChange={handleChangeTestInput}
 					/>
 				</div>
 				<div className='grid grid-cols-2 items-center gap-2'>
-					<label className='text-xl font-bold' htmlFor='customerId'>
-						Ficha de Cliente
-					</label>
-					<input
-						className='rounded bg-red-500 px-2 text-lg font-medium outline-none'
+					<Label value='Ficha de Cliente' htmlFor='customerId' />
+					<Input
 						id='customerId'
 						value={test.customerId}
 						onChange={handleChangeTestInput}
 					/>
+				</div>
+				<div className='flex items-center justify-between w-full gap-2'>
+					<Label value='É FPS' htmlFor='isFPS' />
+					<button
+						onClick={() => setTest({ ...test, isFPS: !test.isFPS })}
+						role='checkbox'
+						id='isFPS'
+						aria-checked={test.isFPS}
+						data-checked={test.isFPS}
+						className='h-5 w-5 grid place-items-center rounded-sm text-white border border-foreground/40 data-[checked=false]:bg-background data-[checked=true]:bg-cex focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-neutral-900 focus-within:ring-cex outline-none'>
+						{test.isFPS && <CheckIcon width={18} height={18} />}
+					</button>
 				</div>
 				{!test.isFPS && (
 					<div className='flex flex-col items-center gap-1'>
 						<span className='text-xl font-bold'>Hora Marcada</span>
 						<div className='flex items-center gap-1'>
 							<input
-								className='h-10 w-12 rounded bg-red-500 p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300'
+								className='h-10 w-12 rounded bg-background border border-foreground/40 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 focus-visible:ring-cex p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300'
 								id='day'
 								ref={dayRef}
 								value={date.day}
@@ -160,7 +167,7 @@ export const NewTestModal = ({
 							/>
 							<span>/</span>
 							<input
-								className='h-10 w-12 rounded bg-red-500 p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300'
+								className='h-10 w-12 rounded bg-background border border-foreground/40 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 focus-visible:ring-cex p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300'
 								id='month'
 								ref={monthRef}
 								value={date.month}
@@ -170,7 +177,7 @@ export const NewTestModal = ({
 							/>
 							<span>/</span>
 							<input
-								className='h-10 w-20 rounded bg-red-500 p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300'
+								className='h-10 w-20 rounded bg-background border border-foreground/40 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 focus-visible:ring-cex p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300'
 								id='year'
 								ref={yearRef}
 								value={date.year}
@@ -180,7 +187,7 @@ export const NewTestModal = ({
 							/>
 							<span className='mx-4'>-</span>
 							<input
-								className='h-10 w-12 rounded bg-red-500 p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300'
+								className='h-10 w-12 rounded bg-background border border-foreground/40 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 focus-visible:ring-cex p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300'
 								id='hours'
 								ref={hoursRef}
 								value={time.hours}
@@ -190,7 +197,7 @@ export const NewTestModal = ({
 							/>
 							<span>:</span>
 							<input
-								className='h-10 w-12 rounded bg-red-500 p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300'
+								className='h-10 w-12 rounded bg-background border border-foreground/40 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 focus-visible:ring-cex p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300'
 								id='minutes'
 								ref={minutesRef}
 								value={time.minutes}
@@ -201,39 +208,21 @@ export const NewTestModal = ({
 						</div>
 					</div>
 				)}
-				<div className='flex items-center gap-2'>
-					<button
-						onClick={() => setTest({ ...test, isFPS: !test.isFPS })}
-						role='checkbox'
-						aria-checked={test.isFPS}
-						data-checked={test.isFPS}
-						className='h-4 w-4 rounded-sm ring-1 disabled:cursor-not-allowed data-[checked=false]:bg-tranparent-900 text-white data-[checked=false]:ring-red-500 data-[checked=true]:bg-red-500  data-[checked=true]:ring-red-600'>
-						{test.isFPS && <CheckIcon />}
-					</button>
-					<label
-						className='cursor-pointer'
-						onClick={() => setTest({ ...test, isFPS: !test.isFPS })}>
-						É FPS
-					</label>
-				</div>
 				<div className='flex flex-col w-full gap-2'>
-					<label className='text-xl font-bold' htmlFor='description'>
-						Observações
-					</label>
-					<textarea
-						className='rounded bg-red-500 px-2 text-lg font-medium outline-none resize-none h-32'
+					<Label value='Observações' htmlFor='description' />
+					<Textarea
 						id='description'
 						value={test.description}
 						onChange={handleChangeTestInput}
 					/>
 				</div>
-				<div className='grid mt-auto grid-cols-2 gap-6 w-full'>
+				<div className='grid grid-cols-2 mt-6 gap-6 w-full'>
 					<Dialog.Close className='flex w-full items-center justify-center p-2 hover:underline'>
 						Cancelar
 					</Dialog.Close>
 					<button
 						onClick={handleCreateTest}
-						className='flex w-full items-center justify-center rounded-lg bg-red-700 p-2'>
+						className='flex w-full items-center justify-center rounded bg-red-800 transition-colors hover:bg-cex p-2'>
 						Confirmar registo
 					</button>
 				</div>
