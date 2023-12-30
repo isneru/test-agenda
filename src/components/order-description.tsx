@@ -1,3 +1,4 @@
+import { Label, Textarea } from '@components/ui'
 import { useDebounce } from '@lib/hooks'
 import { Test, Warranty } from '@prisma/client'
 import { api } from '@utils/api'
@@ -38,13 +39,10 @@ export const OrderDescription = ({ order }: OrderDescriptionProps) => {
 
 	return (
 		<div className='flex w-full flex-col gap-1 mt-auto'>
-			<label htmlFor={`description-${order.id}`} className='text-xl font-bold'>
-				Observações
-			</label>
-			<textarea
+			<Label value='Observações' htmlFor={`description-${order.id}`} />
+			<Textarea
 				id={`description-${order.id}`}
 				disabled={order.resolved}
-				className='rounded bg-red-500 px-2 text-lg w-full font-medium outline-none resize-none h-32 overflow-x-auto'
 				onChange={e => setInput(e.target.value)}
 				value={input}
 			/>

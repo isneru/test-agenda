@@ -15,7 +15,9 @@ export const Hero = ({ title, ...p }: HeroProps) => {
 		<header className='mb-4 flex items-center justify-between gap-4'>
 			<h1 className='text-center text-6xl font-bold'>{title}</h1>
 			{p.type === 'withButton' && (
-				<button onClick={p.onClick} className='rounded-lg bg-cex p-2'>
+				<button
+					onClick={p.onClick}
+					className='rounded bg-red-800 px-3 py-2 transition-colors hover:bg-cex'>
 					{p.btnLabel}
 				</button>
 			)}

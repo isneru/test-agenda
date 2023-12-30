@@ -35,24 +35,24 @@ export const Warranty = ({ order }: WarrantyProps) => {
 	}
 
 	return (
-		<div className='flex w-[400px] flex-col gap-4 rounded-md bg-red-950 p-3'>
+		<div className='flex w-[400px] flex-col gap-5 rounded-lg bg-neutral-900 border border-foreground/20 p-3'>
 			<OrderIdBarcode orderId={order.id.toUpperCase()} />
 
 			{!order.resolved ? (
 				<>
 					<div className='flex items-center justify-between'>
-						<span className='text-2xl font-bold'>Prazo de Resolução</span>
-						<span className='underline decoration-red-300 decoration-wavy'>
+						<span className='text-xl font-bold'>Prazo de Resolução</span>
+						<span className='underline decoration-cex decoration-wavy'>
 							{formatDate(addThirtyDaysToDate(order.createdAt), false)}
 						</span>
 					</div>
-					<div className='grid grid-cols-3 gap-2 rounded-md p-1 border-2 border-red-500'>
+					<div className='grid grid-cols-3 gap-2 rounded-md p-1 bg-background'>
 						{validStatuses.map(status => (
 							<button
 								onClick={() => changeWarrantyStatus(status)}
 								className={clsx(
-									'p-1 rounded-md',
-									status === order.status && 'bg-red-500'
+									'p-1 rounded-md transition-colors hover:bg-cex',
+									status === order.status && 'bg-red-800'
 								)}
 								key={status}>
 								{status}
@@ -62,8 +62,8 @@ export const Warranty = ({ order }: WarrantyProps) => {
 				</>
 			) : (
 				<div className='flex items-center justify-between'>
-					<span className='text-2xl font-bold'>Estado da Garantia</span>
-					<span className='underline decoration-red-300 decoration-wavy'>
+					<span className='text-xl font-bold'>Estado da Garantia</span>
+					<span className='underline decoration-cex decoration-wavy'>
 						{getResolvedWarrantyStatus(order.status as ValidResolvedStatuses)}
 					</span>
 				</div>
@@ -74,7 +74,7 @@ export const Warranty = ({ order }: WarrantyProps) => {
 			{!order.resolved && (
 				<button
 					onClick={markWarrantyAsResolved}
-					className='rounded-lg bg-red-700 p-2 mt-auto'>
+					className='rounded bg-red-800 p-2 transition-colors hover:bg-cex'>
 					Marcar como resolvido
 				</button>
 			)}

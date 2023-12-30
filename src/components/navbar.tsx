@@ -12,7 +12,7 @@ export const Navbar = () => {
 	const pathname = usePathname()
 
 	return (
-		<nav className='bg-background flex items-center gap-3 border-b border-foreground/20 px-10 py-3 w-full'>
+		<nav className='bg-background flex items-center gap-3 border-b border-foreground/40 px-10 py-3 w-full'>
 			{links.map(({ href, label }) => (
 				<Link
 					key={href}
