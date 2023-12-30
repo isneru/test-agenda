@@ -12,8 +12,9 @@ export default function Home() {
 		<Layout>
 			<div className='flex flex-col gap-4 p-10'>
 				<Hero
+					type='withButton'
 					title='CeX Test Agenda'
-					button='Novo teste'
+					btnLabel='Novo teste'
 					onClick={() => setIsModalVisible(val => !val)}
 				/>
 				<main className='flex justify-center flex-wrap gap-6 mx-auto w-full'>

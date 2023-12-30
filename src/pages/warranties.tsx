@@ -13,7 +13,8 @@ export default function Warranties() {
 			<div className='flex flex-col gap-4 p-10'>
 				<Hero
 					title='CeX Warranty Agenda'
-					button='Nova garantia'
+					type='withButton'
+					btnLabel='Nova garantia'
 					onClick={() => setIsModalVisible(val => !val)}
 				/>
 				<main className='flex justify-center flex-wrap gap-6 mx-auto w-full'>
