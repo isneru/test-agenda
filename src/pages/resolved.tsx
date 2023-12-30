@@ -11,7 +11,7 @@ export default function Resolved() {
 		<Layout>
 			<div className='flex flex-col gap-4 p-10'>
 				<Hero title='CeX Ordens Resolvidas' type='withoutButton' />
-				<section className='flex justify-center flex-wrap gap-6 mx-auto w-full'>
+				<section className='grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 mx-auto gap-x-10 gap-y-6'>
 					{allTests?.resolvedTests?.map(order => (
 						<Test key={order.id} order={order} />
 					))}
@@ -21,7 +21,7 @@ export default function Resolved() {
 					orientation='horizontal'
 					decorative
 				/>
-				<section className='flex justify-center flex-wrap gap-6 mx-auto w-full'>
+				<section className='grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 mx-auto gap-x-10 gap-y-6'>
 					{allWarranties?.resolvedWarranties?.map(order => (
 						<Warranty key={order.id} order={order} />
 					))}
