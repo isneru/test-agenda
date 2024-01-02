@@ -38,9 +38,29 @@ export const testRouter = createTRPCRouter({
 			})
 		}),
 	getAll: publicProcedure.query(async ({ ctx }) => {
-		const tests = await ctx.db.test.findMany({
-			orderBy: { scheduledFor: 'asc' }
+		const normalTests = await ctx.db.test.findMany({
+			where: {
+				type: 'Normal'
+			},
+			orderBy: [
+				{
+					beingTested: 'desc'
+				},
+				{
+					scheduledFor: 'asc'
+				}
+			]
 		})
+
+		const otherTests = await ctx.db.test.findMany({
+			where: {
+				NOT: {
+					type: 'Normal'
+				}
+			}
+		})
+
+		const tests = [...normalTests, ...otherTests]
 
 		return {
 			toTest: tests.filter(test => !test.waitingPickup),
