@@ -5,16 +5,16 @@ import { Input } from '@components/ui'
 import { api } from '@utils/api'
 import { useState } from 'react'
 
-export default function Home() {
+export default function WaitingPickup() {
 	const { data: allTests } = api.test.getAll.useQuery()
 	const [isModalVisible, setIsModalVisible] = useState(false)
 	const [search, setSearch] = useState('')
 
-	const unresolvedTests = !!search
-		? allTests?.toTest.filter(order => {
+	const testsToPickup = !!search
+		? allTests?.waitingPickup.filter(order => {
 				return order.id.toUpperCase().startsWith(search.toUpperCase())
 		  })
-		: allTests?.toTest
+		: allTests?.waitingPickup
 
 	return (
 		<Layout>
@@ -32,7 +32,7 @@ export default function Home() {
 					value={search}
 				/>
 				<main className='grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 mx-auto gap-x-10 gap-y-6'>
-					{unresolvedTests?.map(order => (
+					{testsToPickup?.map(order => (
 						<Test key={order.id} order={order} />
 					))}
 				</main>

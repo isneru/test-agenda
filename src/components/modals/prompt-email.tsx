@@ -1,23 +1,26 @@
 import { Input, Label } from '@components/ui'
 import * as Dialog from '@radix-ui/react-dialog'
 import { api } from '@utils/api'
+import clsx from 'clsx'
 import { Dispatch, SetStateAction, useRef, useState } from 'react'
 
 type PromptEmailModalProps = {
 	isModalVisible: boolean
 	setIsModalVisible: Dispatch<SetStateAction<boolean>>
 	orderId: string
+	sendOnly?: boolean
 }
 
 export const PromptEmailModal = ({
 	isModalVisible,
 	setIsModalVisible,
-	orderId
+	orderId,
+	sendOnly = false
 }: PromptEmailModalProps) => {
 	const [email, setEmail] = useState('')
 	const { mutate: sendEmail } = api.email.sendResolvedTest.useMutation()
 	const { refetch: refetchTests } = api.test.getAll.useQuery()
-	const { mutate: complete } = api.test.complete.useMutation()
+	const { mutate: markWaitingPickup } = api.test.markWaitingPickup.useMutation()
 
 	function toggleModal() {
 		setEmail('')
@@ -25,7 +28,7 @@ export const PromptEmailModal = ({
 	}
 
 	function completeTest() {
-		complete(
+		markWaitingPickup(
 			{ orderId },
 			{
 				onSettled: () => {
@@ -45,7 +48,7 @@ export const PromptEmailModal = ({
 		sendEmail(
 			{ email, orderId },
 			{
-				onSuccess: () => completeTest(),
+				onSuccess: () => (sendOnly ? toggleModal() : completeTest()),
 				onError: val =>
 					alert(
 						val.data?.zodError?.fieldErrors?.email?.[0] ?? 'Erro Desconhecido'
@@ -71,12 +74,18 @@ export const PromptEmailModal = ({
 						onChange={e => setEmail(e.target.value)}
 					/>
 				</div>
-				<div className='grid grid-cols-2 gap-6 w-full mt-6'>
-					<button
-						onClick={completeTest}
-						className='flex w-full items-center justify-center rounded p-2 hover:underline'>
-						Não enviar email
-					</button>
+				<div
+					className={clsx(
+						'grid gap-6 w-full mt-6',
+						sendOnly ? 'grid-cols-1' : 'grid-cols-2'
+					)}>
+					{!sendOnly && (
+						<button
+							onClick={completeTest}
+							className='flex w-full items-center justify-center rounded p-2 hover:underline'>
+							Não enviar email
+						</button>
+					)}
 					<button
 						onClick={handleSendTestResolvedEmail}
 						className='flex w-full items-center justify-center rounded bg-red-800 transition-colors hover:bg-cex p-2'>

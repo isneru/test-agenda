@@ -7,6 +7,7 @@ import { Test as TTest } from '@prisma/client'
 import { CheckIcon } from '@radix-ui/react-icons'
 import { api } from '@utils/api'
 import clsx from 'clsx'
+import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 
 type TestProps = {
@@ -19,6 +20,7 @@ export const Test = ({ order }: TestProps) => {
 	const { mutate: startTesting } = api.test.markAsBeingTested.useMutation()
 	const { mutate: markWaitingPickup } = api.test.markWaitingPickup.useMutation()
 	const [isCompleteButtonClicked, setIsCompleteButtonClicked] = useState(false)
+	const pathname = usePathname()
 
 	function markAsBeingTested() {
 		startTesting({ orderId: order.id }, { onSettled: () => refetchTests() })
@@ -28,11 +30,13 @@ export const Test = ({ order }: TestProps) => {
 		complete({ orderId: order.id }, { onSettled: () => refetchTests() })
 	}
 
-	function toggleWaitingPickup() {
-		markWaitingPickup(
-			{ orderId: order.id, waitingPickup: !order.waitingPickup },
-			{ onSettled: () => refetchTests() }
-		)
+	function waitPickup() {
+		order.type === 'Normal'
+			? setIsCompleteButtonClicked(true)
+			: markWaitingPickup(
+					{ orderId: order.id },
+					{ onSettled: () => refetchTests() }
+			  )
 	}
 
 	return (
@@ -62,51 +66,41 @@ export const Test = ({ order }: TestProps) => {
 					</p>
 				))}
 			</div>
-			<div className='flex items-center justify-between w-full gap-2'>
-				<Label value='Por levantar' htmlFor={`waitingPickup-${order.id}`} />
-				<button
-					onClick={toggleWaitingPickup}
-					role='checkbox'
-					id={`waitingPickup-${order.id}`}
-					aria-checked={order.waitingPickup}
-					data-checked={order.waitingPickup}
-					className='h-5 w-5 grid place-items-center rounded-sm text-white border border-foreground/40 data-[checked=false]:bg-background data-[checked=true]:bg-cex focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-neutral-900 focus-within:ring-cex outline-none'>
-					{order.waitingPickup && <CheckIcon width={18} height={18} />}
-				</button>
-			</div>
 			<CustomerIdBarcode customerId={order.customerId.toUpperCase()} />
 			<OrderDescription order={order} />
-			{order.beingTested ? (
-				<button
-					onClick={
-						order.type === 'Normal'
-							? () => setIsCompleteButtonClicked(true)
-							: () => completeTest()
-					}
-					className='rounded bg-red-800 p-2 transition-colors hover:bg-cex'>
-					Completar teste
-				</button>
-			) : order.waitingPickup ? (
-				<button
-					onClick={
-						order.type === 'Normal'
-							? () => setIsCompleteButtonClicked(true)
-							: () => completeTest()
-					}
-					className='rounded bg-red-800 p-2 transition-colors hover:bg-cex'>
-					Completar teste
-				</button>
-			) : (
+			{!order.beingTested && !order.waitingPickup && (
 				<button
 					onClick={markAsBeingTested}
 					className='rounded bg-red-800 p-2 transition-colors hover:bg-cex'>
 					Começar a testar
 				</button>
 			)}
+			{order.beingTested && (
+				<button
+					onClick={waitPickup}
+					className='rounded bg-red-800 p-2 transition-colors hover:bg-cex'>
+					Marcar como testado
+				</button>
+			)}
+			{order.waitingPickup && (
+				<div className='grid grid-cols-2 gap-6'>
+					<button
+						onClick={() => setIsCompleteButtonClicked(true)}
+						className='rounded p-2 transition-colors hover:underline'>
+						Avisar cliente
+					</button>
+					<button
+						onClick={completeTest}
+						className='rounded bg-red-800 p-2 transition-colors hover:bg-cex'>
+						Completar teste
+					</button>
+				</div>
+			)}
 			<PromptEmailModal
 				orderId={order.id}
 				isModalVisible={isCompleteButtonClicked}
 				setIsModalVisible={setIsCompleteButtonClicked}
+				sendOnly={pathname === '/pickup'}
 			/>
 		</div>
 	)

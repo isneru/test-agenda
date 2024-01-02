@@ -38,9 +38,14 @@ export const testRouter = createTRPCRouter({
 			})
 		}),
 	getAll: publicProcedure.query(async ({ ctx }) => {
-		return await ctx.db.test.findMany({
+		const tests = await ctx.db.test.findMany({
 			orderBy: { scheduledFor: 'asc' }
 		})
+
+		return {
+			toTest: tests.filter(test => !test.waitingPickup),
+			waitingPickup: tests.filter(test => test.waitingPickup)
+		}
 	}),
 	changeDescription: publicProcedure
 		.input(
@@ -85,8 +90,7 @@ export const testRouter = createTRPCRouter({
 	markWaitingPickup: publicProcedure
 		.input(
 			z.object({
-				orderId: z.string(),
-				waitingPickup: z.boolean()
+				orderId: z.string()
 			})
 		)
 		.mutation(async ({ ctx, input }) => {
@@ -95,7 +99,7 @@ export const testRouter = createTRPCRouter({
 					id: input.orderId.toUpperCase()
 				},
 				data: {
-					waitingPickup: input.waitingPickup,
+					waitingPickup: true,
 					beingTested: false
 				}
 			})
