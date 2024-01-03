@@ -4,7 +4,7 @@ import { createTRPCRouter, publicProcedure } from '@server/api/trpc'
 import { z } from 'zod'
 
 export const emailRouter = createTRPCRouter({
-	sendResolvedTest: publicProcedure
+	sendResolved: publicProcedure
 		.input(
 			z.object({
 				orderId: z.string(),

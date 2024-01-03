@@ -12,7 +12,7 @@ export default function Home() {
 
 	const unresolvedTests = !!search
 		? allTests?.toTest.filter(order => {
-				return order.id.toUpperCase().startsWith(search.toUpperCase())
+				return order.id.toUpperCase().includes(search.toUpperCase())
 		  })
 		: allTests?.toTest
 

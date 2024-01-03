@@ -12,9 +12,10 @@ export default function Warranties() {
 
 	const unresolvedWarranties = !!search
 		? allWarranties?.filter(order => {
-				return order.id.toUpperCase().startsWith(search.toUpperCase())
+				return order.id.toUpperCase().includes(search.toUpperCase())
 		  })
 		: allWarranties
+
 	return (
 		<Layout>
 			<div className='flex flex-col gap-4 p-10'>

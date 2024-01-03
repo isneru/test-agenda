@@ -10,32 +10,28 @@ type OrderDescriptionProps = {
 
 export const OrderDescription = ({ order }: OrderDescriptionProps) => {
 	const [input, setInput] = useState(order.description ?? '')
-	const { mutate: changeTestDescription } =
-		api.test.changeDescription.useMutation()
-	const { mutate: changeWarrantyDescription } =
-		api.warranty.changeDescription.useMutation()
+	const { mutate: handleChangeTDesc } = api.test.changeDesc.useMutation()
+	const { mutate: handleChangeWDesc } = api.warranty.changeDesc.useMutation()
 	const { refetch: refetchTests } = api.test.getAll.useQuery()
 	const { refetch: refetchWarranties } = api.warranty.getAll.useQuery()
 
-	useDebounce(
-		() => {
-			if (order.description === input) return
+	function handleDebounce() {
+		if (order.description === input) return
 
-			if ('type' in order) {
-				changeTestDescription(
-					{ orderId: order.id, description: input },
-					{ onSettled: () => refetchTests() }
-				)
-			} else {
-				changeWarrantyDescription(
-					{ orderId: order.id, description: input },
-					{ onSettled: () => refetchWarranties() }
-				)
-			}
-		},
-		[input],
-		2000
-	)
+		if ('type' in order) {
+			handleChangeTDesc(
+				{ orderId: order.id, description: input },
+				{ onSettled: () => refetchTests() }
+			)
+		} else {
+			handleChangeWDesc(
+				{ orderId: order.id, description: input },
+				{ onSettled: () => refetchWarranties() }
+			)
+		}
+	}
+
+	useDebounce(handleDebounce, [input], 2000)
 
 	return (
 		<div className='flex w-full flex-col gap-1 mt-auto'>

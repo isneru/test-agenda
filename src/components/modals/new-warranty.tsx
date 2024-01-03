@@ -1,7 +1,7 @@
 import { Input, Label, Textarea } from '@components/ui'
 import * as Dialog from '@radix-ui/react-dialog'
 import { api } from '@utils/api'
-import { Dispatch, SetStateAction, useRef, useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
 type NewWarrantyModalProps = {
 	isModalVisible: boolean
@@ -13,8 +13,7 @@ export const NewWarrantyModal = ({
 	setIsModalVisible
 }: NewWarrantyModalProps) => {
 	const { refetch: refetchWarranties } = api.warranty.getAll.useQuery()
-	const { mutateAsync: createWarranty } = api.warranty.create.useMutation()
-
+	const { mutate: handleCreate } = api.warranty.create.useMutation()
 	const [warranty, setWarranty] = useState({
 		orderId: '',
 		customerId: '',
@@ -33,22 +32,21 @@ export const NewWarrantyModal = ({
 	function handleChangeWarrantyInput(
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) {
+		const { id, value } = e.target
+
 		setWarranty({
 			...warranty,
-			[e.target.id]:
-				e.target.id === 'description'
-					? e.target.value
-					: e.target.value.toUpperCase()
+			[id]: id === 'description' ? value : value.toUpperCase()
 		})
 	}
 
-	function handleCreateWarranty() {
+	function createWarranty() {
 		if (!warranty.customerId || !warranty.orderId) {
 			alert('Preenche todos os campos!')
 			return
 		}
 
-		createWarranty(warranty, {
+		handleCreate(warranty, {
 			onSuccess: () => {
 				refetchWarranties()
 				toggleModal()
@@ -93,7 +91,7 @@ export const NewWarrantyModal = ({
 						Cancelar
 					</Dialog.Close>
 					<button
-						onClick={handleCreateWarranty}
+						onClick={createWarranty}
 						className='flex w-full items-center justify-center rounded bg-red-800 transition-colors hover:bg-cex p-2'>
 						Confirmar registo
 					</button>

@@ -16,10 +16,13 @@ type WarrantyProps = {
 export const Warranty = ({ order }: WarrantyProps) => {
 	const { mutate: changeStatus } = api.warranty.changeStatus.useMutation()
 	const { refetch: refetchWarranties } = api.warranty.getAll.useQuery()
-	const { mutate: complete } = api.warranty.complete.useMutation()
+	const { mutate: handleDelete } = api.warranty.delete.useMutation()
 
-	function completeWarranty() {
-		complete({ orderId: order.id }, { onSettled: () => refetchWarranties() })
+	function deleteWarranty() {
+		handleDelete(
+			{ orderId: order.id },
+			{ onSettled: () => refetchWarranties() }
+		)
 	}
 
 	function changeWarrantyStatus(status: string) {
@@ -55,7 +58,7 @@ export const Warranty = ({ order }: WarrantyProps) => {
 			<CustomerIdBarcode customerId={order.customerId.toUpperCase()} />
 			<OrderDescription order={order} />
 			<button
-				onClick={completeWarranty}
+				onClick={deleteWarranty}
 				className='rounded bg-red-800 p-2 transition-colors hover:bg-cex'>
 				Marcar como resolvido
 			</button>

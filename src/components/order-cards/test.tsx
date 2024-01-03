@@ -1,10 +1,8 @@
 import { OrderDescription } from '@components'
 import { CustomerIdBarcode, OrderIdBarcode } from '@components/barcodes'
 import { PromptEmailModal } from '@components/modals'
-import { Label } from '@components/ui'
 import { formatDate, testValidTypes } from '@lib/utils'
 import { Test as TTest } from '@prisma/client'
-import { CheckIcon } from '@radix-ui/react-icons'
 import { api } from '@utils/api'
 import clsx from 'clsx'
 import { usePathname } from 'next/navigation'
@@ -15,25 +13,25 @@ type TestProps = {
 }
 
 export const Test = ({ order }: TestProps) => {
-	const { mutate: complete } = api.test.complete.useMutation()
+	const [isModalVisible, setIsModalVisible] = useState(false)
+	const { mutate: handleDelete } = api.test.delete.useMutation()
 	const { refetch: refetchTests } = api.test.getAll.useQuery()
-	const { mutate: startTesting } = api.test.markAsBeingTested.useMutation()
-	const { mutate: markWaitingPickup } = api.test.markWaitingPickup.useMutation()
-	const [isCompleteButtonClicked, setIsCompleteButtonClicked] = useState(false)
+	const { mutate: handleStartTest } = api.test.startTest.useMutation()
+	const { mutate: handleWaitPickup } = api.test.waitPickup.useMutation()
 	const pathname = usePathname()
 
-	function markAsBeingTested() {
-		startTesting({ orderId: order.id }, { onSettled: () => refetchTests() })
+	function startTest() {
+		handleStartTest({ orderId: order.id }, { onSettled: () => refetchTests() })
 	}
 
-	function completeTest() {
-		complete({ orderId: order.id }, { onSettled: () => refetchTests() })
+	function deleteTest() {
+		handleDelete({ orderId: order.id }, { onSettled: () => refetchTests() })
 	}
 
 	function waitPickup() {
 		order.type === 'Normal'
-			? setIsCompleteButtonClicked(true)
-			: markWaitingPickup(
+			? setIsModalVisible(true)
+			: handleWaitPickup(
 					{ orderId: order.id },
 					{ onSettled: () => refetchTests() }
 			  )
@@ -70,7 +68,7 @@ export const Test = ({ order }: TestProps) => {
 			<OrderDescription order={order} />
 			{!order.beingTested && !order.waitingPickup && (
 				<button
-					onClick={markAsBeingTested}
+					onClick={startTest}
 					className='rounded bg-red-800 p-2 transition-colors hover:bg-cex'>
 					Começar a testar
 				</button>
@@ -85,12 +83,12 @@ export const Test = ({ order }: TestProps) => {
 			{order.waitingPickup && (
 				<div className='grid grid-cols-2 gap-6'>
 					<button
-						onClick={() => setIsCompleteButtonClicked(true)}
+						onClick={() => setIsModalVisible(true)}
 						className='rounded p-2 transition-colors hover:underline'>
 						Avisar cliente
 					</button>
 					<button
-						onClick={completeTest}
+						onClick={deleteTest}
 						className='rounded bg-red-800 p-2 transition-colors hover:bg-cex'>
 						Completar teste
 					</button>
@@ -98,8 +96,8 @@ export const Test = ({ order }: TestProps) => {
 			)}
 			<PromptEmailModal
 				orderId={order.id}
-				isModalVisible={isCompleteButtonClicked}
-				setIsModalVisible={setIsCompleteButtonClicked}
+				isModalVisible={isModalVisible}
+				setIsModalVisible={setIsModalVisible}
 				sendOnly={pathname === '/pickup'}
 			/>
 		</div>

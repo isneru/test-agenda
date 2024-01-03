@@ -24,7 +24,7 @@ export const testRouter = createTRPCRouter({
 				}
 			})
 		}),
-	complete: publicProcedure
+	delete: publicProcedure
 		.input(
 			z.object({
 				orderId: z.string()
@@ -67,7 +67,7 @@ export const testRouter = createTRPCRouter({
 			waitingPickup: tests.filter(test => test.waitingPickup)
 		}
 	}),
-	changeDescription: publicProcedure
+	changeDesc: publicProcedure
 		.input(
 			z.object({
 				orderId: z.string(),
@@ -84,7 +84,7 @@ export const testRouter = createTRPCRouter({
 				}
 			})
 		}),
-	markAsBeingTested: publicProcedure
+	startTest: publicProcedure
 		.input(
 			z.object({
 				orderId: z.string()
@@ -107,7 +107,7 @@ export const testRouter = createTRPCRouter({
 				}
 			})
 		}),
-	markWaitingPickup: publicProcedure
+	waitPickup: publicProcedure
 		.input(
 			z.object({
 				orderId: z.string()

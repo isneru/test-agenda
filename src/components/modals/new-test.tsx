@@ -15,7 +15,7 @@ export const NewTestModal = ({
 	setIsModalVisible
 }: NewTestModalProps) => {
 	const { refetch: refetchTests } = api.test.getAll.useQuery()
-	const { mutateAsync: createTest } = api.test.create.useMutation()
+	const { mutate: handleCreate } = api.test.create.useMutation()
 
 	const [date, setDate] = useState({ day: '', month: '', year: '' })
 	const [time, setTime] = useState({ hours: '', minutes: '' })
@@ -47,12 +47,11 @@ export const NewTestModal = ({
 	function handleChangeTestInput(
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) {
+		const { id, value } = e.target
+
 		setTest({
 			...test,
-			[e.target.id]:
-				e.target.id === 'description'
-					? e.target.value
-					: e.target.value.toUpperCase()
+			[id]: id === 'description' ? value : value.toUpperCase()
 		})
 	}
 
@@ -78,7 +77,14 @@ export const NewTestModal = ({
 		}
 
 		if (id === 'year') {
-			setDate({ ...date, [id]: formattedValue })
+			const todaysYear = new Date().getFullYear()
+			setDate({
+				...date,
+				[id]:
+					Number(formattedValue) > todaysYear
+						? String(todaysYear)
+						: formattedValue
+			})
 			formattedValue.length === 4 && hoursRef.current?.focus()
 		}
 	}
@@ -104,12 +110,7 @@ export const NewTestModal = ({
 		}
 	}
 
-	function handleCreateTest() {
-		if (!test.type) {
-			alert('Preencha todos os campos')
-			return
-		}
-
+	function createTest() {
 		if (
 			test.type === 'Normal' &&
 			(!date.year ||
@@ -133,7 +134,7 @@ export const NewTestModal = ({
 			return
 		}
 
-		createTest(
+		handleCreate(
 			{
 				...test,
 				scheduledFor: test.type === 'Normal' ? getDate(date, time) : undefined
@@ -249,7 +250,7 @@ export const NewTestModal = ({
 						Cancelar
 					</Dialog.Close>
 					<button
-						onClick={handleCreateTest}
+						onClick={createTest}
 						className='flex w-full items-center justify-center rounded bg-red-800 transition-colors hover:bg-cex p-2'>
 						Confirmar registo
 					</button>

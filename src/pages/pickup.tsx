@@ -12,7 +12,7 @@ export default function WaitingPickup() {
 
 	const testsToPickup = !!search
 		? allTests?.waitingPickup.filter(order => {
-				return order.id.toUpperCase().startsWith(search.toUpperCase())
+				return order.id.toUpperCase().includes(search.toUpperCase())
 		  })
 		: allTests?.waitingPickup
 

@@ -43,7 +43,7 @@ export const warrantyRouter = createTRPCRouter({
 				}
 			})
 		}),
-	complete: publicProcedure
+	delete: publicProcedure
 		.input(
 			z.object({
 				orderId: z.string()
@@ -56,7 +56,7 @@ export const warrantyRouter = createTRPCRouter({
 				}
 			})
 		}),
-	changeRequestId: publicProcedure
+	changeReqId: publicProcedure
 		.input(
 			z.object({
 				orderId: z.string(),
@@ -73,7 +73,7 @@ export const warrantyRouter = createTRPCRouter({
 				}
 			})
 		}),
-	changeDescription: publicProcedure
+	changeDesc: publicProcedure
 		.input(
 			z.object({
 				orderId: z.string(),

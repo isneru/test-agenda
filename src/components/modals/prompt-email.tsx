@@ -18,17 +18,17 @@ export const PromptEmailModal = ({
 	sendOnly = false
 }: PromptEmailModalProps) => {
 	const [email, setEmail] = useState('')
-	const { mutate: sendEmail } = api.email.sendResolvedTest.useMutation()
+	const { mutate: handleSendResolved } = api.email.sendResolved.useMutation()
 	const { refetch: refetchTests } = api.test.getAll.useQuery()
-	const { mutate: markWaitingPickup } = api.test.markWaitingPickup.useMutation()
+	const { mutate: handleWaitPickup } = api.test.waitPickup.useMutation()
 
 	function toggleModal() {
 		setEmail('')
 		setIsModalVisible(val => !val)
 	}
 
-	function completeTest() {
-		markWaitingPickup(
+	function waitPickup() {
+		handleWaitPickup(
 			{ orderId },
 			{
 				onSettled: () => {
@@ -39,16 +39,16 @@ export const PromptEmailModal = ({
 		)
 	}
 
-	function handleSendTestResolvedEmail() {
+	function sendResolvedEmail() {
 		if (!email) {
 			alert('Preenche o campo!')
 			return
 		}
 
-		sendEmail(
+		handleSendResolved(
 			{ email, orderId },
 			{
-				onSuccess: () => (sendOnly ? toggleModal() : completeTest()),
+				onSuccess: () => (sendOnly ? toggleModal() : waitPickup()),
 				onError: val =>
 					alert(
 						val.data?.zodError?.fieldErrors?.email?.[0] ?? 'Erro Desconhecido'
@@ -81,13 +81,13 @@ export const PromptEmailModal = ({
 					)}>
 					{!sendOnly && (
 						<button
-							onClick={completeTest}
+							onClick={waitPickup}
 							className='flex w-full items-center justify-center rounded p-2 hover:underline'>
 							Não enviar email
 						</button>
 					)}
 					<button
-						onClick={handleSendTestResolvedEmail}
+						onClick={sendResolvedEmail}
 						className='flex w-full items-center justify-center rounded bg-red-800 transition-colors hover:bg-cex p-2'>
 						Confirmar
 					</button>

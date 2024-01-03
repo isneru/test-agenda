@@ -11,18 +11,20 @@ type WarrantyInputProps = {
 
 export const WarrantyInput = ({ order }: WarrantyInputProps) => {
 	const [input, setInput] = useState(order.warrantyRequestId ?? '')
-	const { mutate: changeRequestId } = api.warranty.changeRequestId.useMutation()
+	const { mutate: handleChangeReqId } = api.warranty.changeReqId.useMutation()
 	const { refetch: refetchWarranties } = api.warranty.getAll.useQuery()
 
-	useDebounce(() => {
+	function handleDebounce() {
 		if (order.warrantyRequestId === input) return
 		if (order.status !== 'Substituir') return
 
-		changeRequestId(
+		handleChangeReqId(
 			{ orderId: order.id, warrantyRequestId: input },
 			{ onSettled: () => refetchWarranties() }
 		)
-	}, [input])
+	}
+
+	useDebounce(handleDebounce, [input])
 
 	return (
 		<div className='flex items-center justify-between w-full'>
