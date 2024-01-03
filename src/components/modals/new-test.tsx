@@ -81,7 +81,7 @@ export const NewTestModal = ({
 			setDate({
 				...date,
 				[id]:
-					Number(formattedValue) > todaysYear
+					Number(formattedValue) < todaysYear && formattedValue.length === 4
 						? String(todaysYear)
 						: formattedValue
 			})
