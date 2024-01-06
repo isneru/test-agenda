@@ -1,7 +1,10 @@
-import { ResolvedTestEmail } from '@components/emails'
-import { resend } from '@lib/resend'
-import { createTRPCRouter, publicProcedure } from '@server/api/trpc'
 import { z } from 'zod'
+
+import { ResolvedTestEmail } from '@components/emails'
+
+import { resend } from '@lib/resend'
+
+import { createTRPCRouter, publicProcedure } from '@server/api/trpc'
 
 export const emailRouter = createTRPCRouter({
 	sendResolved: publicProcedure

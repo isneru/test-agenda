@@ -1,9 +1,11 @@
+import { useState } from 'react'
+
 import { Hero, Layout } from '@components'
 import { NewTestModal } from '@components/modals'
 import { Test } from '@components/order-cards'
 import { Input } from '@components/ui'
+
 import { api } from '@utils/api'
-import { useState } from 'react'
 
 export default function Home() {
 	const { data: allTests } = api.test.getAll.useQuery()

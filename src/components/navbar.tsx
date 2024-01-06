@@ -1,6 +1,6 @@
 import { usePathname } from 'next/navigation'
-import clsx from 'clsx'
 import Link from 'next/link'
+import clsx from 'clsx'
 
 const links = [
 	{ href: '/', label: 'Testes' },

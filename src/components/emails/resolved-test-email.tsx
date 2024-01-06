@@ -1,4 +1,3 @@
-import { poppins } from '@lib/font'
 import {
 	Body,
 	Container,
@@ -11,6 +10,8 @@ import {
 	Text
 } from '@react-email/components'
 import clsx from 'clsx'
+
+import { poppins } from '@lib/font'
 
 interface ResolvedTestEmailProps {
 	orderId: string

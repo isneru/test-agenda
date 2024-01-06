@@ -1,12 +1,15 @@
+import { useState } from 'react'
+import { usePathname } from 'next/navigation'
+import clsx from 'clsx'
+import { Test as TTest } from '@prisma/client'
+
 import { OrderDescription } from '@components'
 import { CustomerIdBarcode, OrderIdBarcode } from '@components/barcodes'
 import { PromptEmailModal } from '@components/modals'
+
 import { formatDate, testValidTypes } from '@lib/utils'
-import { Test as TTest } from '@prisma/client'
+
 import { api } from '@utils/api'
-import clsx from 'clsx'
-import { usePathname } from 'next/navigation'
-import { useState } from 'react'
 
 type TestProps = {
 	order: TTest

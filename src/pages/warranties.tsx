@@ -1,9 +1,11 @@
+import { useState } from 'react'
+
 import { Hero, Layout } from '@components'
 import { NewWarrantyModal } from '@components/modals'
 import { Warranty } from '@components/order-cards'
 import { Input } from '@components/ui'
+
 import { api } from '@utils/api'
-import { useState } from 'react'
 
 export default function Warranties() {
 	const { data: allWarranties } = api.warranty.getAll.useQuery()

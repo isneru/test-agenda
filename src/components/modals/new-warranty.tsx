@@ -1,7 +1,9 @@
-import { Input, Label, Textarea } from '@components/ui'
-import * as Dialog from '@radix-ui/react-dialog'
-import { api } from '@utils/api'
 import { Dispatch, SetStateAction, useState } from 'react'
+import * as Dialog from '@radix-ui/react-dialog'
+
+import { Input, Label, Textarea } from '@components/ui'
+
+import { api } from '@utils/api'
 
 type NewWarrantyModalProps = {
 	isModalVisible: boolean

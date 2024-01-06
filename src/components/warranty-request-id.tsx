@@ -1,9 +1,12 @@
-import { Label } from '@components/ui'
-import { useDebounce } from '@lib/hooks'
-import { Warranty } from '@prisma/client'
-import { api } from '@utils/api'
-import clsx from 'clsx'
 import { useState } from 'react'
+import clsx from 'clsx'
+import { Warranty } from '@prisma/client'
+
+import { Label } from '@components/ui'
+
+import { useDebounce } from '@lib/hooks'
+
+import { api } from '@utils/api'
 
 type WarrantyInputProps = {
 	order: Warranty
