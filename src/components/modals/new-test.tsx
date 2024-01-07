@@ -2,10 +2,10 @@ import { Dispatch, SetStateAction, useRef, useState } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import clsx from 'clsx'
 
-import { Input, Label, Textarea } from '@components/ui'
+import { Input, Label, Textarea } from '@/components/ui'
 
-import { getDate, testValidTypes } from '@lib/utils'
-import { api } from '@utils/api'
+import { getDate, testValidTypes } from '@/lib/utils'
+import { api } from '@/utils/api'
 
 type NewTestModalProps = {
 	isModalVisible: boolean

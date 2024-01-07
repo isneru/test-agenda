@@ -1,9 +1,9 @@
 import Head from 'next/head'
 import clsx from 'clsx'
 
-import { Navbar } from '@components'
+import { Navbar } from '@/components'
 
-import { poppins } from '@lib/font'
+import { poppins } from '@/lib/font'
 
 type LayoutProps = {
 	children: React.ReactNode

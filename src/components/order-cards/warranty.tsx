@@ -1,16 +1,16 @@
 import { Warranty as TWarranty } from '@prisma/client'
 import clsx from 'clsx'
 
-import { OrderDescription, WarrantyInput } from '@components'
-import { CustomerIdBarcode, OrderIdBarcode } from '@components/barcodes'
+import { OrderDescription, WarrantyInput } from '@/components'
+import { CustomerIdBarcode, OrderIdBarcode } from '@/components/barcodes'
 
 import {
 	addThirtyDaysToDate,
 	formatDate,
 	warrantyValidStatuses
-} from '@lib/utils'
+} from '@/lib/utils'
 
-import { api } from '@utils/api'
+import { api } from '@/utils/api'
 
 type WarrantyProps = {
 	order: TWarranty

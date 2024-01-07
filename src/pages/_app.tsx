@@ -2,7 +2,7 @@ import '@styles'
 
 import { type AppType } from 'next/app'
 
-import { api } from '@utils/api'
+import { api } from '@/utils/api'
 
 const MyApp: AppType = ({ Component, pageProps }) => {
 	return <Component {...pageProps} />

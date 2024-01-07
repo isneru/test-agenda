@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { Test, Warranty } from '@prisma/client'
 
-import { Label, Textarea } from '@components/ui'
+import { Label, Textarea } from '@/components/ui'
 
-import { useDebounce } from '@lib/hooks'
+import { useDebounce } from '@/lib/hooks'
 
-import { api } from '@utils/api'
+import { api } from '@/utils/api'
 
 type OrderDescriptionProps = {
 	order: Test | Warranty

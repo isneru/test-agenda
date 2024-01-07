@@ -3,13 +3,13 @@ import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 import { Test as TTest } from '@prisma/client'
 
-import { OrderDescription } from '@components'
-import { CustomerIdBarcode, OrderIdBarcode } from '@components/barcodes'
-import { PromptEmailModal } from '@components/modals'
+import { OrderDescription } from '@/components'
+import { CustomerIdBarcode, OrderIdBarcode } from '@/components/barcodes'
+import { PromptEmailModal } from '@/components/modals'
 
-import { formatDate, testValidTypes } from '@lib/utils'
+import { formatDate, testValidTypes } from '@/lib/utils'
 
-import { api } from '@utils/api'
+import { api } from '@/utils/api'
 
 type TestProps = {
 	order: TTest

@@ -1,7 +1,7 @@
-import { emailRouter } from '@server/api/routers/emails'
-import { testRouter } from '@server/api/routers/tests'
-import { warrantyRouter } from '@server/api/routers/warranties'
-import { createTRPCRouter } from '@server/api/trpc'
+import { emailRouter } from '@/server/api/routers/emails'
+import { testRouter } from '@/server/api/routers/tests'
+import { warrantyRouter } from '@/server/api/routers/warranties'
+import { createTRPCRouter } from '@/server/api/trpc'
 
 /**
  * This is the primary router for your server.
