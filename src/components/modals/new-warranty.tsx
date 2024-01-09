@@ -1,6 +1,6 @@
 import { Input, Label, Textarea } from '@components/ui'
+import { api } from '@lib/api'
 import * as Dialog from '@radix-ui/react-dialog'
-import { api } from '@utils/api'
 import { Dispatch, SetStateAction, useState } from 'react'
 
 type NewWarrantyModalProps = {

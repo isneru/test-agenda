@@ -1,8 +1,7 @@
 import { Hero, Layout } from '@components'
-import { NewTestModal } from '@components/modals'
 import { Test } from '@components/order-cards'
 import { Input } from '@components/ui'
-import { api } from '@utils/api'
+import { api } from '@lib/api'
 import { useState } from 'react'
 
 export default function WaitingPickup() {
@@ -22,7 +21,7 @@ export default function WaitingPickup() {
 				<Input
 					placeholder='Pesquisar por ID da ordem'
 					onChange={e => setSearch(e.target.value.toUpperCase())}
-					className='py-2 px-4 rounded-full'
+					className='py-2 px-4 rounded-full print:hidden'
 					value={search}
 				/>
 				<main className='grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 mx-auto gap-x-10 gap-y-6'>

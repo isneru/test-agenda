@@ -1,2 +1,2 @@
-export * from './warranty'
 export * from './test'
+export * from './warranty'

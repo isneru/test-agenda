@@ -13,6 +13,9 @@ export default ({
 				foreground: '#525252',
 				background: '#0a0a0a',
 				text: '#f5f5f5'
+			},
+			screens: {
+				print: { raw: 'print' }
 			}
 		}
 	},

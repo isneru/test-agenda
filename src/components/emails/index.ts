@@ -1,1 +1,1 @@
-export * from './resolved-test-email'
+export * from './resolved-test'

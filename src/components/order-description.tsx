@@ -1,7 +1,7 @@
 import { Label, Textarea } from '@components/ui'
+import { api } from '@lib/api'
 import { useDebounce } from '@lib/hooks'
 import { Test, Warranty } from '@prisma/client'
-import { api } from '@utils/api'
 import { useState } from 'react'
 
 type OrderDescriptionProps = {

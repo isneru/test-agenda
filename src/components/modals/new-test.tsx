@@ -1,7 +1,7 @@
 import { Input, Label, Textarea } from '@components/ui'
+import { api } from '@lib/api'
 import { getDate, testValidTypes } from '@lib/utils'
 import * as Dialog from '@radix-ui/react-dialog'
-import { api } from '@utils/api'
 import clsx from 'clsx'
 import { Dispatch, SetStateAction, useRef, useState } from 'react'
 

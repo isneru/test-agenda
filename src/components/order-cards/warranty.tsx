@@ -1,12 +1,12 @@
-import { OrderDescription, WarrantyInput } from '@components'
+import { OrderDescription, WarrantyRequestId } from '@components'
 import { CustomerIdBarcode, OrderIdBarcode } from '@components/barcodes'
+import { api } from '@lib/api'
 import {
 	addThirtyDaysToDate,
 	formatDate,
 	warrantyValidStatuses
 } from '@lib/utils'
 import { Warranty as TWarranty } from '@prisma/client'
-import { api } from '@utils/api'
 import clsx from 'clsx'
 
 type WarrantyProps = {
@@ -54,7 +54,7 @@ export const Warranty = ({ order }: WarrantyProps) => {
 					</button>
 				))}
 			</div>
-			<WarrantyInput order={order} />
+			<WarrantyRequestId order={order} />
 			<CustomerIdBarcode customerId={order.customerId.toUpperCase()} />
 			<OrderDescription order={order} />
 			<button

@@ -1,4 +1,4 @@
-import { api } from '@utils/api'
+import { api } from '@lib/api'
 import { type AppType } from 'next/app'
 
 import '@styles/globals.css'

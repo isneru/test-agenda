@@ -1,8 +1,8 @@
 import { Input, Label } from '@components/ui'
+import { api } from '@lib/api'
 import * as Dialog from '@radix-ui/react-dialog'
-import { api } from '@utils/api'
 import clsx from 'clsx'
-import { Dispatch, SetStateAction, useRef, useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
 type PromptEmailModalProps = {
 	isModalVisible: boolean
