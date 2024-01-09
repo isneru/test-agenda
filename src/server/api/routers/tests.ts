@@ -57,7 +57,12 @@ export const testRouter = createTRPCRouter({
 				NOT: {
 					type: 'Normal'
 				}
-			}
+			},
+			orderBy: [
+				{
+					beingTested: 'desc'
+				}
+			]
 		})
 
 		const tests = [...normalTests, ...otherTests]
@@ -91,12 +96,6 @@ export const testRouter = createTRPCRouter({
 			})
 		)
 		.mutation(async ({ ctx, input }) => {
-			await ctx.db.test.updateMany({
-				data: {
-					beingTested: false
-				}
-			})
-
 			return await ctx.db.test.update({
 				where: {
 					id: input.orderId.toUpperCase()

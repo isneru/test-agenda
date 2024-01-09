@@ -42,7 +42,7 @@ export const Test = ({ order }: TestProps) => {
 			className={clsx(
 				'flex w-[400px] flex-col gap-5 rounded-lg border bg-neutral-900 p-3',
 				order.beingTested
-					? 'ring-2 ring-cex shadow-cex border-transparent shadow-lg'
+					? 'ring-2 ring-green-500 shadow-green-500 border-transparent shadow-lg'
 					: 'border border-foreground/20'
 			)}>
 			<OrderIdBarcode orderId={order.id.toUpperCase()} />
@@ -90,7 +90,7 @@ export const Test = ({ order }: TestProps) => {
 					<button
 						onClick={deleteTest}
 						className='rounded bg-red-800 p-2 transition-colors hover:bg-cex'>
-						Completar teste
+						Pago / Devolvido
 					</button>
 				</div>
 			)}

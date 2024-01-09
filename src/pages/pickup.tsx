@@ -7,7 +7,6 @@ import { useState } from 'react'
 
 export default function WaitingPickup() {
 	const { data: allTests } = api.test.getAll.useQuery()
-	const [isModalVisible, setIsModalVisible] = useState(false)
 	const [search, setSearch] = useState('')
 
 	const testsToPickup = !!search
@@ -19,12 +18,7 @@ export default function WaitingPickup() {
 	return (
 		<Layout>
 			<div className='flex flex-col gap-4 p-10'>
-				<Hero
-					type='withButton'
-					title='CeX Test Agenda'
-					btnLabel='Novo teste'
-					onClick={() => setIsModalVisible(val => !val)}
-				/>
+				<Hero type='withoutButton' title='CeX Test Agenda' />
 				<Input
 					placeholder='Pesquisar por ID da ordem'
 					onChange={e => setSearch(e.target.value.toUpperCase())}
@@ -37,10 +31,6 @@ export default function WaitingPickup() {
 					))}
 				</main>
 			</div>
-			<NewTestModal
-				isModalVisible={isModalVisible}
-				setIsModalVisible={setIsModalVisible}
-			/>
 		</Layout>
 	)
 }
