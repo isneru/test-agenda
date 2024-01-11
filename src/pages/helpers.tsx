@@ -1,13 +1,8 @@
 import { Layout } from '@components'
 import { Input, Label } from '@components/ui'
 import { useState } from 'react'
-import Barcode from 'react-jsbarcode'
-import colors from 'tailwindcss/colors'
 
 export default function Helpers() {
-	const [barcode, setBarcode] = useState('')
-	const [input, setInput] = useState('')
-
 	const [values, setValues] = useState([
 		{
 			label: 'Notas de 500',
@@ -30,9 +25,9 @@ export default function Helpers() {
 			multiplier: 50
 		},
 		{
-			label: 'Notas de 200',
+			label: 'Notas de 20',
 			amount: '',
-			multiplier: 200
+			multiplier: 20
 		},
 		{
 			label: 'Notas de 10',
@@ -104,8 +99,8 @@ export default function Helpers() {
 	return (
 		<Layout>
 			<main className='flex flex-col w-full gap-4 p-10'>
-				<section className='flex flex-col gap-4 border border-foreground/40 p-4 rounded-lg min-h-[220px] print:hidden'>
-					<p className='text-xl font-bold'>Contar Dinheiro</p>
+				<section className='text-xl flex flex-col gap-4 bg-background border border-foreground/40 p-4 rounded-lg min-h-[220px] print:hidden'>
+					<p className='font-bold'>Contar Dinheiro</p>
 					<div className='grid grid-cols-2 gap-4'>
 						{values.map((value, id) => (
 							<div key={value.label} className='flex gap-2'>
@@ -127,37 +122,6 @@ export default function Helpers() {
 							Total: {Math.round(total * 1000) / 1000} €
 						</p>
 					</div>
-				</section>
-				<section className='flex flex-col gap-4 border border-foreground/40 p-4 rounded-lg min-h-[320px]'>
-					<Label value='Gerar Barcode' htmlFor='barcode' />
-					<div className='flex gap-4 print:hidden'>
-						<Input
-							id='barcode'
-							value={input}
-							onChange={e => setInput(e.target.value)}
-							className='w-min'
-						/>
-						<button disabled={!input} onClick={() => setBarcode(input)}>
-							Gerar
-						</button>
-					</div>
-					{!!barcode && (
-						<>
-							<Barcode
-								className='w-[8cm] mx-auto print:block'
-								value={barcode}
-								options={{
-									background: colors.neutral[950],
-									lineColor: colors.neutral[50],
-									displayValue: false,
-									height: 100
-								}}
-							/>
-							<button className='mt-5 print:hidden' onClick={print}>
-								Imprimir
-							</button>
-						</>
-					)}
 				</section>
 			</main>
 		</Layout>
