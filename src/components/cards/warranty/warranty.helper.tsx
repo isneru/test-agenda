@@ -1,5 +1,5 @@
+import type { Warranty } from '@prisma/client'
 import { api } from '@lib/api'
-import { Warranty } from '@prisma/client'
 
 export type WarrantyProps = {
 	order: Warranty

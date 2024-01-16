@@ -1,5 +1,5 @@
 import {
-	PromptEmailModalProps,
+	type PromptEmailModalProps,
 	usePromptEmailModalHelper
 } from './promptEmail.helper'
 import { Input, Label } from '@components/ui'

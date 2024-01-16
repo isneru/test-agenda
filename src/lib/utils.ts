@@ -1,4 +1,4 @@
-import { DateAsString } from '@lib/types'
+import type { DateAsString } from '@lib/types'
 
 export function formatDate(date: Date, withTime = true) {
 	const day = date.getDate()
@@ -33,8 +33,8 @@ export function getDate({ date, time }: DateAsString) {
 	)
 }
 
-export function isEveryFieldFilled(obj: { [key: string]: unknown }) {
-	return Object.values(obj).every(Boolean)
+export function isEveryFieldFilled(...arr: Array<{ [key: string]: unknown }>) {
+	return arr.every(obj => Object.values(obj).every(Boolean))
 }
 
 export function addThirtyDays(date: Date) {

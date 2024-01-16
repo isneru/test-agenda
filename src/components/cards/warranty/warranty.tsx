@@ -1,5 +1,5 @@
 import { CustomerIdBarcode, OrderIdBarcode } from '@components/barcodes'
-import { WarrantyProps, useWarrantyHelper } from './warranty.helper'
+import { type WarrantyProps, useWarrantyHelper } from './warranty.helper'
 import { WarrantyRequestId } from './warranty.requestId'
 import { OrderDescription } from '@components/cards'
 import { addThirtyDays, formatDate, warrantyValidStatuses } from '@lib/utils'

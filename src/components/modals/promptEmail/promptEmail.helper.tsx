@@ -1,5 +1,5 @@
 import { api } from '@lib/api'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { type Dispatch, type SetStateAction, useState } from 'react'
 
 export type PromptEmailModalProps = {
 	isModalVisible: boolean

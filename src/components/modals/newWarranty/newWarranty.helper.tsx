@@ -1,6 +1,7 @@
 import { api } from '@lib/api'
-import { InputEvent } from '@lib/types'
-import { useState, Dispatch, SetStateAction } from 'react'
+import type { InputEvent } from '@lib/types'
+import { isEveryFieldFilled } from '@lib/utils'
+import { useState, type Dispatch, type SetStateAction } from 'react'
 
 export type NewWarrantyModalProps = {
 	isModalVisible: boolean
@@ -37,7 +38,9 @@ export const useNewWarrantyModalHelper = ({
 	}
 
 	function createWarranty() {
-		if (!warranty.customerId || !warranty.orderId) {
+		const { description, ...nonOptionalWarrantyFields } = warranty
+
+		if (!isEveryFieldFilled(nonOptionalWarrantyFields)) {
 			alert('Preenche todos os campos!')
 			return
 		}

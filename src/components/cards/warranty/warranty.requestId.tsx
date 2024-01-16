@@ -1,9 +1,9 @@
-import { WarrantyProps } from './warranty.helper'
+import { type WarrantyProps } from './warranty.helper'
 import { Label } from '@components/ui'
 import { api } from '@lib/api'
 import { useDebounce } from '@lib/hooks'
-import clsx from 'clsx'
 import { useState } from 'react'
+import clsx from 'clsx'
 
 export const WarrantyRequestId = ({ order }: WarrantyProps) => {
 	const [input, setInput] = useState(order.warrantyRequestId ?? '')

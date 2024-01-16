@@ -1,6 +1,6 @@
+import { createTRPCRouter, publicProcedure } from '@server/api/trpc'
 import { ResolvedTestEmail } from '@components/emails'
 import { resend } from '@lib/resend'
-import { createTRPCRouter, publicProcedure } from '@server/api/trpc'
 import { z } from 'zod'
 
 export const emailRouter = createTRPCRouter({

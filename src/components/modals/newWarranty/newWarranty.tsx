@@ -1,7 +1,7 @@
 import { Input, Label, Textarea } from '@components/ui'
 import * as Dialog from '@radix-ui/react-dialog'
 import {
-	NewWarrantyModalProps,
+	type NewWarrantyModalProps,
 	useNewWarrantyModalHelper
 } from './newWarranty.helper'
 

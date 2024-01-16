@@ -1,5 +1,5 @@
-import { api } from '@lib/api'
 import { type AppType } from 'next/app'
+import { api } from '@lib/api'
 
 import '@styles/globals.css'
 

@@ -1,8 +1,8 @@
 import { api } from '@lib/api'
 import { useDateInputs } from '@lib/hooks'
-import { InputEvent } from '@lib/types'
-import { getDate } from '@lib/utils'
-import { useState, useRef, Dispatch, SetStateAction } from 'react'
+import type { InputEvent } from '@lib/types'
+import { getDate, isEveryFieldFilled } from '@lib/utils'
+import { useState, Dispatch, SetStateAction } from 'react'
 
 export type NewTestModalProps = {
 	isModalVisible: boolean
@@ -56,26 +56,15 @@ export const useNewTestModalHelper = ({
 	}
 
 	function createTest() {
-		if (
-			test.type === 'Normal' &&
-			(!date.year ||
-				!date.month ||
-				!date.day ||
-				!time.hours ||
-				!time.minutes ||
-				!test.type ||
-				!test.orderId ||
-				!test.customerId)
-		) {
-			alert('Preencha todos os campos')
-			return
-		}
+		const { description, ...nonOptionalTestFields } = test
 
-		if (
-			test.type !== 'Normal' &&
-			(!test.type || !test.orderId || !test.customerId)
-		) {
-			alert('Preencha todos os campos')
+		const valuesToCheck =
+			test.type === 'Normal'
+				? [date, time, nonOptionalTestFields]
+				: [nonOptionalTestFields]
+
+		if (!isEveryFieldFilled(...valuesToCheck)) {
+			alert('Preenche todos os campos')
 			return
 		}
 

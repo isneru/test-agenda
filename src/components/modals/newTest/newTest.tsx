@@ -1,4 +1,4 @@
-import { NewTestModalProps, useNewTestModalHelper } from './newTest.helper'
+import { type NewTestModalProps, useNewTestModalHelper } from './newTest.helper'
 import { Input, Label, Textarea } from '@components/ui'
 import { testValidTypes } from '@lib/utils'
 import * as Dialog from '@radix-ui/react-dialog'

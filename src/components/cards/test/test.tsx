@@ -1,10 +1,10 @@
-import { useTestHelper, TestProps } from './test.helper'
+import { useTestHelper, type TestProps } from './test.helper'
 import { CustomerIdBarcode, OrderIdBarcode } from '@components/barcodes'
 import { PromptEmailModal } from '@components/modals'
 import { formatDate, testValidTypes } from '@lib/utils'
 import { usePathname } from 'next/navigation'
-import clsx from 'clsx'
 import { OrderDescription } from '@components/cards'
+import clsx from 'clsx'
 
 export const Test = ({ order }: TestProps) => {
 	const {

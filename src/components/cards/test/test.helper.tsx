@@ -1,5 +1,5 @@
+import type { Test } from '@prisma/client'
 import { api } from '@lib/api'
-import { Test } from '@prisma/client'
 import { useState } from 'react'
 
 export type TestProps = {
