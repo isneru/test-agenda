@@ -1,15 +1,11 @@
+import { WarrantyProps } from './warranty.helper'
 import { Label } from '@components/ui'
 import { api } from '@lib/api'
 import { useDebounce } from '@lib/hooks'
-import { Warranty } from '@prisma/client'
 import clsx from 'clsx'
 import { useState } from 'react'
 
-type WarrantyRequestIdProps = {
-	order: Warranty
-}
-
-export const WarrantyRequestId = ({ order }: WarrantyRequestIdProps) => {
+export const WarrantyRequestId = ({ order }: WarrantyProps) => {
 	const [input, setInput] = useState(order.warrantyRequestId ?? '')
 	const { mutate: handleChangeReqId } = api.warranty.changeReqId.useMutation()
 	const { refetch: refetchWarranties } = api.warranty.getAll.useQuery()

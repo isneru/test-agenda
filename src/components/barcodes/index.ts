@@ -1,2 +1,2 @@
-export * from './customer-id'
-export * from './order-id'
+export * from './customerId'
+export * from './orderId'

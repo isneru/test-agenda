@@ -3,55 +3,55 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply bg-background text-text antialiased;
-  }
+	body {
+		@apply bg-background text-text antialiased;
+	}
 }
 
 @layer utilities {
-  ::-webkit-scrollbar {
-      display: none; /* Hide scrollbar for Chrome, Safari and Opera */
-      -ms-overflow-style: none;  /* IE and Edge */
-      scrollbar-width: none;  /* Firefox */
-  }
+	::-webkit-scrollbar {
+		display: none; /* Hide scrollbar for Chrome, Safari and Opera */
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
+	}
 }
 
-@keyframes dialog-overlay-show {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+@keyframes overlay-show {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
-@keyframes dialog-overlay-hide {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
+@keyframes overlay-hide {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
 }
 
-@keyframes dialog-content-show {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
+@keyframes content-show {
+	from {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(0.95);
+	}
+	to {
+		opacity: 1;
+		transform: translate(-50%, -50%) scale(1);
+	}
 }
 
-@keyframes dialog-content-hide {
-  from {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.95);
-  }
+@keyframes content-hide {
+	from {
+		opacity: 1;
+		transform: translate(-50%, -50%) scale(1);
+	}
+	to {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(0.95);
+	}
 }

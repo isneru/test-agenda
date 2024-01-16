@@ -1,7 +1,6 @@
-import { Hero, Layout } from '@components'
 import { NewTestModal } from '@components/modals'
-import { Test } from '@components/order-cards'
-import { Input } from '@components/ui'
+import { Test } from '@components/cards'
+import { Hero, Input, Layout } from '@components/ui'
 import { api } from '@lib/api'
 import { useState } from 'react'
 

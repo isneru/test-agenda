@@ -1,3 +1,5 @@
+import { DateAsString } from '@lib/types'
+
 export function formatDate(date: Date, withTime = true) {
 	const day = date.getDate()
 	const month = date.getMonth() + 1 // Months start from zero
@@ -6,10 +8,10 @@ export function formatDate(date: Date, withTime = true) {
 	const minutes = date.getMinutes()
 
 	// Add leading zero if needed
-	const formattedDay = day < 10 ? `0${day}` : day
-	const formattedMonth = month < 10 ? `0${month}` : month
-	const formattedHours = hours < 10 ? `0${hours}` : hours
-	const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes
+	const formattedDay = addLeadingZero(day)
+	const formattedMonth = addLeadingZero(month)
+	const formattedHours = addLeadingZero(hours)
+	const formattedMinutes = addLeadingZero(minutes)
 
 	// Return the formatted string
 	return withTime
@@ -17,17 +19,11 @@ export function formatDate(date: Date, withTime = true) {
 		: `${formattedDay}/${formattedMonth}/${year}`
 }
 
-export function getDate(
-	date: {
-		year: string
-		month: string
-		day: string
-	},
-	time: {
-		hours: string
-		minutes: string
-	}
-) {
+export function addLeadingZero(value: number) {
+	return value < 10 ? `0${value}` : value.toString()
+}
+
+export function getDate({ date, time }: DateAsString) {
 	return new Date(
 		Number(date.year),
 		Number(date.month) - 1,
@@ -37,12 +33,20 @@ export function getDate(
 	)
 }
 
-export const warrantyValidStatuses = ['Substituir', 'Em Análise', 'Reembolsar']
+export function isEveryFieldFilled(obj: { [key: string]: unknown }) {
+	return Object.values(obj).every(Boolean)
+}
 
-export const testValidTypes = ['Normal', 'FPS', `Drop n' Go`]
-
-export function addThirtyDaysToDate(date: Date) {
+export function addThirtyDays(date: Date) {
 	const newDate = new Date(date)
 	newDate.setDate(newDate.getDate() + 30)
 	return newDate
 }
+
+export function isBetweenMinMax(value: number, min: number, max: number) {
+	return value >= min && value <= max
+}
+
+export const warrantyValidStatuses = ['Substituir', 'Em Análise', 'Reembolsar']
+
+export const testValidTypes = ['Normal', 'FPS', `Drop n' Go`]

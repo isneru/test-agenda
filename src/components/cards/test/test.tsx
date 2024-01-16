@@ -1,41 +1,20 @@
-import { OrderDescription } from '@components'
+import { useTestHelper, TestProps } from './test.helper'
 import { CustomerIdBarcode, OrderIdBarcode } from '@components/barcodes'
 import { PromptEmailModal } from '@components/modals'
-import { api } from '@lib/api'
 import { formatDate, testValidTypes } from '@lib/utils'
-import { Test as TTest } from '@prisma/client'
-import clsx from 'clsx'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
-
-type TestProps = {
-	order: TTest
-}
+import clsx from 'clsx'
+import { OrderDescription } from '@components/cards'
 
 export const Test = ({ order }: TestProps) => {
-	const [isModalVisible, setIsModalVisible] = useState(false)
-	const { mutate: handleDelete } = api.test.delete.useMutation()
-	const { refetch: refetchTests } = api.test.getAll.useQuery()
-	const { mutate: handleStartTest } = api.test.startTest.useMutation()
-	const { mutate: handleWaitPickup } = api.test.waitPickup.useMutation()
+	const {
+		startTest,
+		waitPickup,
+		setIsModalVisible,
+		deleteTest,
+		isModalVisible
+	} = useTestHelper({ order })
 	const pathname = usePathname()
-
-	function startTest() {
-		handleStartTest({ orderId: order.id }, { onSettled: () => refetchTests() })
-	}
-
-	function deleteTest() {
-		handleDelete({ orderId: order.id }, { onSettled: () => refetchTests() })
-	}
-
-	function waitPickup() {
-		order.type === 'Normal'
-			? setIsModalVisible(true)
-			: handleWaitPickup(
-					{ orderId: order.id },
-					{ onSettled: () => refetchTests() }
-			  )
-	}
 
 	return (
 		<div

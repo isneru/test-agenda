@@ -1,5 +1,5 @@
-import clsx from 'clsx'
 import { ComponentProps } from 'react'
+import clsx from 'clsx'
 
 export const Input = ({ className, ...props }: ComponentProps<'input'>) => {
 	return (

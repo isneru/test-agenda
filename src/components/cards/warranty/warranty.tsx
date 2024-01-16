@@ -1,36 +1,12 @@
-import { OrderDescription, WarrantyRequestId } from '@components'
 import { CustomerIdBarcode, OrderIdBarcode } from '@components/barcodes'
-import { api } from '@lib/api'
-import {
-	addThirtyDaysToDate,
-	formatDate,
-	warrantyValidStatuses
-} from '@lib/utils'
-import { Warranty as TWarranty } from '@prisma/client'
+import { WarrantyProps, useWarrantyHelper } from './warranty.helper'
+import { WarrantyRequestId } from './warranty.requestId'
+import { OrderDescription } from '@components/cards'
+import { addThirtyDays, formatDate, warrantyValidStatuses } from '@lib/utils'
 import clsx from 'clsx'
 
-type WarrantyProps = {
-	order: TWarranty
-}
-
 export const Warranty = ({ order }: WarrantyProps) => {
-	const { mutate: changeStatus } = api.warranty.changeStatus.useMutation()
-	const { refetch: refetchWarranties } = api.warranty.getAll.useQuery()
-	const { mutate: handleDelete } = api.warranty.delete.useMutation()
-
-	function deleteWarranty() {
-		handleDelete(
-			{ orderId: order.id },
-			{ onSettled: () => refetchWarranties() }
-		)
-	}
-
-	function changeWarrantyStatus(status: string) {
-		changeStatus(
-			{ orderId: order.id, status },
-			{ onSettled: () => refetchWarranties() }
-		)
-	}
+	const { deleteWarranty, changeWarrantyStatus } = useWarrantyHelper({ order })
 
 	return (
 		<div className='flex w-[400px] flex-col gap-5 rounded-lg bg-neutral-900 border border-foreground/20 p-3'>
@@ -38,10 +14,10 @@ export const Warranty = ({ order }: WarrantyProps) => {
 			<div className='flex items-center justify-between'>
 				<span className='text-xl font-bold'>Prazo de Resolução</span>
 				<span className='underline decoration-cex decoration-wavy'>
-					{formatDate(addThirtyDaysToDate(order.createdAt), false)}
+					{formatDate(addThirtyDays(order.createdAt), false)}
 				</span>
 			</div>
-			<div className='grid grid-cols-3 gap-2 rounded-md p-1 bg-background shadow'>
+			<div className='grid grid-cols-3 gap-2 rounded-md p-1 bg-background shadow relative isolate'>
 				{warrantyValidStatuses.map(status => (
 					<button
 						onClick={() => changeWarrantyStatus(status)}

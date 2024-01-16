@@ -1,7 +1,6 @@
-import { Hero, Layout } from '@components'
 import { NewWarrantyModal } from '@components/modals'
-import { Warranty } from '@components/order-cards'
-import { Input } from '@components/ui'
+import { Warranty } from '@components/cards'
+import { Hero, Input, Layout } from '@components/ui'
 import { api } from '@lib/api'
 import { useState } from 'react'
 

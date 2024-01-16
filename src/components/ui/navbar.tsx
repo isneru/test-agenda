@@ -5,8 +5,7 @@ import { usePathname } from 'next/navigation'
 const links = [
 	{ href: '/', label: 'Test in' },
 	{ href: '/pickup', label: 'Test out' },
-	{ href: '/warranties', label: 'Garantias' },
-	{ href: '/helpers', label: 'Helpers' }
+	{ href: '/warranties', label: 'Garantias' }
 ]
 
 export const Navbar = () => {
@@ -19,8 +18,9 @@ export const Navbar = () => {
 					key={href}
 					className={clsx(
 						'rounded-lg transition-colors hover:bg-cex/20 py-2 px-5',
-						pathname === href ? 'text-cex bg-cex/20' : 'print:hidden',
-						href === '/helpers' && 'ml-auto print:ml-0'
+						pathname === href
+							? 'text-cex bg-cex/20 print:mx-auto'
+							: 'print:hidden'
 					)}
 					href={href}>
 					{label}

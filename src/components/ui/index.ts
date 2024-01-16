@@ -1,3 +1,6 @@
 export * from './input'
 export * from './label'
 export * from './textarea'
+export * from './hero'
+export * from './layout'
+export * from './navbar'

@@ -1,4 +1,4 @@
-import { Navbar } from '@components'
+import { Navbar } from '@components/ui'
 import { poppins } from '@lib/font'
 import clsx from 'clsx'
 import Head from 'next/head'
