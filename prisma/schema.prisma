@@ -17,10 +17,9 @@ model Test {
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
 
-    scheduledFor  DateTime?
-    type          String    @default("Normal") // 'Normal', 'FPS', `Drop n' Go`
-    waitingPickup Boolean   @default(false)
-    beingTested   Boolean   @default(false)
+    scheduledFor DateTime?
+    type         String    @default("Normal") // 'Normal', 'FPS', `Drop n' Go`
+    beingTested  Boolean   @default(false)
 }
 
 model Warranty {

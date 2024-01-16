@@ -2,19 +2,12 @@ import { useTestHelper, type TestProps } from './test.helper'
 import { CustomerIdBarcode, OrderIdBarcode } from '@components/barcodes'
 import { PromptEmailModal } from '@components/modals'
 import { formatDate, testValidTypes } from '@lib/utils'
-import { usePathname } from 'next/navigation'
 import { OrderDescription } from '@components/cards'
 import clsx from 'clsx'
 
 export const Test = ({ order }: TestProps) => {
-	const {
-		startTest,
-		waitPickup,
-		setIsModalVisible,
-		deleteTest,
-		isModalVisible
-	} = useTestHelper({ order })
-	const pathname = usePathname()
+	const { startTest, setIsModalVisible, deleteTest, isModalVisible } =
+		useTestHelper({ order })
 
 	return (
 		<div
@@ -45,39 +38,23 @@ export const Test = ({ order }: TestProps) => {
 			</div>
 			<CustomerIdBarcode customerId={order.customerId.toUpperCase()} />
 			<OrderDescription order={order} />
-			{!order.beingTested && !order.waitingPickup && (
+			{order.beingTested ? (
+				<button
+					onClick={deleteTest}
+					className='rounded bg-red-800 p-2 transition-colors hover:bg-cex'>
+					Apagar
+				</button>
+			) : (
 				<button
 					onClick={startTest}
 					className='rounded bg-red-800 p-2 transition-colors hover:bg-cex'>
 					Começar a testar
 				</button>
 			)}
-			{order.beingTested && (
-				<button
-					onClick={waitPickup}
-					className='rounded bg-red-800 p-2 transition-colors hover:bg-cex'>
-					Marcar como testado
-				</button>
-			)}
-			{order.waitingPickup && (
-				<div className='grid grid-cols-2 gap-6'>
-					<button
-						onClick={() => setIsModalVisible(true)}
-						className='rounded p-2 transition-colors hover:underline'>
-						Avisar cliente
-					</button>
-					<button
-						onClick={deleteTest}
-						className='rounded bg-red-800 p-2 transition-colors hover:bg-cex'>
-						Pago / Devolvido
-					</button>
-				</div>
-			)}
 			<PromptEmailModal
 				orderId={order.id}
 				isModalVisible={isModalVisible}
 				setIsModalVisible={setIsModalVisible}
-				sendOnly={pathname === '/pickup'}
 			/>
 		</div>
 	)

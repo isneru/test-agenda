@@ -66,10 +66,7 @@ export const testRouter = createTRPCRouter({
 
 		const tests = [...normalTests, ...otherTests]
 
-		return {
-			toTest: tests.filter(test => !test.waitingPickup),
-			waitingPickup: tests.filter(test => test.waitingPickup)
-		}
+		return tests
 	}),
 	changeDesc: publicProcedure
 		.input(
@@ -100,25 +97,7 @@ export const testRouter = createTRPCRouter({
 					id: input.orderId.toUpperCase()
 				},
 				data: {
-					beingTested: true,
-					waitingPickup: false
-				}
-			})
-		}),
-	waitPickup: publicProcedure
-		.input(
-			z.object({
-				orderId: z.string()
-			})
-		)
-		.mutation(async ({ ctx, input }) => {
-			return await ctx.db.test.update({
-				where: {
-					id: input.orderId.toUpperCase()
-				},
-				data: {
-					waitingPickup: true,
-					beingTested: false
+					beingTested: true
 				}
 			})
 		})

@@ -5,26 +5,24 @@ export type PromptEmailModalProps = {
 	isModalVisible: boolean
 	setIsModalVisible: Dispatch<SetStateAction<boolean>>
 	orderId: string
-	sendOnly?: boolean
 }
 
 export const usePromptEmailModalHelper = ({
 	setIsModalVisible,
-	orderId,
-	sendOnly
+	orderId
 }: PromptEmailModalProps) => {
 	const [email, setEmail] = useState('')
 	const { mutate: handleSendResolved } = api.email.sendResolved.useMutation()
 	const { refetch: refetchTests } = api.test.getAll.useQuery()
-	const { mutate: handleWaitPickup } = api.test.waitPickup.useMutation()
+	const { mutate: handleDelete } = api.test.delete.useMutation()
 
 	function toggleModal() {
 		setEmail('')
 		setIsModalVisible(val => !val)
 	}
 
-	function waitPickup() {
-		handleWaitPickup(
+	function deleteTest() {
+		handleDelete(
 			{ orderId },
 			{
 				onSettled: () => {
@@ -44,7 +42,10 @@ export const usePromptEmailModalHelper = ({
 		handleSendResolved(
 			{ email, orderId },
 			{
-				onSuccess: () => (sendOnly ? toggleModal() : waitPickup()),
+				onSuccess: () => {
+					toggleModal()
+					refetchTests()
+				},
 				onError: val =>
 					alert(
 						val.data?.zodError?.fieldErrors?.email?.[0] ?? 'Erro Desconhecido'
@@ -53,5 +54,5 @@ export const usePromptEmailModalHelper = ({
 		)
 	}
 
-	return { toggleModal, email, setEmail, waitPickup, sendResolvedEmail }
+	return { toggleModal, email, setEmail, sendResolvedEmail, deleteTest }
 }

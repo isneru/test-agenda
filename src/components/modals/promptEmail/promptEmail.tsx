@@ -4,20 +4,17 @@ import {
 } from './promptEmail.helper'
 import { Input, Label } from '@components/ui'
 import * as Dialog from '@radix-ui/react-dialog'
-import clsx from 'clsx'
 
 export const PromptEmailModal = ({
 	isModalVisible,
 	setIsModalVisible,
-	orderId,
-	sendOnly = false
+	orderId
 }: PromptEmailModalProps) => {
-	const { email, sendResolvedEmail, setEmail, toggleModal, waitPickup } =
+	const { email, sendResolvedEmail, setEmail, toggleModal, deleteTest } =
 		usePromptEmailModalHelper({
 			isModalVisible,
 			setIsModalVisible,
-			orderId,
-			sendOnly
+			orderId
 		})
 
 	return (
@@ -37,18 +34,12 @@ export const PromptEmailModal = ({
 						onChange={e => setEmail(e.target.value)}
 					/>
 				</div>
-				<div
-					className={clsx(
-						'grid gap-6 w-full mt-6',
-						sendOnly ? 'grid-cols-1' : 'grid-cols-2'
-					)}>
-					{!sendOnly && (
-						<button
-							onClick={waitPickup}
-							className='flex w-full items-center justify-center rounded p-2 hover:underline'>
-							Não enviar email
-						</button>
-					)}
+				<div className='grid gap-6 w-full mt-6 grid-cols-2'>
+					<button
+						onClick={deleteTest}
+						className='flex w-full items-center justify-center rounded p-2 hover:underline'>
+						Não enviar email
+					</button>
 					<button
 						onClick={sendResolvedEmail}
 						className='flex w-full items-center justify-center rounded bg-red-800 transition-colors hover:bg-cex p-2'>

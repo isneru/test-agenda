@@ -3,17 +3,18 @@ import { Test } from '@components/cards'
 import { Hero, Input, Layout } from '@components/ui'
 import { api } from '@lib/api'
 import { useState } from 'react'
+import test from 'node:test'
 
 export default function Home() {
-	const { data: allTests } = api.test.getAll.useQuery()
+	const { data: tests } = api.test.getAll.useQuery()
 	const [isModalVisible, setIsModalVisible] = useState(false)
 	const [search, setSearch] = useState('')
 
-	const unresolvedTests = !!search
-		? allTests?.toTest.filter(order => {
-				return order.id.toUpperCase().includes(search.toUpperCase())
+	const filteredTests = !!search
+		? tests?.filter(test => {
+				return test.id.toUpperCase().includes(search.toUpperCase())
 		  })
-		: allTests?.toTest
+		: tests
 
 	return (
 		<Layout>
@@ -31,7 +32,7 @@ export default function Home() {
 					value={search}
 				/>
 				<main className='grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 mx-auto gap-x-10 gap-y-6'>
-					{unresolvedTests?.map(order => (
+					{filteredTests?.map(order => (
 						<Test key={order.id} order={order} />
 					))}
 				</main>
