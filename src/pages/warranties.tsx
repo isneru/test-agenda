@@ -18,12 +18,13 @@ export default function Warranties() {
 	return (
 		<Layout>
 			<div className='flex flex-col gap-4 p-10'>
-				<Hero
-					title='CeX Warranty Agenda'
-					type='withButton'
-					btnLabel='Nova garantia'
-					onClick={() => setIsModalVisible(val => !val)}
-				/>
+				<Hero title='CeX Warranty Agenda'>
+					<button
+						onClick={() => setIsModalVisible(val => !val)}
+						className='rounded-lg bg-red-800 px-3 py-2 transition-colors hover:bg-cex'>
+						Nova garantia
+					</button>
+				</Hero>
 				<Input
 					placeholder='Pesquisar por ID da ordem'
 					onChange={e => setSearch(e.target.value.toUpperCase())}

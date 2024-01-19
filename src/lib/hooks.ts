@@ -36,66 +36,29 @@ export function useDateInputs() {
 		const { id, value } = e.target
 		const formattedValue = value.replace(/\D/g, '') // Remove any non-numeric characters
 
-		const now = new Date()
-
-		if (id === 'day') {
-			const todaysDay = now.getDate()
-			setDate({
-				...date,
-				[id]:
-					Number(formattedValue) < todaysDay && formattedValue.length === 2
-						? addLeadingZero(todaysDay)
-						: formattedValue
-			})
-			formattedValue.length === 2 && monthRef.current?.focus()
+		const idBasedBehaviour = {
+			day: () => {
+				setDate(prev => ({ ...prev, [id]: formattedValue }))
+				formattedValue.length === 2 && monthRef.current?.focus()
+			},
+			month: () => {
+				setDate(prev => ({ ...prev, [id]: formattedValue }))
+				formattedValue.length === 2 && yearRef.current?.focus()
+			},
+			year: () => {
+				setDate(prev => ({ ...prev, [id]: formattedValue }))
+				formattedValue.length === 4 && hoursRef.current?.focus()
+			},
+			hours: () => {
+				setTime(prev => ({ ...prev, [id]: formattedValue }))
+				formattedValue.length === 2 && minutesRef.current?.focus()
+			},
+			minutes: () => {
+				setTime(prev => ({ ...prev, [id]: formattedValue }))
+			}
 		}
 
-		if (id === 'month') {
-			const todaysMonth = now.getMonth() + 1
-			setDate({
-				...date,
-				[id]:
-					Number(formattedValue) < todaysMonth && formattedValue.length === 2
-						? addLeadingZero(todaysMonth)
-						: formattedValue
-			})
-			formattedValue.length === 2 && yearRef.current?.focus()
-		}
-
-		if (id === 'year') {
-			const todaysYear = now.getFullYear()
-			setDate({
-				...date,
-				[id]:
-					Number(formattedValue) < todaysYear && formattedValue.length === 4
-						? todaysYear.toString()
-						: formattedValue
-			})
-			formattedValue.length === 4 && hoursRef.current?.focus()
-		}
-
-		if (id === 'hours') {
-			const todaysHours = now.getHours()
-			setTime({
-				...time,
-				[id]:
-					Number(formattedValue) < todaysHours && formattedValue.length === 2
-						? addLeadingZero(todaysHours)
-						: formattedValue
-			})
-			formattedValue.length === 2 && minutesRef.current?.focus()
-		}
-
-		if (id === 'minutes') {
-			const todaysMinutes = now.getMinutes()
-			setTime({
-				...time,
-				[id]:
-					Number(formattedValue) <= todaysMinutes && formattedValue.length === 2
-						? addLeadingZero(todaysMinutes + 2)
-						: formattedValue
-			})
-		}
+		idBasedBehaviour[id as keyof typeof idBasedBehaviour]()
 	}
 
 	return {

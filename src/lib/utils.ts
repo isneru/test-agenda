@@ -1,4 +1,5 @@
 import type { DateAsString } from '@lib/types'
+import { Test } from '@prisma/client'
 
 export function formatDate(date: Date, withTime = true) {
 	const day = date.getDate()
@@ -43,8 +44,15 @@ export function addThirtyDays(date: Date) {
 	return newDate
 }
 
-export function isBetweenMinMax(value: number, min: number, max: number) {
-	return value >= min && value <= max
+export function getDailyReportInfo(tests: Test[] | undefined) {
+	const testsInfo = tests?.map(
+		test =>
+			`${test.id} - ${
+				test.type === 'Normal' ? formatDate(test.scheduledFor!) : test.type
+			}`
+	)
+
+	return !!testsInfo ? testsInfo.join('\n') : 'N/A'
 }
 
 export const warrantyValidStatuses = ['Substituir', 'Em Análise', 'Reembolsar']
