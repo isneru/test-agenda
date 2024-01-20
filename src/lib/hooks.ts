@@ -1,4 +1,4 @@
-import { addLeadingZero } from '@lib/utils'
+import { getInputNumberBoundaries } from '@lib/utils'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 export function useDebounce(
@@ -38,23 +38,48 @@ export function useDateInputs() {
 
 		const idBasedBehaviour = {
 			day: () => {
-				setDate(prev => ({ ...prev, [id]: formattedValue }))
+				setDate(prev => ({
+					...prev,
+					[id]: getInputNumberBoundaries(1, formattedValue, 31, 2)
+				}))
 				formattedValue.length === 2 && monthRef.current?.focus()
 			},
 			month: () => {
-				setDate(prev => ({ ...prev, [id]: formattedValue }))
+				setDate(prev => ({
+					...prev,
+					[id]: getInputNumberBoundaries(
+						new Date().getMonth() + 1,
+						formattedValue,
+						12,
+						2
+					)
+				}))
 				formattedValue.length === 2 && yearRef.current?.focus()
 			},
 			year: () => {
-				setDate(prev => ({ ...prev, [id]: formattedValue }))
+				setDate(prev => ({
+					...prev,
+					[id]: getInputNumberBoundaries(
+						new Date().getFullYear(),
+						formattedValue,
+						new Date().getFullYear() + 1,
+						4
+					)
+				}))
 				formattedValue.length === 4 && hoursRef.current?.focus()
 			},
 			hours: () => {
-				setTime(prev => ({ ...prev, [id]: formattedValue }))
+				setTime(prev => ({
+					...prev,
+					[id]: getInputNumberBoundaries(0, formattedValue, 23, 2)
+				}))
 				formattedValue.length === 2 && minutesRef.current?.focus()
 			},
 			minutes: () => {
-				setTime(prev => ({ ...prev, [id]: formattedValue }))
+				setTime(prev => ({
+					...prev,
+					[id]: getInputNumberBoundaries(0, formattedValue, 59, 2)
+				}))
 			}
 		}
 

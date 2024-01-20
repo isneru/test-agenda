@@ -1,5 +1,4 @@
 import type { DateAsString } from '@lib/types'
-import { Test } from '@prisma/client'
 
 export function formatDate(date: Date, withTime = true) {
 	const day = date.getDate()
@@ -44,15 +43,20 @@ export function addThirtyDays(date: Date) {
 	return newDate
 }
 
-export function getDailyReportInfo(tests: Test[] | undefined) {
-	const testsInfo = tests?.map(
-		test =>
-			`${test.id} - ${
-				test.type === 'Normal' ? formatDate(test.scheduledFor!) : test.type
-			}`
-	)
+export function getInputNumberBoundaries(
+	min: number,
+	input: string,
+	max: number,
+	desiredLength: number
+) {
+	const value = Number(input)
+	if (input.length < desiredLength) return input
+	if (value < min) return addLeadingZero(min)
+	if (value > max) return addLeadingZero(max)
+	/* 	if (input.length < desiredLength) { 
 
-	return !!testsInfo ? testsInfo.join('\n') : 'N/A'
+	} */
+	return addLeadingZero(value)
 }
 
 export const warrantyValidStatuses = ['Substituir', 'Em Análise', 'Reembolsar']
