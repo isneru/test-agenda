@@ -42,10 +42,7 @@ export const usePromptEmailModalHelper = ({
 		handleSendResolved(
 			{ email, orderId },
 			{
-				onSuccess: () => {
-					toggleModal()
-					refetchTests()
-				},
+				onSuccess: () => deleteTest(),
 				onError: val =>
 					alert(
 						val.data?.zodError?.fieldErrors?.email?.[0] ?? 'Erro Desconhecido'

@@ -59,6 +59,45 @@ export function getInputNumberBoundaries(
 	return addLeadingZero(value)
 }
 
+export function splitStringWithURL(str: string) {
+	const regex = /((?:https?:\/\/)?(?:[\w\d-]+\.)+[\w\d]{2,}\/[^ ]+)/g
+	const splitString = str.split(regex)
+
+	if (splitString.length === 1) {
+		return {
+			first: splitString[0] as string,
+			link: undefined,
+			rest: undefined
+		}
+	} else if (splitString.length === 2) {
+		const [first, url] = splitString
+		return {
+			first: first as string,
+			link: {
+				url: url as string,
+				text: (url as string).replace(/(http(s)?:\/\/)|(\/.*){1}/g, '')
+			},
+			rest: undefined
+		}
+	} else if (splitString.length > 2) {
+		const [first, url, ...rest] = splitString
+		return {
+			first: first as string,
+			link: {
+				url: url as string,
+				text: (url as string).replace(/(http(s)?:\/\/)|(\/.*){1}/g, '')
+			},
+			rest: rest.join('')
+		}
+	} else {
+		return {
+			first: splitString[0] as string,
+			url: undefined,
+			rest: undefined
+		}
+	}
+}
+
 export const warrantyValidStatuses = ['Substituir', 'Em Análise', 'Reembolsar']
 
 export const testValidTypes = ['Normal', 'FPS', `Drop n' Go`]
