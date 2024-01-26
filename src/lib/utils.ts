@@ -1,4 +1,4 @@
-import type { DateAsString } from '@lib/types'
+import type { DateAsString, SplitTextPart } from '@lib/types'
 
 export function formatDate(date: Date, withTime = true) {
 	const day = date.getDate()
@@ -61,40 +61,31 @@ export function getInputNumberBoundaries(
 
 export function splitStringWithURL(str: string) {
 	const regex = /((?:https?:\/\/)?(?:[\w\d-]+\.)+[\w\d]{2,}\/[^ ]+)/g
-	const splitString = str.split(regex)
+	const parts: Array<SplitTextPart> = []
 
-	if (splitString.length === 1) {
-		return {
-			first: splitString[0] as string,
-			link: undefined,
-			rest: undefined
-		}
-	} else if (splitString.length === 2) {
-		const [first, url] = splitString
-		return {
-			first: first as string,
-			link: {
-				url: url as string,
-				text: (url as string).replace(/(http(s)?:\/\/)|(\/.*){1}/g, '')
-			},
-			rest: undefined
-		}
-	} else if (splitString.length > 2) {
-		const [first, url, ...rest] = splitString
-		return {
-			first: first as string,
-			link: {
-				url: url as string,
-				text: (url as string).replace(/(http(s)?:\/\/)|(\/.*){1}/g, '')
-			},
-			rest: rest.join('')
-		}
-	} else {
-		return {
-			first: splitString[0] as string,
-			url: undefined,
-			rest: undefined
-		}
+	str.split(regex).forEach(part => {
+		parts.push(
+			isLink(part)
+				? { type: 'link', ...makeValidURL(part) }
+				: { type: 'text', text: part }
+		)
+	})
+
+	return parts
+}
+
+function isLink(str: string) {
+	return (
+		str.startsWith('http://') ||
+		str.startsWith('https://') ||
+		str.startsWith('www.')
+	)
+}
+
+function makeValidURL(str: string) {
+	return {
+		url: str,
+		text: str.replace(/(http(s)?:\/\/)|(\/.*){1}/g, '')
 	}
 }
 

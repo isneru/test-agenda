@@ -3,7 +3,7 @@ import { api } from '@lib/api'
 import { useDebounce } from '@lib/hooks'
 import { splitStringWithURL } from '@lib/utils'
 import type { Test, Warranty } from '@prisma/client'
-import { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 
 type OrderDescriptionProps = {
 	order: Test | Warranty
@@ -17,7 +17,7 @@ export const OrderDescription = ({ order }: OrderDescriptionProps) => {
 	const { refetch: refetchTests } = api.test.getAll.useQuery()
 	const { refetch: refetchWarranties } = api.warranty.getAll.useQuery()
 	const ref = useRef<HTMLTextAreaElement>(null)
-	const splitInput = splitStringWithURL(input)
+	const splitInputs = splitStringWithURL(input)
 
 	useDebounce(handleDebounce, [input], 2000)
 
@@ -58,20 +58,21 @@ export const OrderDescription = ({ order }: OrderDescriptionProps) => {
 				<div
 					onClick={() => setIsEditing(true)}
 					className='cursor-default rounded bg-background border border-foreground/40 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 focus-visible:ring-cex px-2 text-lg font-medium outline-none resize-none h-32'>
-					{splitInput.first && <span>{splitInput.first}</span>}
-					{splitInput.link && (
-						<a
-							className='inline underline decoration-cex underline-offset-1 text-red-500 h-min'
-							href={
-								splitInput.link.url.startsWith('https://')
-									? splitInput.link.url
-									: `https://${splitInput.link.url}`
-							}
-							target='_blank'>
-							{splitInput.link.text}
-						</a>
-					)}
-					{splitInput.rest && <span>{splitInput.rest}</span>}
+					{splitInputs.map((part, index) => (
+						<Fragment key={index}>
+							{part.type === 'text' ? (
+								<span>{part.text}</span>
+							) : (
+								<a
+									className='inline underline decoration-cex underline-offset-1 text-red-500 h-min'
+									href={part.url}
+									target='_blank'
+									rel='noopener noreferrer'>
+									{part.text}
+								</a>
+							)}
+						</Fragment>
+					))}
 				</div>
 			)}
 		</div>

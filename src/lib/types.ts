@@ -13,3 +13,14 @@ export type DateAsString = {
 export type InputEvent = React.ChangeEvent<
 	HTMLInputElement | HTMLTextAreaElement
 >
+
+export type SplitTextPart =
+	| {
+			type: 'link'
+			url: string
+			text: string
+	  }
+	| {
+			type: 'text'
+			text: string
+	  }
