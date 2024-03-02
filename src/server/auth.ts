@@ -38,7 +38,7 @@ export const authOptions: NextAuthOptions = {
 	callbacks: {
 		async signIn({ user }) {
 			const isAllowedToSignIn = user.email?.includes(env.AUTHORIZED_EMAIL)
-			return isAllowedToSignIn ? true : '/unauthorized'
+			return isAllowedToSignIn ? true : '/403'
 		}
 	},
 	providers: [
