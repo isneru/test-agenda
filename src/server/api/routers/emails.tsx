@@ -14,8 +14,8 @@ export const emailRouter = createTRPCRouter({
 		.mutation(async ({ ctx, input }) => {
 			return await resend.emails.send({
 				to: input.email,
-				subject: 'O seu teste foi resolvido!',
-				from: 'cex-testes@diogonogueira.dev',
+				subject: `O seu teste ${input.orderId} foi resolvido!`,
+				from: 'Cex MaiaShopping <cex-testes@diogonogueira.dev>',
 				react: <ResolvedTestEmail orderId={input.orderId} />
 			})
 		})

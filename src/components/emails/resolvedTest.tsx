@@ -20,9 +20,7 @@ export const ResolvedTestEmail = ({ orderId }: ResolvedTestEmailProps) => {
 	return (
 		<Html>
 			<Head />
-			<Preview>
-				O seu teste com o ID {orderId} foi resolvido com sucesso.
-			</Preview>
+			<Preview>O seu teste com o ID {orderId} foi resolvido.</Preview>
 			<Tailwind>
 				<Body className={clsx(poppins.className, 'py-3 bg-white text-black')}>
 					<Container>
@@ -35,13 +33,13 @@ export const ResolvedTestEmail = ({ orderId }: ResolvedTestEmailProps) => {
 						<Section>
 							<Text>Estimado/a cliente,</Text>
 							<Text>
-								Gostariamos de informar que o seu teste com o ID {orderId}{' '}
+								Gostariamos de informar que o seu teste com o ID {orderId}&nbsp;
 								encontra-se resolvido. Assim que possível, deverá dirigir-se à
 								loja para mais informações.
 							</Text>
 							<Text className='font-semibold text-lg'>
 								⚠️ Relembramos que este serviço de mensagens é exclusivo à loja
-								Cex Maiashopping! Obrigado e até já! ⚠️
+								Cex Maiashopping! Obrigado e até já!
 							</Text>
 							<Text className='m-0'>Atenciosamente,</Text>
 							<Text className='m-0'>A Equipa CeX do MaiaShopping</Text>
