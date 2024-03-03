@@ -1,8 +1,18 @@
 import { poppins } from '@lib/font'
 import clsx from 'clsx'
+import { useSession } from 'next-auth/react'
 import Head from 'next/head'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 export default function Unauthorized() {
+	const { data: session } = useSession()
+	const router = useRouter()
+
+	if (!!session) {
+		router.push('/')
+	}
+
 	return (
 		<>
 			<Head>
@@ -17,6 +27,11 @@ export default function Unauthorized() {
 				)}>
 				<h1 className='text-6xl font-bold'>403</h1>
 				<p className='text-2xl font-semibold'>Unauthorized</p>
+				<Link
+					href='/'
+					className='absolute left-1/2 -translate-x-1/2 bottom-6 animate-pulse hover:animate-none'>
+					Página Inicial
+				</Link>
 			</main>
 		</>
 	)

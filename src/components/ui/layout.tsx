@@ -1,4 +1,4 @@
-import { Navbar } from '@components/ui'
+import { Navbar, Spinner } from '@components/ui'
 import { poppins } from '@lib/font'
 import clsx from 'clsx'
 import Head from 'next/head'
@@ -9,7 +9,7 @@ type LayoutProps = {
 }
 
 export const Layout = ({ children }: LayoutProps) => {
-	const session = useSession()
+	const { status, data: session } = useSession()
 
 	return (
 		<>
@@ -19,16 +19,25 @@ export const Layout = ({ children }: LayoutProps) => {
 				<meta name='description' content='Organizing orders since 1992.' />
 			</Head>
 			<div className={clsx(poppins.className, 'flex flex-col w-full')}>
-				{session.data ? (
-					<>
-						<Navbar />
-						<main className='flex flex-col gap-5 p-10 w-full'>{children}</main>
-					</>
-				) : (
-					<main className='flex items-center justify-center h-screen w-full'>
-						<button onClick={() => signIn('google')}>Login</button>
+				{status === 'unauthenticated' && (
+					<main className='flex flex-col items-center justify-center h-screen w-full'>
+						<button
+							className='text-lg font-medium hover:underline'
+							onClick={() => signIn('google')}>
+							Login
+						</button>
 					</main>
 				)}
+				<Navbar />
+				<main className='flex flex-col gap-5 p-10 w-full'>
+					{status === 'loading' && (
+						<div className='absolute inset-0 flex flex-col gap-6 items-center justify-center bg-background/50'>
+							<Spinner />
+							<p className='text-lg font-medium animate-pulse'>Loading</p>
+						</div>
+					)}
+					{children}
+				</main>
 			</div>
 		</>
 	)
