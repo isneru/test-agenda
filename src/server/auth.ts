@@ -5,8 +5,11 @@ import {
 	type NextAuthOptions
 } from 'next-auth'
 import googleProvider from 'next-auth/providers/google'
+import { PrismaAdapter } from '@auth/prisma-adapter'
+import { type Adapter } from 'next-auth/adapters'
 
 import { env } from '@env'
+import { db } from '@server/db'
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -36,11 +39,21 @@ declare module 'next-auth' {
  */
 export const authOptions: NextAuthOptions = {
 	callbacks: {
-		async signIn({ user }) {
-			const isAllowedToSignIn = user.email?.includes(env.AUTHORIZED_EMAIL)
+		session: ({ session }) => {
+			return {
+				...session,
+				user: {
+					...session.user,
+					email: session.user.email?.replace('.spv', '')
+				}
+			}
+		},
+		signIn({ user }) {
+			const isAllowedToSignIn = user.email?.endsWith(env.AUTHORIZED_EMAIL)
 			return isAllowedToSignIn ? true : '/403'
 		}
 	},
+	adapter: PrismaAdapter(db) as Adapter,
 	providers: [
 		googleProvider({
 			clientId: env.GOOGLE_CLIENT_ID,

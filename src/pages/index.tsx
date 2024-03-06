@@ -16,7 +16,7 @@ export default function Home() {
 	const filteredTests = !!search
 		? tests?.filter(test => {
 				return test.id.toUpperCase().includes(search.toUpperCase())
-		  })
+			})
 		: tests
 
 	return (
@@ -38,9 +38,7 @@ export default function Home() {
 					value={search}
 				/>
 				<main className='grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 mx-auto gap-x-10 gap-y-6'>
-					{filteredTests?.map(order => (
-						<Test key={order.id} order={order} />
-					))}
+					{filteredTests?.map(order => <Test key={order.id} order={order} />)}
 				</main>
 			</div>
 			<NewTestModal

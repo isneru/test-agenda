@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { signIn, signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -9,7 +10,7 @@ const links = [
 
 export const Navbar = () => {
 	const pathname = usePathname()
-
+	const { data: session } = useSession()
 	return (
 		<nav className='bg-background flex items-center gap-3 border-b border-foreground/40 px-10 py-3 w-full'>
 			{links.map(({ href, label }) => (
@@ -25,6 +26,11 @@ export const Navbar = () => {
 					{label}
 				</Link>
 			))}
+			{!!session && (
+				<span onClick={() => signOut()} className='ml-auto'>
+					Logado em: {session.user.email?.split('@')[0]}
+				</span>
+			)}
 		</nav>
 	)
 }

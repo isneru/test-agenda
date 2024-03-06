@@ -1,8 +1,12 @@
-import { createTRPCRouter, publicProcedure } from '@server/api/trpc'
+import {
+	createTRPCRouter,
+	protectedProcedure,
+	publicProcedure
+} from '@server/api/trpc'
 import { z } from 'zod'
 
 export const testRouter = createTRPCRouter({
-	create: publicProcedure
+	create: protectedProcedure
 		.input(
 			z.object({
 				customerId: z.string(),
@@ -19,7 +23,12 @@ export const testRouter = createTRPCRouter({
 					id: input.orderId.toUpperCase(),
 					type: input.type,
 					description: input.description,
-					scheduledFor: input.scheduledFor
+					scheduledFor: input.scheduledFor,
+					user: {
+						connect: {
+							email: ctx.session.user.email as string
+						}
+					}
 				}
 			})
 		}),
@@ -36,10 +45,13 @@ export const testRouter = createTRPCRouter({
 				}
 			})
 		}),
-	getAll: publicProcedure.query(async ({ ctx }) => {
+	getAll: protectedProcedure.query(async ({ ctx }) => {
 		const normalTests = await ctx.db.test.findMany({
 			where: {
-				type: 'Normal'
+				type: 'Normal',
+				user: {
+					email: ctx.session.user.email
+				}
 			},
 			orderBy: [
 				{
@@ -53,6 +65,9 @@ export const testRouter = createTRPCRouter({
 
 		const otherTests = await ctx.db.test.findMany({
 			where: {
+				user: {
+					email: ctx.session.user.email
+				},
 				NOT: {
 					type: 'Normal'
 				}
@@ -68,7 +83,7 @@ export const testRouter = createTRPCRouter({
 
 		return tests
 	}),
-	changeDesc: publicProcedure
+	changeDesc: protectedProcedure
 		.input(
 			z.object({
 				orderId: z.string(),
@@ -85,7 +100,7 @@ export const testRouter = createTRPCRouter({
 				}
 			})
 		}),
-	startTest: publicProcedure
+	startTest: protectedProcedure
 		.input(
 			z.object({
 				orderId: z.string()

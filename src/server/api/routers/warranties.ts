@@ -1,8 +1,8 @@
-import { createTRPCRouter, publicProcedure } from '@server/api/trpc'
+import { createTRPCRouter, protectedProcedure } from '@server/api/trpc'
 import { z } from 'zod'
 
 export const warrantyRouter = createTRPCRouter({
-	create: publicProcedure
+	create: protectedProcedure
 		.input(
 			z.object({
 				customerId: z.string(),
@@ -16,17 +16,27 @@ export const warrantyRouter = createTRPCRouter({
 					customerId: input.customerId.toUpperCase(),
 					id: input.orderId.toUpperCase(),
 					description: input.description,
-					status: 'Em Análise'
+					status: 'Em Análise',
+					user: {
+						connect: {
+							email: ctx.session.user.email as string
+						}
+					}
 				}
 			})
 		}),
 
-	getAll: publicProcedure.query(async ({ ctx }) => {
+	getAll: protectedProcedure.query(async ({ ctx }) => {
 		return await ctx.db.warranty.findMany({
+			where: {
+				user: {
+					email: ctx.session.user.email as string
+				}
+			},
 			orderBy: { createdAt: 'asc' }
 		})
 	}),
-	changeStatus: publicProcedure
+	changeStatus: protectedProcedure
 		.input(
 			z.object({
 				orderId: z.string(),
@@ -43,7 +53,7 @@ export const warrantyRouter = createTRPCRouter({
 				}
 			})
 		}),
-	delete: publicProcedure
+	delete: protectedProcedure
 		.input(
 			z.object({
 				orderId: z.string()
@@ -56,7 +66,7 @@ export const warrantyRouter = createTRPCRouter({
 				}
 			})
 		}),
-	changeReqId: publicProcedure
+	changeReqId: protectedProcedure
 		.input(
 			z.object({
 				orderId: z.string(),
@@ -73,7 +83,7 @@ export const warrantyRouter = createTRPCRouter({
 				}
 			})
 		}),
-	changeDesc: publicProcedure
+	changeDesc: protectedProcedure
 		.input(
 			z.object({
 				orderId: z.string(),
