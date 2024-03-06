@@ -36,7 +36,7 @@ export const Navbar = () => {
 							{session.user.email?.split('@')[0]}
 						</span>
 					</button>
-					<div className='h-10 w-px bg-foreground/40' />
+					<div className='h-10 w-px bg-foreground/40 print:hidden' />
 					<Link
 						className='px-2 h-10 flex items-center justify-center gap-2 rounded-lg border border-transparent hover:border-foreground/20 hover:bg-white/5 transition-colors print:hidden'
 						href='/help'>
