@@ -12,6 +12,7 @@ const links = [
 export const Navbar = () => {
 	const pathname = usePathname()
 	const { data: session } = useSession()
+
 	return (
 		<nav className='bg-background flex items-center gap-3 border-b border-foreground/40 px-10 py-3 w-full'>
 			{links.map(({ href, label }) => (
@@ -29,7 +30,7 @@ export const Navbar = () => {
 			))}
 			{!!session && (
 				<div className='flex items-center ml-auto gap-2'>
-					<button className='px-2' title='Sair' onClick={() => signOut()}>
+					<button className='h-10 px-2' title='Sair' onClick={() => signOut()}>
 						Logado em:&nbsp;
 						<span className='capitalize font-medium'>
 							{session.user.email?.split('@')[0]}
