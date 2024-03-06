@@ -20,9 +20,7 @@ export const Navbar = () => {
 					key={href}
 					className={clsx(
 						'rounded-lg transition-colors hover:bg-cex/20 py-2 px-5',
-						pathname === href
-							? 'text-cex bg-cex/20 print:mx-auto'
-							: 'print:hidden'
+						pathname === href ? 'text-cex bg-cex/20' : 'print:hidden'
 					)}
 					href={href}>
 					{label}
