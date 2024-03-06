@@ -1,7 +1,8 @@
 import clsx from 'clsx'
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { QuestionMarkCircledIcon } from '@radix-ui/react-icons'
 
 const links = [
 	{ href: '/', label: 'Testes' },
@@ -27,9 +28,21 @@ export const Navbar = () => {
 				</Link>
 			))}
 			{!!session && (
-				<span onClick={() => signOut()} className='ml-auto'>
-					Logado em: {session.user.email?.split('@')[0]}
-				</span>
+				<div className='flex items-center ml-auto gap-2'>
+					<button className='px-2' title='Sair' onClick={() => signOut()}>
+						Logado em:&nbsp;
+						<span className='capitalize font-medium'>
+							{session.user.email?.split('@')[0]}
+						</span>
+					</button>
+					<div className='h-10 w-px bg-foreground/40' />
+					<Link
+						className='px-2 h-10 flex items-center justify-center gap-2 rounded-lg border border-transparent hover:border-foreground/20 hover:bg-white/5 transition-colors print:hidden'
+						href='/help'>
+						<span>Ajuda</span>
+						<QuestionMarkCircledIcon width={24} height={24} />
+					</Link>
+				</div>
 			)}
 		</nav>
 	)

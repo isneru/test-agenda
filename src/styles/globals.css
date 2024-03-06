@@ -86,3 +86,15 @@
 		stroke-dashoffset: -59;
 	}
 }
+
+.barcode-print {
+	@apply print:bg-white !important;
+}
+
+.barcode-print > svg > rect {
+	@apply print:fill-white !important;
+}
+
+.barcode-print > svg > g {
+	@apply print:fill-black !important;
+}
