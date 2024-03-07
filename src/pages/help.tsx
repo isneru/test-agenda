@@ -242,7 +242,7 @@ export default function Help() {
 				<h2 className='font-semibold'>Por fim</h2>
 				<p>
 					Este projeto ainda não está a 100% mas sempre foi desenvolvido com o
-					intuito de ser uma experiência intuitiva.
+					foco de ser uma experiência intuitiva e fácil de usar.
 					<br />
 					Qualquer bug que encontrem ou dúvida que tenham, sintam-se à vontade
 					para me contactar pelo email da loja ou até mesmo por mensagem para o
