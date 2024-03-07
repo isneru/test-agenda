@@ -12,7 +12,7 @@ export default function Warranties() {
 	const unresolvedWarranties = !!search
 		? allWarranties?.filter(order => {
 				return order.id.toUpperCase().includes(search.toUpperCase())
-		  })
+			})
 		: allWarranties
 
 	return (
@@ -26,7 +26,7 @@ export default function Warranties() {
 					</button>
 				</Hero>
 				<Input
-					placeholder='Pesquisar por ID da ordem'
+					placeholder='Pesquisar por Nº de Ordem'
 					onChange={e => setSearch(e.target.value.toUpperCase())}
 					className='py-2 px-4 rounded-full print:hidden'
 					value={search}

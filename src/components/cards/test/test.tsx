@@ -42,7 +42,7 @@ export const Test = ({ order }: TestProps) => {
 				<button
 					onClick={deleteTest}
 					className='rounded bg-red-800 p-2 transition-colors hover:bg-cex'>
-					Apagar
+					Marcar como resolvido
 				</button>
 			) : (
 				<button

@@ -27,16 +27,24 @@ export const Layout = ({ children }: LayoutProps) => {
 						</button>
 					</main>
 				)}
-				<Navbar />
-				<main className='flex flex-col gap-5 p-10 w-full'>
-					{status === 'loading' && (
-						<div className='absolute inset-0 flex flex-col gap-6 items-center justify-center bg-background/50'>
-							<Spinner />
-							<p className='text-lg font-medium animate-pulse'>Loading</p>
-						</div>
-					)}
-					{children}
-				</main>
+				{status === 'authenticated' && (
+					<>
+						<Navbar />
+						<main className='flex flex-col gap-5 p-10 w-full'>{children}</main>
+					</>
+				)}
+				{status === 'loading' && (
+					<>
+						<Navbar />
+						<main className='flex flex-col gap-5 p-10 w-full'>
+							<div className='absolute inset-0 flex flex-col gap-6 items-center justify-center bg-background/50'>
+								<Spinner />
+								<p className='text-lg font-medium animate-pulse'>Loading</p>
+							</div>
+							{children}
+						</main>
+					</>
+				)}
 			</div>
 		</>
 	)

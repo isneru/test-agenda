@@ -32,7 +32,7 @@ export default function Home() {
 					</div>
 				</Hero>
 				<Input
-					placeholder='Pesquisar por ID da ordem'
+					placeholder='Pesquisar por Nº de Ordem'
 					onChange={e => setSearch(e.target.value.toUpperCase())}
 					className='py-2 px-4 rounded-full print:hidden'
 					value={search}
