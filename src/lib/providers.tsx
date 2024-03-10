@@ -23,24 +23,26 @@ export const ChangelogProvider = ({ children }: ChangeloProviderProps) => {
 	})
 
 	useEffect(() => {
-		!!data?.code &&
-			setIsChangelogVisible(
-				getCookie('lastSeenVersion') !== getCookie('currentVersion')
-			)
+		if (!!data?.code) {
+			const lastSeenVersion = getCookie('lastSeenVersion')
+			const currentVersion = getCookie('currentVersion')
+
+			if (!lastSeenVersion || lastSeenVersion !== currentVersion) {
+				setIsChangelogVisible(true)
+			}
+		}
 	}, [data?.code])
 
-	function toggleModal() {
-		setIsChangelogVisible(val => {
-			if (val === true) {
-				setCookie('lastSeenVersion', getCookie('currentVersion'), {
-					expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30), // 30 days
-					httpOnly: true,
-					secure: true,
-					sameSite: 'lax'
-				})
-			}
-			return !val
-		})
+	function toggleModal(open: boolean) {
+		if (!open) {
+			setCookie('lastSeenVersion', getCookie('currentVersion'), {
+				maxAge: 2592000,
+				sameSite: 'lax',
+				path: '/'
+			})
+		}
+
+		setIsChangelogVisible(open)
 	}
 
 	return (

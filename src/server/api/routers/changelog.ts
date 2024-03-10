@@ -17,7 +17,7 @@ export const changelogRouter = createTRPCRouter({
 		if (currentVersion) {
 			ctx.res.appendHeader(
 				'Set-Cookie',
-				`currentVersion=${currentVersion}; Path=/; Max-Age=2592000; SameSite=Lax; Secure; HttpOnly`
+				`currentVersion=${currentVersion}; Path=/; Max-Age=2592000; SameSite=Lax;`
 			)
 		}
 
