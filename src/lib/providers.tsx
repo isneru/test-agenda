@@ -32,7 +32,12 @@ export const ChangelogProvider = ({ children }: ChangeloProviderProps) => {
 	function toggleModal() {
 		setIsChangelogVisible(val => {
 			if (val === true) {
-				setCookie('lastSeenVersion', getCookie('currentVersion'))
+				setCookie('lastSeenVersion', getCookie('currentVersion'), {
+					expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30), // 30 days
+					httpOnly: true,
+					secure: true,
+					sameSite: 'lax'
+				})
 			}
 			return !val
 		})
