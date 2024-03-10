@@ -2,14 +2,14 @@ import { Navbar, Spinner } from '@components/ui'
 import { poppins } from '@lib/font'
 import clsx from 'clsx'
 import Head from 'next/head'
-import { useSession, signIn, signOut } from 'next-auth/react'
+import { useSession, signIn } from 'next-auth/react'
 
 type LayoutProps = {
 	children: React.ReactNode
 }
 
 export const Layout = ({ children }: LayoutProps) => {
-	const { status, data: session } = useSession()
+	const { status } = useSession()
 	return (
 		<>
 			<Head>

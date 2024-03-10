@@ -17,8 +17,8 @@ export default function Help() {
 				isModalVisible={isWarrantyModalVisible}
 				setIsModalVisible={setIsWarrantyModalVisible}
 			/>
-			<div className='prose-invert prose-lg container mx-auto'>
-				<h2 className='font-semibold'>O que é?</h2>
+			<div className='prose-invert prose-lg container mx-auto prose-h2:font-semibold prose-ul:list-disc prose-ol:list-decimal'>
+				<h2>O que é?</h2>
 				<p>
 					A CeX Agenda foi inicialmente pensada na loja do MaiaShopping para
 					chegar a um sistema que ajudasse a gerir melhor os testes, fosse a
@@ -31,8 +31,8 @@ export default function Help() {
 					<br />
 					Qualquer conta que não seja da CeX não consegue aceder ao sistema.
 				</p>
-				<h2 className='font-semibold'>Utilidade</h2>
-				<ul className='list-disc'>
+				<h2>Utilidade</h2>
+				<ul>
 					<li>
 						<h3>Enviar para teste</h3>
 						<p>
@@ -65,7 +65,7 @@ export default function Help() {
 						</p>
 					</li>
 				</ul>
-				<h2 className='font-semibold'>Como usar?</h2>
+				<h2>Como usar?</h2>
 				<p>
 					A navegação é feita através da barra no topo da página. Aí é possivel
 					navegar entre os testes e as garantias. A barra de navegação é
@@ -74,7 +74,7 @@ export default function Help() {
 					podes sair da sessão clicando no texto &quot;Logado em:&nbsp;
 					<span className='font-medium'>&lt;Loja&gt;</span>&quot;.
 				</p>
-				<ul className='list-disc'>
+				<ul>
 					<li>
 						<h3>Criar um teste</h3>
 						<p>
@@ -88,7 +88,7 @@ export default function Help() {
 							com um uma lista de campos a preencher. Os campos obrigatórios
 							são:
 						</p>
-						<ol className='list-decimal'>
+						<ol>
 							<li>Número da Ordem</li>
 							<li>Ficha de Cliente</li>
 							<li>
@@ -115,7 +115,7 @@ export default function Help() {
 							com um uma lista de campos a preencher. Os campos obrigatórios
 							são:
 						</p>
-						<ol className='list-decimal'>
+						<ol>
 							<li>Número da Ordem</li>
 							<li>Ficha de Cliente</li>
 						</ol>
@@ -125,7 +125,7 @@ export default function Help() {
 					Atenção que a razão do campo de Observações ser opcional é pelo facto
 					de ser algo dinâmico e editável mesmo já depois de criado.
 				</p>
-				<ul className='list-disc'>
+				<ul>
 					<li>
 						Para <span className='font-semibold'>testes</span>, pode deixar-se
 						notas para o tester&nbsp;
@@ -148,7 +148,7 @@ export default function Help() {
 					Todas as ordens &#40;testes e garantias&#41; serão apagadas da base de
 					dados depois de marcadas como resolvidas.
 				</p>
-				<ul className='list-disc'>
+				<ul>
 					<li>
 						<h3>Gerir uma garantia</h3>
 						<div className='flex justify-between gap-16'>
@@ -166,7 +166,7 @@ export default function Help() {
 									Também é possivel alterar o estado da garantia para as
 									seguintes opções:
 								</p>
-								<ul className='list-disc'>
+								<ul>
 									<li>Substituir</li>
 									<li>Em Análise</li>
 									<li>Reembolsar</li>
@@ -205,15 +205,15 @@ export default function Help() {
 						</div>
 					</li>
 				</ul>
-				<h2 className='font-semibold'>Apresentação</h2>
-				<ul className='list-disc'>
+				<h2>Apresentação</h2>
+				<ul>
 					<li>
 						<h3>Testes</h3>
 						<p>
 							Os testes são organizados por hora marcada e por tipo. A
 							prioridade é:
 						</p>
-						<ol className='list-decimal'>
+						<ol>
 							<li>
 								Teste&nbsp;
 								<span className='font-medium underline decoration-green-500 decoration-4'>
@@ -239,7 +239,7 @@ export default function Help() {
 						</p>
 					</li>
 				</ul>
-				<h2 className='font-semibold'>Por fim</h2>
+				<h2>Por fim</h2>
 				<p>
 					Este projeto ainda não está a 100% mas sempre foi desenvolvido com o
 					foco de ser uma experiência intuitiva e fácil de usar.
@@ -256,10 +256,10 @@ export default function Help() {
 					<br />O plano de host deste site é free. O plano da base de dados
 					deste site é free. Aguentemos!
 				</p>
-				<h2 className='font-semibold'>
+				<h2>
 					What's next? <span className='text-sm italic'>&#40;v1.1&#41;</span>
 				</h2>
-				<ul className='list-disc'>
+				<ul>
 					<li>Sistema de Abandonados</li>
 				</ul>
 			</div>

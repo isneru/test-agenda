@@ -1,6 +1,6 @@
 import { useTestHelper, type TestProps } from './test.helper'
 import { CustomerIdBarcode, OrderIdBarcode } from '@components/barcodes'
-import { PromptEmailModal } from '@components/modals'
+/* import { PromptEmailModal } from '@components/modals' */
 import { formatDate, testValidTypes } from '@lib/utils'
 import { OrderDescription } from '@components/cards'
 import clsx from 'clsx'
@@ -9,9 +9,9 @@ import { Loading } from '@components/ui'
 export const Test = ({ order }: TestProps) => {
 	const {
 		startTest,
-		setIsModalVisible,
+		/* 		setIsModalVisible,
+		isModalVisible, */
 		deleteTest,
-		isModalVisible,
 		isLoading
 	} = useTestHelper({ order })
 
@@ -57,11 +57,11 @@ export const Test = ({ order }: TestProps) => {
 					{order.beingTested ? 'Marcar como resolvido' : 'Começar a testar'}
 				</Loading>
 			</button>
-			<PromptEmailModal
+			{/* 			<PromptEmailModal
 				orderId={order.id}
 				isModalVisible={isModalVisible}
 				setIsModalVisible={setIsModalVisible}
-			/>
+			/> */}
 		</div>
 	)
 }
