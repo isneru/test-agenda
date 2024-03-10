@@ -1,3 +1,4 @@
+import { env } from '@env'
 import { createTRPCRouter, protectedProcedure } from '@server/api/trpc'
 import { parse } from 'marked'
 
@@ -6,7 +7,7 @@ export const changelogRouter = createTRPCRouter({
 		if (!ctx.session) return
 
 		const changelogResponse = await fetch(
-			'https://raw.githubusercontent.com/isneru/test-agenda/main/currentVersion.md'
+			`${env.NEXTAUTH_URL}/currentVersion.md`
 		)
 		const changelog = await changelogResponse.text()
 
