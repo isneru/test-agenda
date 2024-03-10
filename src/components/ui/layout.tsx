@@ -39,7 +39,9 @@ export const Layout = ({ children }: LayoutProps) => {
 						<main className='flex flex-col gap-5 p-10 w-full'>
 							<div className='absolute inset-0 flex flex-col gap-6 items-center justify-center bg-background/50'>
 								<Spinner />
-								<p className='text-lg font-medium animate-pulse'>Loading</p>
+								<p className='text-lg font-medium animate-pulse'>
+									A iniciar sessão
+								</p>
 							</div>
 							{children}
 						</main>

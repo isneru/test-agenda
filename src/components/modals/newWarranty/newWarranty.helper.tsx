@@ -11,6 +11,7 @@ export type NewWarrantyModalProps = {
 export const useNewWarrantyModalHelper = ({
 	setIsModalVisible
 }: NewWarrantyModalProps) => {
+	const [isLoading, setIsLoading] = useState(false)
 	const { refetch: refetchWarranties } = api.warranty.getAll.useQuery()
 	const { mutate: handleCreate } = api.warranty.create.useMutation()
 	const [warranty, setWarranty] = useState({
@@ -26,6 +27,7 @@ export const useNewWarrantyModalHelper = ({
 			description: ''
 		})
 		setIsModalVisible(val => !val)
+		setIsLoading(false)
 	}
 
 	function handleChangeWarrantyInput(e: InputEvent) {
@@ -38,6 +40,7 @@ export const useNewWarrantyModalHelper = ({
 	}
 
 	function createWarranty() {
+		setIsLoading(true)
 		const { description, ...nonOptionalWarrantyFields } = warranty
 
 		if (!isEveryFieldFilled(nonOptionalWarrantyFields)) {
@@ -46,12 +49,15 @@ export const useNewWarrantyModalHelper = ({
 		}
 
 		handleCreate(warranty, {
-			onSuccess: () => {
-				refetchWarranties()
-				toggleModal()
-			}
+			onSettled: () => refetchWarranties().then(toggleModal)
 		})
 	}
 
-	return { toggleModal, warranty, handleChangeWarrantyInput, createWarranty }
+	return {
+		toggleModal,
+		warranty,
+		handleChangeWarrantyInput,
+		createWarranty,
+		isLoading
+	}
 }

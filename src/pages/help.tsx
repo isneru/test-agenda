@@ -199,7 +199,7 @@ export default function Help() {
 									</span>
 								</p>
 							</div>
-							<div className='flex-1 -translate-y-12'>
+							<div className='flex-1'>
 								<WarrantyDemo />
 							</div>
 						</div>

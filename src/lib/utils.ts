@@ -89,6 +89,10 @@ function makeValidURL(str: string) {
 	}
 }
 
-export const warrantyValidStatuses = ['Substituir', 'Em Análise', 'Reembolsar']
+export const warrantyValidStatuses = [
+	'Substituir',
+	'Em Análise',
+	'Reembolsar'
+] as const
 
-export const testValidTypes = ['Normal', 'FPS', `Drop n' Go`]
+export const testValidTypes = ['Normal', 'FPS', `Drop n' Go`] as const

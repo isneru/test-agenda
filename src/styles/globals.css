@@ -87,6 +87,18 @@
 	}
 }
 
+@keyframes pulse-bg {
+	0% {
+		background-color: rgb(127, 29, 29, 1);
+	}
+	50% {
+		background-color: rgba(127, 29, 29, 0);
+	}
+	100% {
+		background-color: rgb(127, 29, 29, 1);
+	}
+}
+
 .barcode-print {
 	@apply print:bg-white !important;
 }
@@ -97,4 +109,8 @@
 
 .barcode-print > svg > g {
 	@apply print:fill-black !important;
+}
+
+.warranty-status {
+	animation: pulse-bg 1s ease-in-out infinite;
 }

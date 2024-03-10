@@ -1,4 +1,3 @@
-import { CustomerIdBarcode, OrderIdBarcode } from '@components/barcodes'
 import {
 	addThirtyDays,
 	formatDate,
@@ -9,6 +8,8 @@ import clsx from 'clsx'
 import { Warranty } from '@prisma/client'
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { Label, Textarea } from '@components/ui'
+import Barcode from 'react-jsbarcode'
+import colors from 'tailwindcss/colors'
 
 const mockOrder: Warranty = {
 	id: 'Demo',
@@ -42,7 +43,21 @@ export const WarrantyDemo = () => {
 
 	return (
 		<div className='flex w-[400px] flex-col gap-5 rounded-lg bg-neutral-900 border border-foreground/20 p-3'>
-			<OrderIdBarcode orderId={order.id.toUpperCase()} />
+			<div className='flex flex-col items-center justify-between w-full'>
+				<p className='text-2xl font-bold m-0'>{order.id}</p>
+				<div className='bg-background w-full rounded shadow barcode-print'>
+					<Barcode
+						className='max-w-[376px] mx-auto w-full'
+						value={order.id}
+						options={{
+							background: colors.neutral[950],
+							lineColor: colors.neutral[50],
+							displayValue: false,
+							height: 40
+						}}
+					/>
+				</div>
+			</div>
 			<div className='flex items-center justify-between'>
 				<span className='text-xl font-bold'>Prazo de Resolução</span>
 				<span className='underline decoration-cex decoration-wavy'>
@@ -88,7 +103,22 @@ export const WarrantyDemo = () => {
 					id={`warrantyRequestId-${order.id}`}
 				/>
 			</div>
-			<CustomerIdBarcode customerId={order.customerId} />
+			<div className='flex w-full flex-col items-center'>
+				<p className='text-2xl font-bold m-0'>Ficha de Cliente</p>
+				<div className='bg-background w-full rounded shadow barcode-print'>
+					<Barcode
+						className='max-w-[376px] mx-auto w-full'
+						value={order.customerId}
+						options={{
+							background: colors.neutral[950],
+							lineColor: colors.neutral[50],
+							displayValue: false,
+							height: 40
+						}}
+					/>
+				</div>
+				<span>{order.customerId}</span>
+			</div>
 			<div className='flex w-full flex-col gap-1 mt-auto'>
 				<Label value='Observações' htmlFor={`description-${order.id}`} />
 				{isEditing ? (

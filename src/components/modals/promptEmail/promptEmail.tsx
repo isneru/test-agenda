@@ -2,20 +2,27 @@ import {
 	type PromptEmailModalProps,
 	usePromptEmailModalHelper
 } from './promptEmail.helper'
-import { Input, Label } from '@components/ui'
+import { Input, Label, Loading } from '@components/ui'
 import * as Dialog from '@radix-ui/react-dialog'
+import clsx from 'clsx'
 
 export const PromptEmailModal = ({
 	isModalVisible,
 	setIsModalVisible,
 	orderId
 }: PromptEmailModalProps) => {
-	const { email, sendResolvedEmail, setEmail, toggleModal, deleteTest } =
-		usePromptEmailModalHelper({
-			isModalVisible,
-			setIsModalVisible,
-			orderId
-		})
+	const {
+		email,
+		sendResolvedEmail,
+		setEmail,
+		toggleModal,
+		deleteTest,
+		isLoading
+	} = usePromptEmailModalHelper({
+		isModalVisible,
+		setIsModalVisible,
+		orderId
+	})
 
 	return (
 		<Dialog.Root open={isModalVisible} onOpenChange={toggleModal}>
@@ -34,17 +41,29 @@ export const PromptEmailModal = ({
 						onChange={e => setEmail(e.target.value)}
 					/>
 				</div>
-				<div className='grid gap-6 w-full mt-6 grid-cols-2'>
-					<button
-						onClick={deleteTest}
-						className='flex w-full items-center justify-center rounded p-2 hover:underline'>
-						Não enviar email
-					</button>
-					<button
-						onClick={sendResolvedEmail}
-						className='flex w-full items-center justify-center rounded bg-red-800 transition-colors hover:bg-cex p-2'>
-						Confirmar
-					</button>
+				<div
+					className={clsx(
+						'grid gap-6 w-full mt-6',
+						isLoading ? 'grid-cols-1' : 'grid-cols-2'
+					)}>
+					<Loading
+						width={40}
+						height={40}
+						className='text-center w-full'
+						isLoading={isLoading}>
+						<button
+							onClick={deleteTest}
+							className='flex w-full items-center justify-center rounded p-2 hover:underline'>
+							Não enviar email
+						</button>
+						<button
+							disabled={isLoading}
+							aria-disabled={isLoading}
+							onClick={sendResolvedEmail}
+							className='flex w-full items-center justify-center rounded bg-red-800 transition-colors hover:bg-cex p-2 disabled:bg-red-900 disabled:hover:bg-red-900 disabled:cursor-not-allowed'>
+							Confirmar
+						</button>
+					</Loading>
 				</div>
 			</Dialog.Content>
 		</Dialog.Root>

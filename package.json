@@ -34,6 +34,7 @@
 		"react-dom": "18.2.0",
 		"react-jsbarcode": "^0.4.2",
 		"resend": "^3.2.0",
+		"shiki": "^1.1.7",
 		"superjson": "^2.2.1",
 		"zod": "^3.22.4"
 	},

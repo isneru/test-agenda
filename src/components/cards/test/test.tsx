@@ -4,10 +4,16 @@ import { PromptEmailModal } from '@components/modals'
 import { formatDate, testValidTypes } from '@lib/utils'
 import { OrderDescription } from '@components/cards'
 import clsx from 'clsx'
+import { Loading } from '@components/ui'
 
 export const Test = ({ order }: TestProps) => {
-	const { startTest, setIsModalVisible, deleteTest, isModalVisible } =
-		useTestHelper({ order })
+	const {
+		startTest,
+		setIsModalVisible,
+		deleteTest,
+		isModalVisible,
+		isLoading
+	} = useTestHelper({ order })
 
 	return (
 		<div
@@ -38,19 +44,19 @@ export const Test = ({ order }: TestProps) => {
 			</div>
 			<CustomerIdBarcode customerId={order.customerId.toUpperCase()} />
 			<OrderDescription order={order} />
-			{order.beingTested ? (
-				<button
-					onClick={deleteTest}
-					className='rounded bg-red-800 p-2 transition-colors hover:bg-cex'>
-					Marcar como resolvido
-				</button>
-			) : (
-				<button
-					onClick={startTest}
-					className='rounded bg-red-800 p-2 transition-colors hover:bg-cex'>
-					Começar a testar
-				</button>
-			)}
+			<button
+				disabled={isLoading}
+				aria-disabled={isLoading}
+				onClick={order.beingTested ? deleteTest : startTest}
+				className='rounded bg-red-800 p-2 transition-colors hover:bg-cex text-center disabled:bg-red-900 disabled:hover:bg-red-900 disabled:cursor-not-allowed'>
+				<Loading
+					width={24}
+					height={24}
+					className='text-center w-full'
+					isLoading={isLoading}>
+					{order.beingTested ? 'Marcar como resolvido' : 'Começar a testar'}
+				</Loading>
+			</button>
 			<PromptEmailModal
 				orderId={order.id}
 				isModalVisible={isModalVisible}

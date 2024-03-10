@@ -36,7 +36,8 @@ export const Navbar = () => {
 					</button>
 					<div className='h-10 w-px bg-foreground/40 print:hidden' />
 					<Link
-						className='px-2 h-10 flex items-center justify-center gap-2 rounded-lg border border-transparent hover:border-foreground/20 hover:bg-white/5 transition-colors print:hidden'
+						data-active={pathname === '/help'}
+						className='px-2 h-10 flex items-center justify-center gap-2 rounded-lg border border-transparent hover:border-foreground/20 hover:bg-white/5 transition-colors print:hidden data-[active=true]:border-foreground/20 data-[active=true]:bg-white/5'
 						href='/help'>
 						<span>Ajuda</span>
 						<QuestionMarkCircledIcon width={24} height={24} />

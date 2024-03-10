@@ -12,6 +12,7 @@ export type NewTestModalProps = {
 export const useNewTestModalHelper = ({
 	setIsModalVisible
 }: NewTestModalProps) => {
+	const [isLoading, setIsLoading] = useState(false)
 	const { refetch: refetchTests } = api.test.getAll.useQuery()
 	const { mutate: handleCreate } = api.test.create.useMutation()
 	const {
@@ -44,6 +45,7 @@ export const useNewTestModalHelper = ({
 			type: 'Normal',
 			description: ''
 		})
+		setIsLoading(false)
 	}
 
 	function handleChangeTestInput(e: InputEvent) {
@@ -56,6 +58,7 @@ export const useNewTestModalHelper = ({
 	}
 
 	function createTest() {
+		setIsLoading(true)
 		const { description, ...nonOptionalTestFields } = test
 
 		const valuesToCheck =
@@ -75,10 +78,7 @@ export const useNewTestModalHelper = ({
 					test.type === 'Normal' ? getDate({ date, time }) : undefined
 			},
 			{
-				onSuccess: () => {
-					toggleModal()
-					refetchTests()
-				}
+				onSettled: () => refetchTests().then(toggleModal)
 			}
 		)
 	}
@@ -96,6 +96,7 @@ export const useNewTestModalHelper = ({
 		hoursRef,
 		time,
 		minutesRef,
-		createTest
+		createTest,
+		isLoading
 	}
 }

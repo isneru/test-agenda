@@ -1,4 +1,4 @@
-import { Input, Label, Textarea } from '@components/ui'
+import { Input, Label, Loading, Textarea } from '@components/ui'
 import * as Dialog from '@radix-ui/react-dialog'
 import {
 	type NewWarrantyModalProps,
@@ -51,9 +51,17 @@ export const NewWarrantyModal = ({
 						Cancelar
 					</Dialog.Close>
 					<button
+						disabled={helper.isLoading}
+						aria-disabled={helper.isLoading}
 						onClick={helper.createWarranty}
-						className='flex w-full items-center justify-center rounded bg-red-800 transition-colors hover:bg-cex p-2'>
-						Confirmar registo
+						className='flex w-full items-center justify-center rounded bg-red-800 transition-colors hover:bg-cex p-2 disabled:bg-red-900 disabled:hover:bg-red-900 disabled:cursor-not-allowed'>
+						<Loading
+							width={24}
+							height={24}
+							className='text-center w-full'
+							isLoading={helper.isLoading}>
+							Confirmar registo
+						</Loading>
 					</button>
 				</div>
 			</Dialog.Content>

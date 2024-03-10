@@ -11,6 +11,7 @@ export const usePromptEmailModalHelper = ({
 	setIsModalVisible,
 	orderId
 }: PromptEmailModalProps) => {
+	const [isLoading, setIsLoading] = useState(false)
 	const [email, setEmail] = useState('')
 	const { mutate: handleSendResolved } = api.email.sendResolved.useMutation()
 	const { refetch: refetchTests } = api.test.getAll.useQuery()
@@ -19,15 +20,16 @@ export const usePromptEmailModalHelper = ({
 	function toggleModal() {
 		setEmail('')
 		setIsModalVisible(val => !val)
+		setIsLoading(false)
 	}
 
 	function deleteTest() {
+		setIsLoading(true)
 		handleDelete(
 			{ orderId },
 			{
 				onSettled: () => {
-					refetchTests()
-					toggleModal()
+					refetchTests().then(toggleModal)
 				}
 			}
 		)
@@ -38,11 +40,12 @@ export const usePromptEmailModalHelper = ({
 			alert('Preenche o campo!')
 			return
 		}
+		setIsLoading(true)
 
 		handleSendResolved(
 			{ email, orderId },
 			{
-				onSuccess: () => deleteTest(),
+				onSettled: () => deleteTest(),
 				onError: val =>
 					alert(
 						val.data?.zodError?.fieldErrors?.email?.[0] ?? 'Erro Desconhecido'
@@ -51,5 +54,12 @@ export const usePromptEmailModalHelper = ({
 		)
 	}
 
-	return { toggleModal, email, setEmail, sendResolvedEmail, deleteTest }
+	return {
+		toggleModal,
+		email,
+		setEmail,
+		sendResolvedEmail,
+		deleteTest,
+		isLoading
+	}
 }

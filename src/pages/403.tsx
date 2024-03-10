@@ -26,7 +26,7 @@ export default function Unauthorized() {
 					'flex flex-col items-center justify-center h-screen w-full'
 				)}>
 				<h1 className='text-6xl font-bold'>403</h1>
-				<p className='text-2xl font-semibold'>Unauthorized</p>
+				<p className='text-2xl font-semibold'>Conta não autorizada.</p>
 				<Link
 					href='/'
 					className='absolute left-1/2 -translate-x-1/2 bottom-6 animate-pulse hover:animate-none'>
