@@ -22,10 +22,11 @@ export const changelogRouter = createTRPCRouter({
 		}
 
 		const versionDateRegex = /<date>.*?<\/date>/g
+
 		const filteredChangelog = changelog.replace(versionDateRegex, '')
 
 		const code = await parse(filteredChangelog)
-		console.log({ code, versionDate, currentVersion })
+
 		return { code, versionDate }
 	})
 })
