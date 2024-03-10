@@ -2,6 +2,7 @@ import { AppType } from 'next/app'
 import { api } from '@lib/api'
 import { SessionProvider } from 'next-auth/react'
 import { type Session } from 'next-auth'
+import { ChangelogProvider } from '@lib/providers'
 
 import '@styles/globals.css'
 
@@ -11,7 +12,9 @@ const App: AppType<{ session: Session | null }> = ({
 }) => {
 	return (
 		<SessionProvider session={session}>
-			<Component {...pageProps} />
+			<ChangelogProvider>
+				<Component {...pageProps} />
+			</ChangelogProvider>
 		</SessionProvider>
 	)
 }

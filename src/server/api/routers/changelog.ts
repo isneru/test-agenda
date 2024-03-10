@@ -1,6 +1,5 @@
 import { createTRPCRouter, protectedProcedure } from '@server/api/trpc'
 import shiki from 'shiki'
-import { cookies } from 'next/headers'
 
 export const changelogRouter = createTRPCRouter({
 	getCode: protectedProcedure.query(async ({ ctx }) => {
@@ -13,13 +12,17 @@ export const changelogRouter = createTRPCRouter({
 
 		const currentVersion = changelog.match(/##\s*(\d+\.\d+\.\d+)/)?.[1] // [##, <version>]
 		if (currentVersion) {
-			cookies().set('currentVersion', currentVersion)
+			ctx.res.appendHeader('set-cookie', currentVersion)
 		}
+
+		console.log({ changelog })
 
 		const code = await shiki.codeToHtml(changelog, {
 			lang: 'markdown',
 			theme: 'github-dark'
 		})
+
+		console.log({ code })
 
 		return code
 	})

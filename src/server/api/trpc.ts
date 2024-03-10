@@ -15,6 +15,7 @@ import { ZodError } from 'zod'
 
 import { getServerAuthSession } from '@server/auth'
 import { db } from '@server/db'
+import { NextApiResponse } from 'next'
 
 /**
  * 1. CONTEXT
@@ -26,6 +27,7 @@ import { db } from '@server/db'
 
 interface CreateContextOptions {
 	session: Session | null
+	res: NextApiResponse
 }
 
 /**
@@ -41,7 +43,8 @@ interface CreateContextOptions {
 const createInnerTRPCContext = (opts: CreateContextOptions) => {
 	return {
 		session: opts.session,
-		db
+		db,
+		res: opts.res
 	}
 }
 
@@ -58,7 +61,8 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
 	const session = await getServerAuthSession({ req, res })
 
 	return createInnerTRPCContext({
-		session
+		session,
+		res
 	})
 }
 
