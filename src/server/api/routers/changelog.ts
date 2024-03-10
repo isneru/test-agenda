@@ -8,9 +8,9 @@ export const changelogRouter = createTRPCRouter({
 		const changelogResponse = await fetch(
 			'https://raw.githubusercontent.com/isneru/test-agenda/main/currentVersion.md'
 		)
-		let changelog = await changelogResponse.text()
+		const changelog = await changelogResponse.text()
 
-		const currentVersion = changelog.match(/## Versão (\d+\.\d+\.\d+)/)?.[1]
+		const currentVersion = changelog.match(/# Versão (\d+\.\d+\.\d+)/)?.[1]
 
 		const versionDate = changelog.match(/<date>(.*?)<\/date>/)?.[1]
 
@@ -25,7 +25,7 @@ export const changelogRouter = createTRPCRouter({
 		const filteredChangelog = changelog.replace(versionDateRegex, '')
 
 		const code = await parse(filteredChangelog)
-
+		console.log({ code, versionDate, currentVersion })
 		return { code, versionDate }
 	})
 })
