@@ -14,6 +14,7 @@ export const env = createEnv({
 				str => !str.includes('YOUR_MYSQL_URL_HERE'),
 				'You forgot to change the default URL'
 			),
+		DIRECT_URL: z.string(),
 		RESEND_API_KEY: z.string(),
 		NODE_ENV: z
 			.enum(['development', 'test', 'production'])
@@ -38,6 +39,7 @@ export const env = createEnv({
 	 */
 	runtimeEnv: {
 		DATABASE_URL: process.env.DATABASE_URL,
+		DIRECT_URL: process.env.DIRECT_URL,
 		RESEND_API_KEY: process.env.RESEND_API_KEY,
 		NODE_ENV: process.env.NODE_ENV,
 		AUTHORIZED_EMAIL: process.env.AUTHORIZED_EMAIL,
