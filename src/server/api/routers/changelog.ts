@@ -16,11 +16,8 @@ export const changelogRouter = createTRPCRouter({
 
 		if (currentVersion) {
 			ctx.res.appendHeader(
-				'set-cookie',
-				`currentVersion=${currentVersion} ; path=/ ; expires=${new Date(
-					Date.now() + 1000 * 60 * 60 * 24 * 30 // 30 days
-				).toUTCString()} ; SameSite=Lax ; Secure ; HttpOnly
-				`
+				'Set-Cookie',
+				`currentVersion=${currentVersion}; Path=/; Max-Age=2592000; SameSite=Lax; Secure; HttpOnly`
 			)
 		}
 
