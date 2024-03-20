@@ -40,13 +40,14 @@ export const useNewWarrantyModalHelper = ({
 	}
 
 	function createWarranty() {
-		setIsLoading(true)
 		const { description, ...nonOptionalWarrantyFields } = warranty
 
 		if (!isEveryFieldFilled(nonOptionalWarrantyFields)) {
 			alert('Preenche todos os campos!')
 			return
 		}
+
+		setIsLoading(true)
 
 		handleCreate(warranty, {
 			onSettled: () => refetchWarranties().then(toggleModal)

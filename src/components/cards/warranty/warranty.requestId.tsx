@@ -29,6 +29,7 @@ export const WarrantyRequestId = ({ order }: WarrantyProps) => {
 				htmlFor={`warrantyRequestId-${order.id}`}
 			/>
 			<input
+				autoComplete='off'
 				disabled={order.status !== 'Substituir'}
 				value={order.status === 'Substituir' ? input : 'N/A'}
 				onChange={e => setInput(e.target.value)}

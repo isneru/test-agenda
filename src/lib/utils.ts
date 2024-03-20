@@ -43,6 +43,12 @@ export function addThirtyDays(date: Date) {
 	return newDate
 }
 
+export function addFourteenDays(date: Date) {
+	const newDate = new Date(date)
+	newDate.setDate(newDate.getDate() + 14)
+	return newDate
+}
+
 export function getInputNumberBoundaries(
 	min: number,
 	input: string,

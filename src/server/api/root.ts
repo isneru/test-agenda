@@ -1,3 +1,4 @@
+import { abandonedRouter } from '@server/api/routers/abandoned'
 import { changelogRouter } from '@server/api/routers/changelog'
 import { emailRouter } from '@server/api/routers/emails'
 import { testRouter } from '@server/api/routers/tests'
@@ -13,7 +14,8 @@ export const appRouter = createTRPCRouter({
 	test: testRouter,
 	warranty: warrantyRouter,
 	email: emailRouter,
-	changelog: changelogRouter
+	changelog: changelogRouter,
+	abandoned: abandonedRouter
 })
 
 // export type definition of API

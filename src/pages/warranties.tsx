@@ -22,7 +22,7 @@ export default function Warranties() {
 					<button
 						onClick={() => setIsModalVisible(val => !val)}
 						className='rounded-lg bg-red-800 px-3 py-2 transition-colors hover:bg-cex'>
-						Nova garantia
+						Nova Garantia
 					</button>
 				</Hero>
 				<Input

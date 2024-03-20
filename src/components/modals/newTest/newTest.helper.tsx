@@ -58,7 +58,6 @@ export const useNewTestModalHelper = ({
 	}
 
 	function createTest() {
-		setIsLoading(true)
 		const { description, ...nonOptionalTestFields } = test
 
 		const valuesToCheck =
@@ -70,6 +69,8 @@ export const useNewTestModalHelper = ({
 			alert('Preenche todos os campos')
 			return
 		}
+
+		setIsLoading(true)
 
 		handleCreate(
 			{

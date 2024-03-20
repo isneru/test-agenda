@@ -1,11 +1,16 @@
 import { WarrantyDemo } from '@components/cards'
-import { NewTestModalDemo, NewWarrantyModalDemo } from '@components/modals'
+import {
+	NewAbandonedModalDemo,
+	NewTestModalDemo,
+	NewWarrantyModalDemo
+} from '@components/modals'
 import { Layout } from '@components/ui'
 import { useState } from 'react'
 
 export default function Help() {
 	const [isTestModalVisible, setIsTestModalVisible] = useState(false)
 	const [isWarrantyModalVisible, setIsWarrantyModalVisible] = useState(false)
+	const [isAbandonedModalVisible, setIsAbandonedModalVisible] = useState(false)
 
 	return (
 		<Layout>
@@ -16,6 +21,10 @@ export default function Help() {
 			<NewWarrantyModalDemo
 				isModalVisible={isWarrantyModalVisible}
 				setIsModalVisible={setIsWarrantyModalVisible}
+			/>
+			<NewAbandonedModalDemo
+				isModalVisible={isAbandonedModalVisible}
+				setIsModalVisible={setIsAbandonedModalVisible}
 			/>
 			<div className='prose-invert prose-lg container mx-auto prose-h2:font-semibold prose-ul:list-disc prose-ol:list-decimal'>
 				<h2>O que é?</h2>
@@ -62,6 +71,27 @@ export default function Help() {
 								verde
 							</span>
 							&nbsp; para indicar que está a ser testado.
+						</p>
+					</li>
+					<li>
+						<h3>Garantias</h3>
+						<p>
+							Ao dar entrada de uma garantia, há várias etapas que têm de ser
+							bem geridas para que a garantia seja resolvida o mais rápido
+							possível.
+							<br />A Agenda permite ter uma visão geral de todas as garantias
+							que estão por resolver e a data limite para a sua resolução, bem
+							como a data de entrada da garantia, o estado das mesmas e, se
+							aplicável, o número de Warranty Request.
+						</p>
+					</li>
+					<li>
+						<h3>Abandonados</h3>
+						<p>
+							Os abandonados são sempre um problema e a Agenda permite
+							dificultar a perca de artigos. Ao dar entrada de um abandonado, é
+							possivel registar o estado do artigo, o número de série e o
+							respetivo serial.
 						</p>
 					</li>
 				</ul>
@@ -204,6 +234,55 @@ export default function Help() {
 							</div>
 						</div>
 					</li>
+					<li>
+						<h3>Criar um abandonado</h3>
+						<p>
+							Para criar um abandonado, basta clicar no botão&nbsp;
+							<button
+								onClick={() => setIsAbandonedModalVisible(val => !val)}
+								className='text-sm rounded-lg bg-red-800 px-3 py-2 transition-colors hover:bg-cex'>
+								Novo abandonado
+							</button>
+							&nbsp;no topo da página. Aparecerá uma &quot;janela pop-up&quot;
+							com um uma lista de campos a preencher. Os campos obrigatórios
+							são:
+						</p>
+						<ol>
+							<li>Número da Ordem</li>
+							<li>Ficha de Cliente</li>
+							<li>Data de Entrada</li>
+							<li>Box ID dos Artigos</li>
+						</ol>
+					</li>
+					<li>
+						<h3>Gerir um abandonado</h3>
+						<div>
+							<p>
+								Gerir um abandonado requer atenção aos detalhes visto que a
+								criação de um abandonado é irreversível, a não ser que seja
+								marcado como resolvido e criado novamente.
+							</p>
+							<p>
+								A ordem de abandonado calcula 14 dias após a data de entrada
+								fornecida para que seja possível o envio do email &#40;via Apoio
+								ao Cliente&#41; ou carta. Após o envio, o prazo para ajuste é de
+								14 dias, totalizando 1 mês.
+							</p>
+							<p>Depois de criado, é possivel alterar os seguintes campos:</p>
+							<ul>
+								<li>Tentativas de contacto</li>
+								<li>Email enviado</li>
+								<li>
+									Carta enviada&nbsp;
+									<span className='text-sm italic'>
+										&#40;Se este campo estiver marcado é disponibilizado um
+										campo para anotar o&nbsp;
+										<span className='font-semibold'>Tracking</span>&#41;
+									</span>
+								</li>
+							</ul>
+						</div>
+					</li>
 				</ul>
 				<h2>Apresentação</h2>
 				<ul>
@@ -238,6 +317,14 @@ export default function Help() {
 							da lista e a que deve ser tratada com mais urgência.
 						</p>
 					</li>
+					<li>
+						<h3>Abandonados</h3>
+						<p>
+							Os Abandonados são organizados pela data de entrada fornecida
+							durante a criação, logo o abandonado mais antigo é o que está no
+							topo da lista e o que deve ser tratado com mais urgência.
+						</p>
+					</li>
 				</ul>
 				<h2>Por fim</h2>
 				<p>
@@ -257,10 +344,10 @@ export default function Help() {
 					deste site é free. Aguentemos!
 				</p>
 				<h2>
-					What's next? <span className='text-sm italic'>&#40;v1.1&#41;</span>
+					What's next? <span className='text-sm italic'>&#40;v1.1.1&#41;</span>
 				</h2>
 				<ul>
-					<li>Sistema de Abandonados</li>
+					<li>Melhoria no UX/UI dos abandonados</li>
 				</ul>
 			</div>
 		</Layout>

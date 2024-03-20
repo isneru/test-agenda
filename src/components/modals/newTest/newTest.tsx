@@ -51,7 +51,8 @@ export const NewTestModal = ({
 						<span className='text-xl font-bold'>Hora Marcada</span>
 						<div className='flex items-center gap-1'>
 							<input
-								className='h-10 w-12 rounded bg-background border border-foreground/40 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 focus-visible:ring-cex p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300'
+								autoComplete='off'
+								className='h-10 w-12 rounded bg-background border border-foreground/40 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 focus-visible:ring-cex p-2 text-center text-lg font-medium outline-none placeholder:text-sm '
 								id='day'
 								ref={helper.dayRef}
 								value={helper.date.day}
@@ -61,7 +62,8 @@ export const NewTestModal = ({
 							/>
 							<span>/</span>
 							<input
-								className='h-10 w-12 rounded bg-background border border-foreground/40 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 focus-visible:ring-cex p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300'
+								autoComplete='off'
+								className='h-10 w-12 rounded bg-background border border-foreground/40 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 focus-visible:ring-cex p-2 text-center text-lg font-medium outline-none placeholder:text-sm '
 								id='month'
 								ref={helper.monthRef}
 								value={helper.date.month}
@@ -71,7 +73,8 @@ export const NewTestModal = ({
 							/>
 							<span>/</span>
 							<input
-								className='h-10 w-20 rounded bg-background border border-foreground/40 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 focus-visible:ring-cex p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300'
+								autoComplete='off'
+								className='h-10 w-20 rounded bg-background border border-foreground/40 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 focus-visible:ring-cex p-2 text-center text-lg font-medium outline-none placeholder:text-sm '
 								id='year'
 								ref={helper.yearRef}
 								value={helper.date.year}
@@ -81,7 +84,8 @@ export const NewTestModal = ({
 							/>
 							<span className='mx-4'>-</span>
 							<input
-								className='h-10 w-12 rounded bg-background border border-foreground/40 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 focus-visible:ring-cex p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300'
+								autoComplete='off'
+								className='h-10 w-12 rounded bg-background border border-foreground/40 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 focus-visible:ring-cex p-2 text-center text-lg font-medium outline-none placeholder:text-sm '
 								id='hours'
 								ref={helper.hoursRef}
 								value={helper.time.hours}
@@ -91,7 +95,8 @@ export const NewTestModal = ({
 							/>
 							<span>:</span>
 							<input
-								className='h-10 w-12 rounded bg-background border border-foreground/40 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 focus-visible:ring-cex p-2 text-center text-lg font-medium outline-none placeholder:text-sm placeholder:text-red-300'
+								autoComplete='off'
+								className='h-10 w-12 rounded bg-background border border-foreground/40 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 focus-visible:ring-cex p-2 text-center text-lg font-medium outline-none placeholder:text-sm '
 								id='minutes'
 								ref={helper.minutesRef}
 								value={helper.time.minutes}

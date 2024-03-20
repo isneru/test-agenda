@@ -7,11 +7,13 @@ export const changelogRouter = createTRPCRouter({
 		if (!ctx.session) return
 
 		const changelogResponse = await fetch(
-			`${env.NEXTAUTH_URL}/currentVersion.md`
+			`${env.NEXTAUTH_URL}/changelog/1.1.md`
 		)
 		const changelog = await changelogResponse.text()
 
-		const currentVersion = changelog.match(/# Versão (\d+\.\d+\.\d+)/)?.[1]
+		const currentVersion = changelog.match(
+			/# Versão (\d+\.\d+\.\d+|\d+\.\d+)/
+		)?.[1]
 
 		const versionDate = changelog.match(/<date>(.*?)<\/date>/)?.[1]
 

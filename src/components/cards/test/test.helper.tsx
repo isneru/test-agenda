@@ -8,7 +8,6 @@ export type TestProps = {
 
 export const useTestHelper = ({ order }: TestProps) => {
 	const [isLoading, setIsLoading] = useState(false)
-	/* const [isModalVisible, setIsModalVisible] = useState(false) */
 	const { mutate: handleDelete } = api.test.delete.useMutation()
 	const { refetch: refetchTests } = api.test.getAll.useQuery()
 	const { mutate: handleStartTest } = api.test.startTest.useMutation()
@@ -25,9 +24,7 @@ export const useTestHelper = ({ order }: TestProps) => {
 
 	function deleteTest() {
 		setIsLoading(true)
-		/* order.type === 'Normal'
-			? setIsModalVisible(true)
-			: */ handleDelete(
+		handleDelete(
 			{ orderId: order.id },
 			{
 				onSettled: () => refetchTests().then(() => setIsLoading(false))
@@ -37,8 +34,6 @@ export const useTestHelper = ({ order }: TestProps) => {
 
 	return {
 		startTest,
-		/* 		setIsModalVisible,
-		isModalVisible, */
 		deleteTest,
 		isLoading
 	}

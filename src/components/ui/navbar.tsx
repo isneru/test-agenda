@@ -6,7 +6,8 @@ import { QuestionMarkCircledIcon } from '@radix-ui/react-icons'
 
 const links = [
 	{ href: '/', label: 'Testes' },
-	{ href: '/warranties', label: 'Garantias' }
+	{ href: '/warranties', label: 'Garantias' },
+	{ href: '/abandoned', label: 'Abandonados' }
 ]
 
 export const Navbar = () => {
