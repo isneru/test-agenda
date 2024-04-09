@@ -18,7 +18,7 @@ export default function Warranties() {
 	return (
 		<Layout>
 			<div className='flex flex-col gap-4 p-10'>
-				<Hero title='CeX Warranty Agenda'>
+				<Hero title='Garantias'>
 					<button
 						onClick={() => setIsModalVisible(val => !val)}
 						className='rounded-lg bg-red-800 px-3 py-2 transition-colors hover:bg-cex'>

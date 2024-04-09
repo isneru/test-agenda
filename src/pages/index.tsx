@@ -22,7 +22,7 @@ export default function Home() {
 	return (
 		<Layout>
 			<div className='flex flex-col gap-4 p-10'>
-				<Hero title='CeX Test Agenda'>
+				<Hero title='Testes'>
 					<div className='flex items-center gap-2'>
 						<button
 							onClick={() => setIsModalVisible(val => !val)}

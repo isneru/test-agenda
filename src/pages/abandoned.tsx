@@ -18,7 +18,7 @@ export default function Abandoneds() {
 	return (
 		<Layout>
 			<div className='flex flex-col gap-4 p-10'>
-				<Hero title='CeX Abandoned Agenda'>
+				<Hero title='Abandonados'>
 					<div className='flex items-center gap-2'>
 						<button
 							onClick={() => setIsModalVisible(val => !val)}
