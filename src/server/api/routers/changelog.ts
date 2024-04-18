@@ -6,8 +6,10 @@ export const changelogRouter = createTRPCRouter({
 	getCode: protectedProcedure.query(async ({ ctx }) => {
 		if (!ctx.session) return
 
+		const versionToRead = '1.1.1'
+
 		const changelogResponse = await fetch(
-			`${env.NEXTAUTH_URL}/changelog/1.1.md`
+			`${env.NEXTAUTH_URL}/changelog/${versionToRead}.md`
 		)
 		const changelog = await changelogResponse.text()
 

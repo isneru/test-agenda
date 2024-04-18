@@ -1,4 +1,4 @@
-type HeroProps = { children: React.ReactNode; title: string }
+type HeroProps = { children?: React.ReactNode; title: string }
 
 export const Hero = ({ title, children }: HeroProps) => {
 	return (

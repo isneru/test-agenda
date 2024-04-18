@@ -28,13 +28,13 @@ export const Layout = ({ children }: LayoutProps) => {
 					</main>
 				)}
 				{status === 'authenticated' && (
-					<>
+					<div className='mx-auto flex h-screen w-full'>
 						<Navbar />
 						<main className='flex flex-col gap-5 p-10 w-full'>{children}</main>
-					</>
+					</div>
 				)}
 				{status === 'loading' && (
-					<>
+					<div className='mx-auto flex h-screen w-full'>
 						<Navbar />
 						<main className='flex flex-col gap-5 p-10 w-full'>
 							<div className='absolute inset-0 flex flex-col gap-6 items-center justify-center bg-background/50'>
@@ -45,7 +45,7 @@ export const Layout = ({ children }: LayoutProps) => {
 							</div>
 							{children}
 						</main>
-					</>
+					</div>
 				)}
 			</div>
 		</>

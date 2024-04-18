@@ -1,6 +1,14 @@
 import { api } from '@lib/api'
 import { useSession } from 'next-auth/react'
-import { createContext, ReactNode, useEffect, useState } from 'react'
+import {
+	createContext,
+	Dispatch,
+	ReactNode,
+	SetStateAction,
+	useContext,
+	useEffect,
+	useState
+} from 'react'
 import { getCookie, setCookie } from 'cookies-next'
 import * as Dialog from '@radix-ui/react-dialog'
 import { poppins } from '@lib/font'
@@ -9,13 +17,13 @@ import { Cross1Icon } from '@radix-ui/react-icons'
 
 interface ChangelogContextData {}
 
-export const ChangelogContext = createContext({} as ChangelogContextData)
+const ChangelogContext = createContext({} as ChangelogContextData)
 
-interface ChangeloProviderProps {
+interface ChangelogProviderProps {
 	children: ReactNode
 }
 
-export const ChangelogProvider = ({ children }: ChangeloProviderProps) => {
+export const ChangelogProvider = ({ children }: ChangelogProviderProps) => {
 	const [isChangelogVisible, setIsChangelogVisible] = useState(false)
 	const { data: session } = useSession()
 	const { data } = api.changelog.getCode.useQuery(undefined, {
@@ -66,4 +74,29 @@ export const ChangelogProvider = ({ children }: ChangeloProviderProps) => {
 			{children}
 		</ChangelogContext.Provider>
 	)
+}
+
+interface SidebarContextData {
+	isOpen: boolean
+	setIsOpen: Dispatch<SetStateAction<boolean>>
+}
+
+const SidebarContext = createContext({} as SidebarContextData)
+
+interface SidebarProviderProps {
+	children: ReactNode
+}
+
+export const SidebarProvider = ({ children }: SidebarProviderProps) => {
+	const [isOpen, setIsOpen] = useState(false)
+
+	return (
+		<SidebarContext.Provider value={{ isOpen, setIsOpen }}>
+			{children}
+		</SidebarContext.Provider>
+	)
+}
+
+export function useSidebar() {
+	return useContext(SidebarContext)
 }
