@@ -97,11 +97,11 @@ export default function Help() {
 				</ul>
 				<h2>Como usar?</h2>
 				<p>
-					A navegação é feita através da barra no topo da página. Aí é possivel
-					navegar entre os testes e as garantias. A barra de navegação é
-					composta por dois links do lado esquerdo, um para os testes e outro
-					para as garantias. Do lado direito, se estiveres com sessão iniciada,
-					podes sair da sessão clicando no texto &quot;Logado em:&nbsp;
+					A navegação é feita através da barra no lado esquerdo da página. Aí é
+					possivel navegar entre os testes, garantias, abandonados e utilidades.
+					A barra de navegação é composta pelos links em cima. Na parte de
+					baixo, se estiveres com sessão iniciada, podes sair da sessão clicando
+					no texto &quot;Logado em:&nbsp;
 					<span className='font-medium'>&lt;Loja&gt;</span>&quot;.
 				</p>
 				<ul>
