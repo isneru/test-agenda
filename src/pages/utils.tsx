@@ -48,7 +48,7 @@ export default function Utils() {
 						<span className='rounded-lg py-1 px-2 bg-neutral-900 font-semibold select-none'>
 							F10
 						</span>
-						&nbsp; para abrir a linha de comandos.
+						&nbsp;para abrir a linha de comandos.
 					</li>
 					<li>
 						Escrever:
