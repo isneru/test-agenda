@@ -20,8 +20,8 @@ export const NewAbandonedModal = ({
 
 	return (
 		<Dialog.Root open={isModalVisible} onOpenChange={helper.toggleModal}>
-			<Dialog.Overlay className='fixed inset-0 z-10 bg-black/60 data-[state=closed]:animate-[overlay-hide_150ms] data-[state=open]:animate-[overlay-show_150ms]' />
-			<Dialog.Content className='fixed max-h-[90vh] left-1/2 z-20 top-1/2 flex w-[460px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-4 rounded-lg bg-neutral-900 border border-foreground/40 p-8 shadow data-[state=closed]:animate-[content-hide_150ms] data-[state=open]:animate-[content-show_150ms]'>
+			<Dialog.Overlay className='fixed inset-0 z-[90] bg-black/60 data-[state=closed]:animate-[overlay-hide_150ms] data-[state=open]:animate-[overlay-show_150ms]' />
+			<Dialog.Content className='fixed max-h-[90vh] left-1/2 z-[100] top-1/2 flex w-[460px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-4 rounded-lg bg-neutral-900 border border-foreground/40 p-8 shadow data-[state=closed]:animate-[content-hide_150ms] data-[state=open]:animate-[content-show_150ms]'>
 				<div className='grid grid-cols-2 items-center gap-2'>
 					<Label value='Nº de Ordem' htmlFor='orderId' />
 					<Input

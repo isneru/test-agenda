@@ -16,8 +16,8 @@ export const NewWarrantyModalDemo = ({
 
 	return (
 		<Dialog.Root open={isModalVisible} onOpenChange={helper.toggleModal}>
-			<Dialog.Overlay className='fixed inset-0 z-10 bg-black/60 data-[state=closed]:animate-[overlay-hide_200ms] data-[state=open]:animate-[overlay-show_200ms]' />
-			<Dialog.Content className='fixed left-1/2 z-20 top-1/2 flex w-[460px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-4 rounded-lg bg-neutral-900 border border-foreground/40 p-8 pt-4 shadow data-[state=closed]:animate-[content-hide_200ms] data-[state=open]:animate-[content-show_200ms]'>
+			<Dialog.Overlay className='fixed inset-0 z-[90] bg-black/60 data-[state=closed]:animate-[overlay-hide_200ms] data-[state=open]:animate-[overlay-show_200ms]' />
+			<Dialog.Content className='fixed left-1/2 z-[100] top-1/2 flex w-[460px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-4 rounded-lg bg-neutral-900 border border-foreground/40 p-8 pt-4 shadow data-[state=closed]:animate-[content-hide_200ms] data-[state=open]:animate-[content-show_200ms]'>
 				<Dialog.Title className='w-full text-lg italic text-center mb-4'>
 					Demonstração de nova garantia
 				</Dialog.Title>

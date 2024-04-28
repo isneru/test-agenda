@@ -30,14 +30,16 @@ export const Layout = ({ children }: LayoutProps) => {
 				{status === 'authenticated' && (
 					<div className='mx-auto flex h-screen w-full'>
 						<Navbar />
-						<main className='flex flex-col gap-5 p-10 w-full'>{children}</main>
+						<main className='flex flex-col gap-5 p-10 w-full container mx-auto'>
+							{children}
+						</main>
 					</div>
 				)}
 				{status === 'loading' && (
 					<div className='mx-auto flex h-screen w-full'>
 						<Navbar />
-						<main className='flex flex-col gap-5 p-10 w-full'>
-							<div className='absolute inset-0 flex flex-col gap-6 items-center justify-center bg-background/50'>
+						<main className='flex flex-col gap-5 p-10 w-full container mx-auto'>
+							<div className='absolute z-[100] inset-0 flex flex-col gap-6 items-center justify-center bg-background/50'>
 								<Spinner />
 								<p className='text-lg font-medium animate-pulse'>
 									A iniciar sessão

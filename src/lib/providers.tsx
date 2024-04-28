@@ -56,11 +56,11 @@ export const ChangelogProvider = ({ children }: ChangelogProviderProps) => {
 	return (
 		<ChangelogContext.Provider value={{}}>
 			<Dialog.Root open={isChangelogVisible} onOpenChange={toggleModal}>
-				<Dialog.Overlay className='fixed inset-0 z-10 bg-black/60 data-[state=closed]:animate-[overlay-hide_200ms] data-[state=open]:animate-[overlay-show_200ms]' />
+				<Dialog.Overlay className='fixed inset-0 z-[90] bg-black/60 data-[state=closed]:animate-[overlay-hide_200ms] data-[state=open]:animate-[overlay-show_200ms]' />
 				<Dialog.Content
 					className={clsx(
 						poppins.className,
-						'flex overflow-y-scroll fixed left-1/2 z-20 top-1/2 prose-invert prose-lg container mx-auto prose-h1:mt-0 prose-h1:prose-base prose-h2:font-semibold prose-ul:list-disc prose-ol:list-decimal h-[90%] -translate-x-1/2 -translate-y-1/2 flex-col gap-4 rounded-lg shadow bg-neutral-900 border border-foreground/40 py-6 px-8 data-[state=closed]:animate-[content-hide_200ms] data-[state=open]:animate-[content-show_200ms] outline-none'
+						'flex overflow-y-scroll fixed left-1/2 z-[100] top-1/2 prose-invert prose-lg container mx-auto prose-h1:mt-0 prose-h1:prose-base prose-h2:font-semibold prose-ul:list-disc prose-ol:list-decimal h-[90%] -translate-x-1/2 -translate-y-1/2 flex-col gap-4 rounded-lg shadow bg-neutral-900 border border-foreground/40 py-6 px-8 data-[state=closed]:animate-[content-hide_200ms] data-[state=open]:animate-[content-show_200ms] outline-none'
 					)}>
 					<Dialog.Close className='absolute right-8 top-7 outline-none'>
 						<Cross1Icon />

@@ -5,7 +5,7 @@ import clsx from 'clsx'
 export default function Utils() {
 	return (
 		<Layout>
-			<div className='prose-invert prose-lg container mx-auto prose-h2:font-semibold prose-ul:list-disc prose-ol:list-decimal h-[200vh]'>
+			<div className='prose-invert prose-lg container mx-auto prose-h2:font-semibold prose-ul:list-disc prose-ol:list-decimal'>
 				<h1>Utilidades</h1>
 				<h2 id='encontrar-serial-windows' className='relative group'>
 					<span className='absolute -left-10 text-cex opacity-0 group-hover:opacity-100 select-none transition-opacity'>
